@@ -1,0 +1,15 @@
+package edu.milton.justin;
+
+import java.awt.Image;
+import java.io.File;
+
+import javax.imageio.ImageIO;
+
+public class GlobalVariables{
+	
+	
+	
+	
+	
+
+}

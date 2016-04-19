@@ -1,0 +1,16 @@
+package edu.milton.justin.misc;
+
+public class ValueHolder {
+	
+	int start;
+	int end;
+	
+	public ValueHolder(int starts, int ends){
+		
+		start = starts;
+		end = ends;
+		
+		
+	}
+
+}

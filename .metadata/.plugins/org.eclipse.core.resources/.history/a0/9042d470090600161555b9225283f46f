@@ -1,0 +1,16 @@
+package edu.milton.justin.engine;
+
+public class StartEnd {
+	
+	int start;
+	int end;
+	
+	public StartEnd(int starts, int ends){
+		
+		start = starts;
+		end = ends;
+		
+		
+	}
+
+}

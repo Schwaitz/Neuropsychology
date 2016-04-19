@@ -1,0 +1,124 @@
+package edu.milton.justin.engine;
+
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+
+public class pxTest {
+
+	public static void main(String args[]) {
+
+		new pxTest();
+	}
+
+	BufferedImage b = null;
+	int synapseShiftX = 125;
+
+	ArrayList<Rectangle> irs = new ArrayList<Rectangle>();
+
+	pxTest() {
+
+		try {
+			b = ImageIO.read(new File("./resources/images/cleft.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		getIntersectionRectangles();
+
+	}
+
+	void getIntersectionRectangles() {
+
+		int[][] array = new int[b.getWidth()][b.getHeight()];
+
+		for (int x = 0; x < b.getWidth(); x++) {
+			for (int y = 0; y < b.getHeight(); y++) {
+
+				if (b.getRGB(x, y) != 16777215 && b.getRGB(x, y) != 0) {
+					b.setRGB(x, y, -16777216);
+				}
+
+			}
+		}
+
+		// for (int y = 0; y < b.getHeight(); y++) {
+
+		int y = 306;
+
+		ArrayList<Integer> indexes = new ArrayList<Integer>();
+		int indexNum = 0;
+		for (int x = 0; x < b.getWidth(); x++) {
+
+			if (b.getRGB(x, y) == -16777216) {
+				indexes.add(x);
+
+				if ((x + 1) < b.getWidth()) {
+					if (b.getRGB(x + 1, y) == 0
+							|| b.getRGB(x + 1, y) == 16777215) {
+
+						indexNum += 1;
+					}
+				}
+
+			}
+
+		}
+
+		int count = 0;
+		ArrayList<Integer> ends = new ArrayList<Integer>();
+		ArrayList<Integer> starts = new ArrayList<Integer>();
+		for (Integer i : indexes) {
+
+			if (count == 0) {
+				starts.add(i);
+			}
+			count++;
+
+			System.out.println(i);
+
+			if (indexes.indexOf(i) < (indexes.size() - 1)) {
+
+				if (indexes.get(indexes.indexOf(i) + 1) != (i + 1)) {
+
+					ends.add(indexes.get(indexes.indexOf(i)));
+					count = 0;
+
+				}
+			}
+
+			if (indexes.indexOf(i) == indexes.size() - 1) {
+
+				ends.add(indexes.get(indexes.indexOf(i)));
+			}
+
+		}
+
+		ArrayList<StartEnd> startEnds = new ArrayList<StartEnd>();
+
+		for (int i = 0; i < ends.size(); i++) {
+
+			startEnds.add(new StartEnd(starts.get(i), ends.get(i)));
+
+		}
+		
+		
+		for(StartEnd se : startEnds){
+			int dif = se.end - se.start;
+			irs.add(new Rectangle(se.start, y, dif, 1));	
+		}
+		
+		for(Rectangle r : irs){
+			
+			System.out.println("x: " + r.x + " | y: " + r.y + " | w: " + r.width + " | h: " + r.height);
+		}
+		
+		
+
+	}
+
+}
