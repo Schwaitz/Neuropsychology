@@ -64,9 +64,8 @@ public class Engine implements Runnable, FrameHandler, ReceptorHandler,
 			brain = ImageIO.read(new File("./resources/images/brain.png"));
 			neuron = ImageIO.read(new File("./resources/images/neuron.png"));
 			cleft = ImageIO.read(new File("./resources/images/cleft.png"));
-			b = ImageIO.read(new File("./resources/images/cleft.png"));
 
-		//	b = ImageIO.read(new File("./resources/images/test.png"));
+			b = ImageIO.read(new File("./resources/images/cleft.png"));
 
 		} catch (Exception e) {
 

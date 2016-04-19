@@ -38,8 +38,7 @@ public class Engine implements Runnable, FrameHandler, ReceptorHandler,
 
 	BufferedImage b;
 
-	ArrayList<Rectangle> irs = IntersectionRectangles
-			.getIntersectionRectangles();
+	ArrayList<Rectangle> irs = IntersectionRectangles.getIntersectionRectangles();
 
 	int ballX = WX / 2;
 	int ballY = WY / 2 - 200;
@@ -64,9 +63,8 @@ public class Engine implements Runnable, FrameHandler, ReceptorHandler,
 			brain = ImageIO.read(new File("./resources/images/brain.png"));
 			neuron = ImageIO.read(new File("./resources/images/neuron.png"));
 			cleft = ImageIO.read(new File("./resources/images/cleft.png"));
-			b = ImageIO.read(new File("./resources/images/cleft.png"));
 
-		//	b = ImageIO.read(new File("./resources/images/test.png"));
+			b = ImageIO.read(new File("./resources/images/cleft.png"));
 
 		} catch (Exception e) {
 
@@ -74,9 +72,12 @@ public class Engine implements Runnable, FrameHandler, ReceptorHandler,
 
 		}
 
+
 		mainThread.start();
 
 	}
+
+
 
 	void render(Graphics g) {
 
@@ -148,6 +149,8 @@ public class Engine implements Runnable, FrameHandler, ReceptorHandler,
 
 		while (running == true) {
 
+			
+			System.out.println(irs.size());
 			frame.requestFocusInWindow();
 
 			ballRect = new Rectangle(ballX, ballY, 10, 10);
