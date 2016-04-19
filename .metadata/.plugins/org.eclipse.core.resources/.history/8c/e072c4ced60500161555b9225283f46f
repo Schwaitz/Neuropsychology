@@ -1,0 +1,6 @@
+package edu.milton.justin.biology.handlers;
+
+public interface ReceptorHandler {
+	
+
+}

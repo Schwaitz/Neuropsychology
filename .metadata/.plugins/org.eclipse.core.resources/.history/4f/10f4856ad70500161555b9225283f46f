@@ -1,0 +1,14 @@
+package edu.milton.justin.biology;
+
+import edu.milton.justin.biology.handlers.ReceptorHandler;
+
+public class Receptor implements ReceptorHandler{
+
+	String type;
+	String name;
+	
+	public Receptor(String types, String names) {
+
+	}
+
+}

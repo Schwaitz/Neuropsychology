@@ -1,0 +1,18 @@
+package edu.milton.justin.engine;
+
+import java.awt.event.KeyListener;
+
+public class Engine implements EngineInterface{
+
+	public static void main(String args[]) {
+
+		new Engine();
+	}
+
+	Engine() {
+		
+		setupFrame();
+	}
+	
+	
+}

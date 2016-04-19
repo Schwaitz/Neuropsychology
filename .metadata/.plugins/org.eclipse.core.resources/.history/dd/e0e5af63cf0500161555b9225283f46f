@@ -1,0 +1,42 @@
+package edu.milton.justin.engine;
+
+import java.io.PrintStream;
+
+public class Engine implements Runnable, FrameInterface {
+
+	Thread mainThread = new Thread(this);
+
+	PrintStream p = new PrintStream(System.out);
+	PrintStream e = new PrintStream(System.err);
+
+	boolean running = true;
+
+	public static void main(String args[]) {
+
+		new Engine();
+	}
+
+	Engine() {
+
+		setupFrame();
+	}
+
+	@Override
+	public void run() {
+
+		while (running == true) {
+
+			
+			paintToFrame();
+			
+			
+			try {
+				mainThread.sleep(25);
+			} catch (InterruptedException exception) {
+				e.println("Error with mainThread");
+			}
+		}
+
+	}
+
+}

@@ -1,0 +1,64 @@
+:SERATONIN
+5-HT Receptor
+Test
+:NOREPINEPHRINE
+Adrenoceptor receptor
+Alpha1A receptor
+Alpha1B receptor
+Alpha1D receptor
+Alpha2A receptor
+Alpha2B receptor
+Alpha2C receptor
+Alpha2D receptor
+Beta1 receptor
+Beta2 receptor
+:DOPAMINE
+D1 receptor
+D2 receptor
+D3 receptor 
+D4 receptor
+D5 receptor
+:ACETYLCHOLINE
+Neuronal acetylcholine receptor subunit alpha-1
+Neuronal acetylcholine receptor subunit alpha-10
+Neuronal acetylcholine receptor subunit alpha-2
+Neuronal acetylcholine receptor subunit alpha-4
+Neuronal acetylcholine receptor subunit alpha-6
+Neuronal acetylcholine receptor subunit alpha-7
+Neuronal acetylcholine receptor subunit alpha-8
+Neuronal acetylcholine receptor subunit alpha-9
+Neuronal acetylcholine receptor subunit beta-1
+Neuronal acetylcholine receptor subunit beta-2
+Neuronal acetylcholine receptor subunit beta-3
+Neuronal acetylcholine receptor subunit beta-4
+:GLUTAMATE
+AMPA-type glutamate-gated cationic channel
+NMDA-type glutamate-gated cationic channel 
+Glutamate-gated cationic channel
+Kainate glutamate-gated cationic channel
+MGluR1
+MGluR2
+MGluR3
+MGluR4
+MGluR5
+MGluR5a
+MGluR6
+MGluR7
+MGluR8
+Metabotropic Glutamate Receptor
+NMDA-type glutamate-gated cationic channel
+:GABA
+GABA A-gated anionic channel
+GABA C-gated anionic channel
+GABA-B Receptor
+GABBR1
+GABRA1
+GABRA2
+GABRA3
+GABRA4
+GABRA5
+GABRA6
+GABRB1
+GABRB2
+GABRB3
+Glycine-gated chloride channel

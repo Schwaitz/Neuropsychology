@@ -1,0 +1,13 @@
+package edu.milton.justin.biology.neuron;
+
+public class PresynapticNeuron extends Neuron{
+
+	public PresynapticNeuron() {
+		
+		super()
+
+	}
+	
+	
+
+}

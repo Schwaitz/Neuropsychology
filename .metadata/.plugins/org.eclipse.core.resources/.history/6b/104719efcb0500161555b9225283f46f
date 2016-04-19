@@ -1,0 +1,24 @@
+package edu.milton.justin.engine;
+
+import javax.swing.JFrame;
+
+public interface EngineInterface {
+	
+	
+	static JFrame frame = new JFrame("Project");
+	
+	static int WX = 800;
+	static int WY = 600;
+	
+	
+	
+	default void setupFrame(){
+		
+		frame.setSize(WX,WY);
+		
+	}
+
+}
+
+
+

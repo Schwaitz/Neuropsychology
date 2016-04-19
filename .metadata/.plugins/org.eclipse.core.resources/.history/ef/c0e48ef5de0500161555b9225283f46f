@@ -1,0 +1,14 @@
+package edu.milton.justin.biology.neuron;
+
+import java.util.ArrayList;
+
+public class PostsynapticNeuron extends Neuron{
+
+	public PostsynapticNeuron() {
+		
+		super(ids, ArrayList<Receptor> receptorss,
+				ArrayList<Vesicle> vesicless, ReuptakePump pumps);
+
+	}
+
+}

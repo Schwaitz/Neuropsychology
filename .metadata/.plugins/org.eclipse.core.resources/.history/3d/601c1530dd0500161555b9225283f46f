@@ -1,0 +1,9 @@
+package edu.milton.justin.biology;
+
+public class Neurotransmitter {
+
+	public Neurotransmitter() {
+
+	}
+
+}

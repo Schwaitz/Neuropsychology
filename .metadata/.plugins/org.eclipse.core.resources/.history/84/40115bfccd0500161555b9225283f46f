@@ -1,0 +1,19 @@
+package edu.milton.justin.engine;
+
+
+public class Engine implements Runnable, FrameInterface{
+	
+	Thread mainThread = new Thread(this);
+
+	public static void main(String args[]) {
+
+		new Engine();
+	}
+
+	Engine() {
+		
+		setupFrame();
+	}
+	
+	
+}

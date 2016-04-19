@@ -1,0 +1,11 @@
+package edu.milton.justin.biology;
+
+public class Vesicle {
+	
+	
+	public Vesicle(){
+		
+		
+	}
+
+}

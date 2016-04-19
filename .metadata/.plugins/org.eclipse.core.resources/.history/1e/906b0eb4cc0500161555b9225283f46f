@@ -1,0 +1,12 @@
+package edu.milton.justin.engine;
+
+import java.awt.Image;
+
+public interface RenderInterface extends FrameInterface {
+	
+	
+	Image offscreen = createImage()
+Graphics bufferGraphics	
+	
+
+}

@@ -1,0 +1,11 @@
+package edu.milton.justin.biology.neuron;
+
+public class PostsynapticNeuron extends Neuron{
+
+	public PostsynapticNeuron() {
+		
+		super();
+
+	}
+
+}

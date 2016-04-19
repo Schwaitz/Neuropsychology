@@ -1,0 +1,25 @@
+package edu.milton.justin.biology.handlers;
+
+public enum ErrorType {
+	
+	ELSECHECK("Something that wasn't suppose to happen, just happened."),
+	
+	UNUSEDERROR1("Unused 1"),
+	
+	UNUSEDERROR2("Unused 2")
+	;
+	
+	private String error;
+	
+	private ErrorType(String msg){
+		
+		error = msg;
+		
+	}
+	
+	public getMessage(){
+		
+	}
+	
+	
+}

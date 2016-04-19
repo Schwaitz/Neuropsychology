@@ -1,0 +1,11 @@
+package edu.milton.justin.engine;
+
+import javax.swing.JFrame;
+
+public class Variables {
+	
+	
+	static JFrame frame;
+	
+
+}

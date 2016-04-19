@@ -1,0 +1,10 @@
+package edu.milton.justin.engine;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+
+public interface RenderInterface extends FrameInterface {
+
+
+}

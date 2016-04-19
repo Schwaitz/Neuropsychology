@@ -1,0 +1,20 @@
+package edu.milton.justin.engine;
+
+import java.awt.Graphics;
+import java.awt.Image;
+
+public interface RenderInterface extends FrameInterface {
+	
+	
+	Image offscreen = frame.createImage(WX,WY);
+	Graphics bufferGraphics	= offscreen.getGraphics();
+	
+
+	
+	
+	default void render(){
+		
+		
+		
+	}
+}

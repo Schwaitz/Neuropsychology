@@ -1,0 +1,8 @@
+package edu.milton.justin.engine;
+
+public interface RenderInterface {
+	
+	
+	
+
+}

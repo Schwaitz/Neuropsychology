@@ -1,0 +1,7 @@
+package edu.milton.justin.biology.handlers;
+
+public enum ErrorType {
+	
+	
+
+}
