@@ -85,7 +85,6 @@ public class IntersectionRectangles {
 			}
 
 			ArrayList<ValueHolder> startEnds = new ArrayList<ValueHolder>();
-			
 
 			for (int i = 0; i < ends.size(); i++) {
 
