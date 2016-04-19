@@ -20,7 +20,7 @@ public class IntersectionRectangles {
 		try {
 			b = ImageIO.read(new File("./resources/images/cleft.png"));
 
-			// b = ImageIO.read(new File("./resources/images/test.png"));
+			/b = ImageIO.read(new File("./resources/images/test.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -98,7 +98,6 @@ public class IntersectionRectangles {
 			}
 
 		}
-		
 
 		return returnList;
 	}

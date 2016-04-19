@@ -99,6 +99,10 @@ public class IntersectionRectangles {
 
 		}
 		
+		for(Rectangle r : returnList){
+			
+			
+		}
 
 		return returnList;
 	}
