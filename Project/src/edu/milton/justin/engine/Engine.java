@@ -19,11 +19,11 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import edu.milton.justin.biology.neuron.handlers.ReceptorHandler;
-import edu.milton.justin.engine.handlers.FrameHandler;
-import edu.milton.justin.engine.handlers.SimulationFrameHandler;
+import edu.milton.justin.engine.handlers.MainFrame;
+import edu.milton.justin.engine.handlers.SimulationFrame;
 
-public class Engine implements Runnable, FrameHandler, ReceptorHandler,
-		SimulationFrameHandler, MouseMotionListener, ActionListener {
+public class Engine implements Runnable, ReceptorHandler, MouseMotionListener,
+		ActionListener {
 
 	Thread mainThread = new Thread(this);
 
@@ -37,14 +37,24 @@ public class Engine implements Runnable, FrameHandler, ReceptorHandler,
 	Image brain = null;
 	Image neuron = null;
 	Image cleft = null;
+	
+	
+	int mWX = 600;
+	int mWY = 700;
+	
+	int sWX = 600;
+	int sWY = 700;
 
 	BufferedImage b;
 
 	ArrayList<Rectangle> irs = IntersectionRectangles
 			.getIntersectionRectangles();
 
-	int ballX = WX / 2;
-	int ballY = WY / 2 - 200;
+	static public MainFrame mFrame;
+	static public SimulationFrame sFrame;
+
+	int ballX;
+	int ballY;
 
 	int synapseShiftX = 125;
 
@@ -57,10 +67,11 @@ public class Engine implements Runnable, FrameHandler, ReceptorHandler,
 
 	Engine() {
 
-		setupFrame();
-		setupSimulationFrame();
+		mFrame = new MainFrame(mWX, mWY);
 
-		frame.addMouseMotionListener(this);
+		// setupSimulationFrame();
+
+
 
 		try {
 
@@ -77,9 +88,9 @@ public class Engine implements Runnable, FrameHandler, ReceptorHandler,
 
 		}
 
-		start.addActionListener(this);
-		unused1.addActionListener(this);
-		unused2.addActionListener(this);
+		mFrame.start.addActionListener(this);
+		mFrame.unused1.addActionListener(this);
+		mFrame.unused2.addActionListener(this);
 
 		mainThread.start();
 
@@ -87,25 +98,27 @@ public class Engine implements Runnable, FrameHandler, ReceptorHandler,
 
 	void render(Graphics g) {
 
-		Image offscreen = canvas.createImage(WX, WY);
+		Image offscreen = mFrame.canvas.createImage(mFrame.WX, mFrame.WY);
 		Graphics bufferGraphics = offscreen.getGraphics();
 
-		bufferGraphics.clearRect(0, 0, WX, WY);
+		bufferGraphics.clearRect(0, 0, mFrame.WX, mFrame.WY);
 
-		if (getLevelValue() == 1) {
+		if (mFrame.getLevelValue() == 1) {
 
-			bufferGraphics.drawImage(brain, 100, 100, 90 * 4, 72 * 4, canvas);
+			bufferGraphics.drawImage(brain, 100, 100, 90 * 4, 72 * 4,
+					mFrame.canvas);
 
 		}
-		if (getLevelValue() == 2) {
+		if (mFrame.getLevelValue() == 2) {
 
 			int nWidth = 50 * 4;
 			int nHeight = 72 * 4;
 
-			bufferGraphics.drawImage(neuron, 50, 50, nWidth, nHeight, canvas);
+			bufferGraphics.drawImage(neuron, 50, 50, nWidth, nHeight,
+					mFrame.canvas);
 
 			bufferGraphics.drawImage(neuron, nWidth, nHeight + 25, nWidth,
-					nHeight, canvas);
+					nHeight, mFrame.canvas);
 
 			Graphics2D g2d = (Graphics2D) bufferGraphics;
 
@@ -123,28 +136,33 @@ public class Engine implements Runnable, FrameHandler, ReceptorHandler,
 
 		}
 
-		if (getLevelValue() == 3) {
+		if (mFrame.getLevelValue() == 3) {
 
-			bufferGraphics.drawImage(b, synapseShiftX, 0, canvas);
-
-			bufferGraphics.setColor(drawColor);
-			bufferGraphics.fillOval(ballX, ballY, 10, 10);
+			bufferGraphics.setColor(Color.blue);
+			bufferGraphics.setFont(new Font("Impact", 50, 50));
+			bufferGraphics.drawString("Press the \"Start\" button", mWX/2-250, mWY/2);
+			bufferGraphics.drawString("to start the Simulation.", mWX/2-250, mWY/2 + 60);
 
 		}
 
-		g.drawImage(offscreen, 0, 0, WX, WY, frame);
+		g.drawImage(offscreen, 0, 0, mFrame.WX, mFrame.WY, mFrame.canvas);
 	}
 
 	void simulationRender(Graphics g) {
 
-		Image offscreen = simulationFrame.createImage(WX, WY);
+		Image offscreen = sFrame.createImage(sFrame.WX, sFrame.WY);
 		Graphics bufferGraphics = offscreen.getGraphics();
 
-		bufferGraphics.clearRect(0, 0, WX, WY);
+		bufferGraphics.clearRect(0, 0, sFrame.WX, sFrame.WY);
+		
+		
+		bufferGraphics.drawImage(b, synapseShiftX, 0, mFrame.canvas);
+		
+		
+		bufferGraphics.setColor(drawColor);
+		bufferGraphics.fillOval(ballX, ballY, 10, 10);
 
-		bufferGraphics.fillRect(100, 100, 200, 200);
-
-		g.drawImage(offscreen, 0, 0, WX, WY, frame);
+		g.drawImage(offscreen, 0, 0, sFrame.WX, sFrame.WY, sFrame);
 
 	}
 
@@ -169,8 +187,6 @@ public class Engine implements Runnable, FrameHandler, ReceptorHandler,
 
 		while (running == true) {
 
-			frame.requestFocusInWindow();
-
 			ballRect = new Rectangle(ballX, ballY, 10, 10);
 
 			if (isIntersecting()) {
@@ -179,10 +195,10 @@ public class Engine implements Runnable, FrameHandler, ReceptorHandler,
 				drawColor = Color.blue;
 			}
 
-			render(canvas.getGraphics());
+			render(mFrame.canvas.getGraphics());
 
-			if (simulationFrame.isEnabled() == true) {
-				simulationRender(simulationFrame.getGraphics());
+			if (sFrame != null) {
+				simulationRender(sFrame.getGraphics());
 			}
 
 			try {
@@ -204,8 +220,8 @@ public class Engine implements Runnable, FrameHandler, ReceptorHandler,
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
 
-		ballX = e.getX() - 10;
-		ballY = e.getY() - 30;
+		ballX = e.getX() - 6;
+		ballY = e.getY() - 10;
 
 	}
 
@@ -213,8 +229,14 @@ public class Engine implements Runnable, FrameHandler, ReceptorHandler,
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 
-		if (e.getSource().equals(start))
-			;
+		if (e.getSource().equals(mFrame.start)) {
+			
+			ballX = 300;
+			ballY = 300;
+			
+			sFrame = new SimulationFrame(sWX, sWY);
+			sFrame.addMouseMotionListener(this);
+		}
 
 	}
 
