@@ -1,8 +1,0 @@
-package edu.milton.justin.global;
-
-public interface Variables {
-	
-	
-	String elseCheck = ""Something that wasn't suppose to happen, just happened""
-
-}

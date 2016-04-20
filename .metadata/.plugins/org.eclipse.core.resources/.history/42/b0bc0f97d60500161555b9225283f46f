@@ -1,8 +1,0 @@
-package edu.milton.justin.engine.handlers;
-
-public interface HandleEntities {
-	
-	
-	
-
-}

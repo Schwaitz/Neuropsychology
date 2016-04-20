@@ -1,9 +1,0 @@
-package edu.milton.justin.biology;
-
-public class PostsynapticNeuron {
-
-	public PostsynapticNeuron() {
-
-	}
-
-}

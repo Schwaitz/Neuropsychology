@@ -1,8 +1,0 @@
-package edu.milton.justin;
-
-public interface Variables {
-	
-	
-	static String elseCheck = "Something that wasn't suppose to happen, just happened";
-
-}
