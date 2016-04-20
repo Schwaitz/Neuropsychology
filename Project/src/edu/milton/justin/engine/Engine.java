@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import edu.milton.justin.biology.neuron.handlers.ReceptorHandler;
-import edu.milton.justin.engine.handlers.MainFrame;
-import edu.milton.justin.engine.handlers.SimulationFrame;
+import edu.milton.justin.engine.frames.MainFrame;
+import edu.milton.justin.engine.frames.SimulationFrame;
 
 public class Engine implements Runnable, ReceptorHandler, MouseMotionListener,
 		ActionListener {

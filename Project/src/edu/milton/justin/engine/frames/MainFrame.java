@@ -1,4 +1,4 @@
-package edu.milton.justin.engine.handlers;
+package edu.milton.justin.engine.frames;
 
 import java.awt.BorderLayout;
 import java.util.Dictionary;
