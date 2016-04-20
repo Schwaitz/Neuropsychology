@@ -22,9 +22,9 @@ public interface FrameHandler {
 	JFrame frame = new JFrame("Project");
 
 	JPanel options = new JPanel();
-	JButton one = new JButton("One");
-	JButton two = new JButton("Two");
-	JButton three = new JButton("Three");
+	JButton start = new JButton("Start");
+	JButton unused1 = new JButton("Unused");
+	JButton unused2 = new JButton("Unused");
 
 	JPanel canvas = new JPanel();
 
@@ -34,13 +34,13 @@ public interface FrameHandler {
 	Dictionary<Integer, JLabel> levelDictionary = new Hashtable<Integer, JLabel>();
 
 	int WX = 600;
-	int WY = 800;
+	int WY = 600;
 
 	default void setupFrame() {
 
 		frame.setEnabled(true);
 		frame.setVisible(true);
-		// frame.setResizable(false);
+		 frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 
@@ -61,9 +61,11 @@ public interface FrameHandler {
 
 	default void setupPanel() {
 
-		options.add(one);
-		options.add(two);
-		options.add(three);
+
+		
+		options.add(start);
+		options.add(unused1);
+		options.add(unused2);
 
 		setupLevel();
 

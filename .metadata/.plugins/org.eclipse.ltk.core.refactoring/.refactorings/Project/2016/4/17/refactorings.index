@@ -47,3 +47,7 @@
 1461054814008	Delete element
 1461054829901	Rename type 'StartEnd'
 1461054843401	Move compilation unit
+1461160436698	Copy compilation unit
+1461160862466	Rename field 'one'
+1461160879691	Rename field 'two'
+1461160884838	Rename field 'three'
