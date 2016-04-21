@@ -1,4 +1,4 @@
-package edu.milton.justin;
+package edu.milton.justin.misc;
 
 
 public class GlobalVariables {
