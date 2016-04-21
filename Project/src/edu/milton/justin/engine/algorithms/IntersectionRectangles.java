@@ -1,4 +1,4 @@
-package edu.milton.justin.engine;
+package edu.milton.justin.engine.algorithms;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -8,13 +8,14 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import edu.milton.justin.engine.Engine;
 import edu.milton.justin.misc.ValueHolder;
 
 public class IntersectionRectangles {
 
 	static BufferedImage b = null;
 
-	static ArrayList<Rectangle> getIntersectionRectangles() {
+	public static ArrayList<Rectangle> getIntersectionRectangles() {
 		ArrayList<Rectangle> returnList = new ArrayList<Rectangle>();
 
 		try {
@@ -95,7 +96,7 @@ public class IntersectionRectangles {
 
 			for (ValueHolder se : startEnds) {
 				int dif = se.end - se.start;
-				returnList.add(new Rectangle(se.start + 125, y, dif, 1));
+				returnList.add(new Rectangle(se.start + Engine.synapseShiftX, y, dif, 1));
 			}
 
 		}
