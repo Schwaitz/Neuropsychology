@@ -8,7 +8,7 @@ public enum ErrorMessageType {
 	GENERAL("General Error"),
 
 	// Remove this before deployment
-	WTF("...wtf?");
+	WTH("...uhhhhh");
 
 	private String error;
 
