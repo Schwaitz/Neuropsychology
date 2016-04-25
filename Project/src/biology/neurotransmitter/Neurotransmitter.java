@@ -22,6 +22,12 @@ public class Neurotransmitter implements MouseMotionListener{
 	public int x;
 	public int y;
 	
+	
+	public int prx;
+	public int pry;
+	public int prw;
+	public int prh;
+	
 	public Vesicle pointer;
 	
 	JFrame f;
@@ -41,6 +47,11 @@ public class Neurotransmitter implements MouseMotionListener{
 		color = colors;
 		f = fs;
 		pointer = pointers;
+		
+		prx = pointer.x;
+		pry = pointer.y;
+		prw = pointer.x + pointer.width;
+		prh = pointer.y + pointer.height;
 		
 		f.addMouseMotionListener(this);
 
@@ -72,8 +83,10 @@ public class Neurotransmitter implements MouseMotionListener{
 		x += dx;
 		y += dy;
 
-//		x = mouseX;
-//		y = mouseY;
+		prx = pointer.x + 5;
+		pry = pointer.y + 5;
+		prw = pointer.x + pointer.width - 10;
+		prh = pointer.y + pointer.height - 10;
 		
 
 		rect = new Rectangle(x, y, width, height);

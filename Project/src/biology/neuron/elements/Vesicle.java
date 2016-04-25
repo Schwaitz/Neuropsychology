@@ -39,6 +39,7 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 		f = fs;
 		
 		
+		
 		dx = (int) (Math.random() * 2 + 2);
 
 		int rand = (int) (Math.random() * 2);

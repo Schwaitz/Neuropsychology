@@ -62,10 +62,10 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 		File postFile = new File("./resources/images/PostsynapticNeuron.png");
 		post = new PostsynapticNeuron(postFile, this, 0, 400);
 
-		for (int n = 0; n < 20; n++) {
+		for (int n = 0; n < 10; n++) {
 			for (int v = 0; v < 3; v++) {
 				nt.add(new Neurotransmitter("Dopamine",
-						pre.vesicles.get(v).x + 10, pre.vesicles.get(v).y + 10,
+						pre.vesicles.get(v).x + 15, pre.vesicles.get(v).y + 15,
 						3, 3, Color.blue, this, pre.vesicles.get(v)));
 			}
 		}
@@ -202,71 +202,28 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 				}
 			}
 
-			for (Neurotransmitter n : nt) {
-
-				switch (handleIntersectionInside(n.rect, v.x + 5, v.y + 5,
-						v.width - 10, v.height - 10)) {
-
-				case TOP:
-					n.dy = -n.dy;
-					n.y += 5;
-					break;
-				case BOTTOM:
-					n.dy = -n.dy;
-					n.y -= 5;
-					break;
-				case LEFT:
-					n.dx = -n.dx;
-					n.x += 5;
-					break;
-				case RIGHT:
-					n.dx = -n.dx;
-					n.x -= 5;
-					break;
-
-				case FALSE:
-					// Do nothing
-					break;
-
-				}
-
-			}
-
 		}
 
 		for (Neurotransmitter n : nt) {
-			
-			
-			
-			
-			
-			
-			
 
-			switch (handleIntersectionWall(n.rect, WX, WY)) {
-
-			case TOP:
-				n.dy = -n.dy;
-				n.y += 5;
-				break;
-			case BOTTOM:
-				n.dy = -n.dy;
-				n.y -= 5;
-				break;
-			case LEFT:
+			if (n.x > n.prw) {
+				n.x = n.prw - 1;
 				n.dx = -n.dx;
-				n.x += 5;
-				break;
-			case RIGHT:
-				n.dx = -n.dx;
-				n.x -= 5;
-				break;
-
-			case FALSE:
-				// Do nothing
-				break;
-
 			}
+			if (n.x < n.prx) {
+				n.x = n.prx + 1;
+				n.dx = -n.dx;
+			}
+
+			if (n.y > n.prh) {
+				n.y = n.prh - 1;
+				n.dy = -n.dy;
+			}
+			if (n.y < n.pry) {
+				n.y = n.pry + 1;
+				n.dy = -n.dy;
+			}
+
 		}
 
 	}
