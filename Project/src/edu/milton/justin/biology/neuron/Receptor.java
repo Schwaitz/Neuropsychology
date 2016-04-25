@@ -1,8 +1,7 @@
 package edu.milton.justin.biology.neuron;
 
-import edu.milton.justin.biology.neuron.handlers.ReceptorHandler;
 
-public class Receptor implements ReceptorHandler {
+public class Receptor {
 
 	public String type;
 	public String name;

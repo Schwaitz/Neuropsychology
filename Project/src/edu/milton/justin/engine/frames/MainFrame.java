@@ -1,182 +1,78 @@
 package edu.milton.justin.engine.frames;
 
-import java.awt.BasicStroke;
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Dictionary;
-import java.util.Hashtable;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
 
 import edu.milton.justin.engine.Engine;
+import edu.milton.justin.engine.UIElements.StartSimulationButton;
+import edu.milton.justin.enums.ErrorType;
 
 public class MainFrame extends JFrame implements MouseListener {
 
-	JPanel options = new JPanel();
-
-	public JPanel canvas = new JPanel();
-
-	public JSlider level = new JSlider(1, 3);
-	int startLevel = 1;
-
-	int cWX;
-	int cWY;
-
-	Rectangle startRect;
-
-	Dictionary<Integer, JLabel> levelDictionary = new Hashtable<Integer, JLabel>();
-
 	public int WX;
 	public int WY;
-	
-	boolean loaded = false;
+
+	StartSimulationButton sim;
+	boolean loading = true;
 
 	public MainFrame(int WXs, int WYs) {
 		WX = WXs;
 		WY = WYs;
-		this.addMouseListener(this);
 		setupFrame();
-		
-		loaded = true;
 
 	}
 
 	void setupFrame() {
 
+		this.addMouseListener(this);
 		this.setTitle("Main Frame");
 		this.setEnabled(true);
 		this.setVisible(true);
 		this.setResizable(false);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLayout(new BorderLayout());
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		setupCanvas();
-		setupPanel();
+		int simFactor = 6;
+
+		sim = new StartSimulationButton((WX / 2) - ((60 * simFactor) / 2),
+				(WY / 2) - ((30 * simFactor) / 2), 60 * simFactor,
+				30 * simFactor, this);
 
 		this.setSize(WX, WY);
 	}
 
-	void setupCanvas() {
-
-		this.add(canvas, BorderLayout.CENTER);
-
-	}
-
-	void setupPanel() {
-
-		setupLevel();
-
-		this.add(options, BorderLayout.SOUTH);
-
-	}
-
-	void setupLevel() {
-
-		level.setValue(startLevel);
-		level.setSnapToTicks(true);
-
-		levelDictionary.put(1, new JLabel("Brain"));
-		levelDictionary.put(2, new JLabel("Neuron"));
-		levelDictionary.put(3, new JLabel("Synapse"));
-
-		level.setLabelTable(levelDictionary);
-		level.setPaintLabels(true);
-
-		options.add(level);
-
-	}
-
-	public int getLevelValue() {
-
-		return level.getValue();
-
-	}
-
 	public void render(Graphics g) {
 
-		cWX = canvas.getWidth();
-		cWY = canvas.getHeight();
-		startRect = new Rectangle(cWX / 2 - 150, cWY / 2 - 75, 300, 150);
+		Image offscreen = this.createImage(WX, WY);
+		Graphics bufferGraphics = offscreen.getGraphics();
 
-		if (cWX != 0 && cWY != 0) {
+		bufferGraphics.clearRect(0, 0, WX, WY);
 
-			Image offscreen = canvas.createImage(cWX, cWY);
-			Graphics bufferGraphics = offscreen.getGraphics();
+		if (loading == true) {
 
-			bufferGraphics.clearRect(0, 0, cWX, cWY);
+			bufferGraphics.setFont(new Font("Impact", 40, 40));
+			bufferGraphics.drawString("Loading...", WX / 2 - 50, WY / 2 - 75);
+			bufferGraphics.drawRect(20, WX / 2 - (30 / 2), WX - 40, 30);
 
-			if (this.getLevelValue() == 1) {
+			loading = false;
 
-				bufferGraphics.drawImage(Engine.brain, 100, 100, 90 * 4,
-						72 * 4, canvas);
-
-			}
-
-			if (this.getLevelValue() == 2) {
-
-				int nWidth = 50 * 4;
-				int nHeight = 72 * 4;
-
-				bufferGraphics.drawImage(Engine.neuron, 50, 50, nWidth,
-						nHeight, canvas);
-
-				bufferGraphics.drawImage(Engine.neuron, nWidth, nHeight + 25,
-						nWidth, nHeight, canvas);
-
-				Graphics2D g2d = (Graphics2D) bufferGraphics;
-
-				g2d.setStroke(new BasicStroke(3));
-
-				g2d.drawOval(nWidth, nHeight, 50, 50);
-
-				g2d.drawLine(nWidth + 50, nHeight + 25, nWidth + 125,
-						nHeight - 25);
-
-				g2d.setStroke(new BasicStroke(1));
-
-				bufferGraphics.setFont(new Font("Impact", 20, 20));
-
-				bufferGraphics
-						.drawString("Synapse", nWidth + 130, nHeight - 30);
-
-			}
-			if (this.getLevelValue() == 3) {
-
-				bufferGraphics.setColor(Color.blue);
-				bufferGraphics.setFont(new Font("Impact", 50, 50));
-				bufferGraphics.drawString("Press the \"Start\" button",
-						cWX / 2 - 250, cWY / 2 - 200);
-				bufferGraphics.drawString("to start the Simulation.",
-						cWX / 2 - 250, cWY / 2 + 60 - 200);
-
-				bufferGraphics.setColor(Color.blue);
-				bufferGraphics.fillRect(cWX / 2 - 150, cWY / 2 - 75, 300, 150);
-
-				Graphics2D g2d = (Graphics2D) bufferGraphics;
-
-				g2d.setStroke(new BasicStroke(5));
-
-				bufferGraphics.setColor(Color.black);
-				g2d.drawRect(cWX / 2 - 150, cWY / 2 - 75, 300, 150);
-				g2d.setStroke(new BasicStroke(1));
-
-				bufferGraphics.setColor(Color.white);
-				bufferGraphics.drawString("Start", cWX / 2 - 45, cWY / 2 + 15);
-
-			}
-
-			g.drawImage(offscreen, 0, 0, cWX, cWY, canvas);
 		}
+
+		else if (loading == false) {
+
+			sim.draw(bufferGraphics);
+
+		}
+
+		else {
+			System.out.println(ErrorType.ELSECHECK.getMessage());
+		}
+
+		g.drawImage(offscreen, 0, 0, WX, WY, this);
 
 	}
 
@@ -190,12 +86,18 @@ public class MainFrame extends JFrame implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 
-		if (startRect.contains(e.getPoint())) {
 
-			if (Engine.sFrame == null) {
-				Engine.sFrame = new SimulationFrame(Engine.sWX, Engine.sWY);
-			}
+		if(sim.rect.contains(e.getPoint())){
+			
+			Engine.sFrame = new SimulationFrame(355, 600);
+			
+			this.setVisible(false);
+			this.setEnabled(false);
+			this.dispose();
+			Engine.mFrame = null;
+			
 		}
+		
 
 	}
 

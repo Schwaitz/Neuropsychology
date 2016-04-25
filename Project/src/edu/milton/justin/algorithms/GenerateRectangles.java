@@ -1,41 +1,19 @@
-package edu.milton.justin.engine.algorithms;
+package edu.milton.justin.algorithms;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 
 import edu.milton.justin.engine.Engine;
 import edu.milton.justin.misc.ValueHolder;
 
-public class IntersectionRectangles {
+public class GenerateRectangles {
 
-	static BufferedImage b = null;
+	static ArrayList<Rectangle> getIntersectionRectangles(BufferedImage b,
+			Color c) {
 
-	public static ArrayList<Rectangle> getIntersectionRectangles() {
 		ArrayList<Rectangle> returnList = new ArrayList<Rectangle>();
-
-		try {
-			b = ImageIO.read(new File("./resources/images/cleft.png"));
-
-			// b = ImageIO.read(new File("./resources/images/test.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		for (int x = 0; x < b.getWidth(); x++) {
-			for (int y = 0; y < b.getHeight(); y++) {
-
-				if (b.getRGB(x, y) != 16777215 && b.getRGB(x, y) != 0) {
-					b.setRGB(x, y, -16777216);
-				}
-
-			}
-		}
 
 		for (int y = 0; y < b.getHeight(); y++) {
 
@@ -43,12 +21,19 @@ public class IntersectionRectangles {
 			int indexNum = 0;
 			for (int x = 0; x < b.getWidth(); x++) {
 
-				if (b.getRGB(x, y) == -16777216) {
+				Color rgb = new Color(b.getRGB(x, y));
+
+				int red = rgb.getRed();
+				int green = rgb.getGreen();
+				int blue = rgb.getBlue();
+				int alpha = rgb.getAlpha();
+
+				if (red == c.getRed() && green == c.getGreen()
+						&& blue == c.getBlue()) {
 					indexes.add(x);
 
 					if ((x + 1) < b.getWidth()) {
-						if (b.getRGB(x + 1, y) == 0
-								|| b.getRGB(x + 1, y) == 16777215) {
+						if (red == 0 && green == 0 && blue == 0) {
 
 							indexNum += 1;
 						}
@@ -86,7 +71,6 @@ public class IntersectionRectangles {
 			}
 
 			ArrayList<ValueHolder> startEnds = new ArrayList<ValueHolder>();
-			
 
 			for (int i = 0; i < ends.size(); i++) {
 
@@ -96,11 +80,10 @@ public class IntersectionRectangles {
 
 			for (ValueHolder se : startEnds) {
 				int dif = se.end - se.start;
-				returnList.add(new Rectangle(se.start + Engine.synapseShiftX, y, dif, 1));
+				returnList.add(new Rectangle(se.start, y, dif, 1));
 			}
 
 		}
-		
 
 		return returnList;
 	}

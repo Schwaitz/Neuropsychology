@@ -6,32 +6,41 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
 
 import javax.swing.JFrame;
 
+import edu.milton.justin.biology.neuron.Neuron;
+import edu.milton.justin.biology.neuron.PostsynapticNeuron;
+import edu.milton.justin.biology.neuron.PresynapticNeuron;
+import edu.milton.justin.biology.neuron.handlers.AutoReceptorHandler;
+import edu.milton.justin.biology.neuron.handlers.PostsynapticReceptorHandler;
 import edu.milton.justin.engine.Engine;
 
-public class SimulationFrame extends JFrame implements MouseMotionListener {
+public class SimulationFrame extends JFrame implements MouseMotionListener,
+		AutoReceptorHandler, PostsynapticReceptorHandler {
 
 	public int WX;
 	public int WY;
 
 	public int ballX = 0;
 	public int ballY = 0;
-	public Rectangle ballRect = new Rectangle(0,0,0,0);
-	
+	public Rectangle ballRect = new Rectangle(0, 0, 0, 0);
+
+	Neuron pre;
+	Neuron post;
+
 	boolean loaded = false;
 
 	public SimulationFrame(int WXs, int WYs) {
 		WX = WXs;
 		WY = WYs;
-		
+
 		this.addMouseMotionListener(this);
 
 		setupFrame();
+		setupBiology();
 
-
-		
 		loaded = true;
 	}
 
@@ -44,8 +53,17 @@ public class SimulationFrame extends JFrame implements MouseMotionListener {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 
-		this.setLocation(Engine.mFrame.WX + 100, 0);
 		this.setSize(WX, WY);
+
+	}
+
+	void setupBiology() {
+
+		File preFile = new File("./resources/images/pre.png");
+		pre = new PresynapticNeuron(preFile, this);
+		
+		File postFile = new File("./resources/images/post.png");
+		post = new PostsynapticNeuron(postFile, this);
 
 	}
 
@@ -58,7 +76,8 @@ public class SimulationFrame extends JFrame implements MouseMotionListener {
 
 		bufferGraphics.clearRect(0, 0, this.WX, this.WY);
 
-		bufferGraphics.drawImage(Engine.b, Engine.synapseShiftX, 0, this);
+		pre.draw(bufferGraphics);
+		post.draw(bufferGraphics);
 
 		bufferGraphics.setColor(Engine.drawColor);
 		bufferGraphics.fillOval(ballX, ballY, 10, 10);

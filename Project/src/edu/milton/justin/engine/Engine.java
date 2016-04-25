@@ -2,24 +2,13 @@ package edu.milton.justin.engine;
 
 import java.awt.Color;
 import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.PrintStream;
-import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
-
-import edu.milton.justin.biology.neuron.handlers.ReceptorHandler;
-import edu.milton.justin.engine.algorithms.IntersectionRectangles;
 import edu.milton.justin.engine.frames.MainFrame;
 import edu.milton.justin.engine.frames.SimulationFrame;
 
-public class Engine implements Runnable, ReceptorHandler {
+public class Engine implements Runnable {
 
 	Thread mainThread = new Thread(this);
 
@@ -30,24 +19,11 @@ public class Engine implements Runnable, ReceptorHandler {
 
 	public static Color drawColor = Color.blue;
 
-	public static Image brain = null;
-	public static Image neuron = null;
-	public static Image cleft = null;
-	public static BufferedImage b = null;
-
-	int mWX = 600;
-	int mWY = 700;
-
-	public static int sWX = 400;
-	public static int sWY = 600;
-
-	ArrayList<Rectangle> irs = IntersectionRectangles
-			.getIntersectionRectangles();
+	int mWX = 355;
+	int mWY = 600;
 
 	public static MainFrame mFrame;
 	public static SimulationFrame sFrame;
-
-	public static int synapseShiftX = 25;
 
 	public static void main(String args[]) {
 
@@ -56,58 +32,21 @@ public class Engine implements Runnable, ReceptorHandler {
 
 	Engine() {
 
-		try {
-
-			brain = ImageIO.read(new File("./resources/images/brain.png"));
-			neuron = ImageIO.read(new File("./resources/images/neuron.png"));
-			cleft = ImageIO.read(new File("./resources/images/cleft.png"));
-			b = ImageIO.read(new File("./resources/images/cleft.png"));
-
-			// b = ImageIO.read(new File("./resources/images/test.png"));
-
-		} catch (Exception e) {
-
-			e.printStackTrace();
-
-		}
-
 		mFrame = new MainFrame(mWX, mWY);
-
-		// setupSimulationFrame();
 
 		mainThread.start();
 
 	}
 
-	boolean isIntersecting() {
-
-		for (Rectangle r : irs) {
-
-			if (sFrame != null) {
-				if (sFrame.ballRect.intersects(r)) {
-
-					return true;
-				}
-			}
-
-		}
-
-		return false;
-
-	}
-
+	@SuppressWarnings("all")
 	@Override
 	public void run() {
 
 		while (running == true) {
 
-			if (isIntersecting()) {
-				drawColor = Color.red;
-			} else {
-				drawColor = Color.blue;
+			if (mFrame != null) {
+				mFrame.render(mFrame.getGraphics());
 			}
-
-			mFrame.render(mFrame.canvas.getGraphics());
 
 			if (sFrame != null) {
 				sFrame.render(sFrame.getGraphics());

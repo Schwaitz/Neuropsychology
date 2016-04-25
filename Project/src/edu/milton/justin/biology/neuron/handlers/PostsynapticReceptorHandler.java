@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import edu.milton.justin.biology.neuron.Receptor;
 import edu.milton.justin.enums.ErrorType;
 
-public interface ReceptorHandler {
+public interface PostsynapticReceptorHandler {
 
 	File list = new File("./resources/files/Neurotransmitter Receptor List.txt");
 
-	ArrayList<Receptor> receptors = read();
+	ArrayList<Receptor> postsynapticReceptors = readReceptors();
 
-	static ArrayList<Receptor> read() {
+	static ArrayList<Receptor> readReceptors() {
 
 		ArrayList<Receptor> returnReceptors = new ArrayList<Receptor>();
 		String line = null;

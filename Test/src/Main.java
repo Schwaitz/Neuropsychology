@@ -1,28 +1,27 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-public class Main extends JFrame implements Runnable, KeyListener {
+public class Main extends JFrame implements Runnable, MouseMotionListener {
 
 	Thread thread;
 
-	BufferedImage b;
+	BufferedImage pre;
+	BufferedImage post;
 
-	Ball ball;
+	int mx;
+	int my;
 
-	static int shift = 125;
-
-	ArrayList<Rectangle> irs;
+	// ArrayList<Rectangle> irs;
 
 	boolean lock = false;
 
@@ -34,22 +33,23 @@ public class Main extends JFrame implements Runnable, KeyListener {
 
 	Main() {
 
+		this.addMouseMotionListener(this);
+
 		this.setVisible(true);
 		this.setEnabled(true);
-		this.setSize(600, 600);
+		this.setSize(355, 600);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		try {
-			b = ImageIO.read(new File("./cleft.png"));
+
+			pre = ImageIO.read(new File("./pre.png"));
+			post = ImageIO.read(new File("./post.png"));
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		ball = new Ball(300, 200, 10, 10);
-
-		this.addKeyListener(this);
 
 		thread = new Thread(this);
 		thread.start();
@@ -63,51 +63,55 @@ public class Main extends JFrame implements Runnable, KeyListener {
 
 		bufferGraphics.clearRect(0, 0, this.getWidth(), this.getHeight());
 
-		ball.doStuff(bufferGraphics);
+		bufferGraphics.drawImage(pre, 0, 0, this);
+		bufferGraphics.drawImage(post, 0, 400, this);
 
-		bufferGraphics.drawImage(b, shift, 0, this);
+		try {
+			Color RGB = new Color(pre.getRGB(mx, my));
+			System.out.println("Pre: " + "| R: " + RGB.getRed() + " | G: "
+					+ RGB.getGreen() + " | B: " + RGB.getBlue() + " | A: "
+					+ RGB.getAlpha());
+		} catch (ArrayIndexOutOfBoundsException e) {
+			// idgaf
+		}
+
+		try {
+			Color RGB = new Color(post.getRGB(mx, my));
+			System.out.println("Post: " + "| R: " + RGB.getRed() + " | G: "
+					+ RGB.getGreen() + " | B: " + RGB.getBlue() + " | A: "
+					+ RGB.getAlpha());
+		} catch (ArrayIndexOutOfBoundsException e) {
+			// idgaf
+		}
 
 		g.drawImage(offscreen, 0, 0, this);
 	}
 
 	boolean isIntersecting() {
 
-		for (Rectangle r : irs) {
-
-			if (ball.rect.intersects(r)) {
-
-				return true;
-
-			}
-
-		}
+		// for (Rectangle r : irs) {
+		//
+		// if (ball.rect.intersects(r)) {
+		//
+		// return true;
+		//
+		// }
+		//
+		// }
 
 		return false;
 
-	}
-
-	public BufferedImage snapshot() {
-		BufferedImage returnImage = (BufferedImage) createImage(getWidth(),
-				getHeight());
-		return returnImage;
 	}
 
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 
-		irs = IntersectionRectangles.getIntersectionRectangles();
+		// irs = IntersectionRectangles.getIntersectionRectangles();
 
 		while (true) {
 
 			render(this.getGraphics());
-
-			if (isIntersecting()) {
-
-				ball.drawColor = Color.red;
-			} else {
-				ball.drawColor = Color.blue;
-			}
 
 			try {
 				thread.sleep(20);
@@ -120,60 +124,17 @@ public class Main extends JFrame implements Runnable, KeyListener {
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
+	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
+	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
 
-		switch (e.getKeyCode()) {
-
-		case KeyEvent.VK_A:
-			ball.dx = -5;
-			break;
-
-		case KeyEvent.VK_D:
-			ball.dx = 5;
-			break;
-
-		case KeyEvent.VK_W:
-			ball.dy = -5;
-			break;
-
-		case KeyEvent.VK_S:
-			ball.dy = 5;
-			break;
-
-		}
-
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-		switch (e.getKeyCode()) {
-
-		case KeyEvent.VK_A:
-			ball.dx = 0;
-			break;
-
-		case KeyEvent.VK_D:
-			ball.dx = 0;
-			break;
-
-		case KeyEvent.VK_W:
-			ball.dy = 0;
-			break;
-
-		case KeyEvent.VK_S:
-			ball.dy = 0;
-			break;
-
-		}
+		mx = e.getX();
+		my = e.getY();
 
 	}
 
