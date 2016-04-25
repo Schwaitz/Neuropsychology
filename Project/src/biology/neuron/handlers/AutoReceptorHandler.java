@@ -7,7 +7,7 @@ import biology.neuron.elements.AutoReceptor;
 
 public interface AutoReceptorHandler {
 
-	File list = new File("./resources/files/Neurotransmitter Receptor List.txt");
+	File list = new File("./resources/files/Receptor List.txt");
 
 	ArrayList<AutoReceptor> presynapticAutoReceptors = createAutoReceptors();
 

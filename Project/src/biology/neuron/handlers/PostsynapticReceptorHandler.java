@@ -12,7 +12,7 @@ import enums.ErrorMessageType;
 
 public interface PostsynapticReceptorHandler {
 
-	File list = new File("./resources/files/Neurotransmitter Receptor List.txt");
+	File list = new File("./resources/files/Receptor List.txt");
 
 	ArrayList<Receptor> postsynapticReceptors = readReceptors();
 

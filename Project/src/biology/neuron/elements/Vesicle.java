@@ -40,7 +40,7 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 		f = fs;
 
 		try {
-			i = ImageIO.read(new File("./resources/images/vesicle.png"));
+			i = ImageIO.read(new File("./resources/images/Vesicle.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

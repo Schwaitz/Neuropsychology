@@ -5,7 +5,11 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import engine.Engine;
@@ -16,6 +20,7 @@ public class MainFrame extends JFrame implements MouseListener {
 
 	boolean loading = true;
 	StartSimulationButton sim;
+	BufferedImage background;
 
 	public int WX;
 	public int WY;
@@ -25,7 +30,72 @@ public class MainFrame extends JFrame implements MouseListener {
 		WY = WYs;
 		setupFrame();
 
+		try {
+			background = ImageIO.read(new File(
+					"./resources/images/background.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
+	
+	
+	void setupFrame() {
+
+		this.addMouseListener(this);
+		this.setTitle("Simulator Menu");
+		this.setEnabled(true);
+		this.setVisible(true);
+		this.setResizable(false);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		int simFactor = 5;
+
+		sim = new StartSimulationButton((WX / 2) - ((60 * simFactor) / 2),
+				(WY / 2) - ((30 * simFactor) / 2) + 150, 60 * simFactor,
+				30 * simFactor, this);
+
+		this.setSize(WX, WY);
+	}
+	
+	
+
+	public void render(Graphics g) {
+		if (this != null) {
+			Image offscreen = this.createImage(WX, WY);
+			Graphics bufferGraphics = offscreen.getGraphics();
+
+			bufferGraphics.clearRect(0, 0, WX, WY);
+			bufferGraphics.drawImage(background, 0, 0, this);
+
+			if (loading == true) {
+
+				bufferGraphics.setFont(new Font("Impact", 40, 40));
+				bufferGraphics.drawString("Loading...", WX / 2 - 50,
+						WY / 2 - 75);
+				bufferGraphics.drawRect(20, WX / 2 - (30 / 2), WX - 40, 30);
+
+				loading = false;
+
+			}
+
+			else if (loading == false) {
+				bufferGraphics.drawImage(background, 0, 0, this);
+				sim.draw(bufferGraphics);
+
+			}
+
+			else {
+				System.out.println(ErrorMessageType.ELSECHECK.getMessage());
+			}
+
+			g.drawImage(offscreen, 0, 0, WX, WY, this);
+
+		}
+	}
+
+
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -68,54 +138,4 @@ public class MainFrame extends JFrame implements MouseListener {
 
 	}
 
-	public void render(Graphics g) {
-		if (this != null) {
-			Image offscreen = this.createImage(WX, WY);
-			Graphics bufferGraphics = offscreen.getGraphics();
-
-			bufferGraphics.clearRect(0, 0, WX, WY);
-
-			if (loading == true) {
-
-				bufferGraphics.setFont(new Font("Impact", 40, 40));
-				bufferGraphics.drawString("Loading...", WX / 2 - 50,
-						WY / 2 - 75);
-				bufferGraphics.drawRect(20, WX / 2 - (30 / 2), WX - 40, 30);
-
-				loading = false;
-
-			}
-
-			else if (loading == false) {
-
-				sim.draw(bufferGraphics);
-
-			}
-
-			else {
-				System.out.println(ErrorMessageType.ELSECHECK.getMessage());
-			}
-
-			g.drawImage(offscreen, 0, 0, WX, WY, this);
-
-		}
-	}
-
-	void setupFrame() {
-
-		this.addMouseListener(this);
-		this.setTitle("Main Frame");
-		this.setEnabled(true);
-		this.setVisible(true);
-		this.setResizable(false);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		int simFactor = 6;
-
-		sim = new StartSimulationButton((WX / 2) - ((60 * simFactor) / 2),
-				(WY / 2) - ((30 * simFactor) / 2), 60 * simFactor,
-				30 * simFactor, this);
-
-		this.setSize(WX, WY);
-	}
 }

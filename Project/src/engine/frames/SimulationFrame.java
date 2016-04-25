@@ -20,12 +20,10 @@ import biology.neuron.handlers.PostsynapticReceptorHandler;
 import engine.handlers.IntersectionHandler;
 
 public class SimulationFrame extends JFrame implements AutoReceptorHandler,
-		PostsynapticReceptorHandler, IntersectionHandler, MouseMotionListener {
+		PostsynapticReceptorHandler, IntersectionHandler {
 
 	boolean loaded = false;
-	int mouseX = 0;
 
-	int mouseY = 0;
 	Neuron post;
 
 	Neuron pre;
@@ -40,55 +38,35 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 		setupFrame();
 		setupBiology();
 
-		loaded = true;
 	}
 
-	void checkIntersections() {
+	void setupFrame() {
 
-		for (Vesicle v : pre.vesicles) {
-			if (handleIntersection(v.rects, pre.rects)) {
-						
-				v.dx = -v.dx;
-				v.dy = -v.dy;
-			}
-		}
 
-	}
+		this.setTitle("Simulation");
+		this.setEnabled(true);
+		this.setVisible(true);
+		this.setResizable(false);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLayout(new BorderLayout());
 
-	void handleUpdates() {
-
-		pre.update();
-		post.update();
+		this.setSize(WX, WY);
 
 	}
 
-	boolean intersecting(ArrayList<Rectangle> rects) {
+	void setupBiology() {
 
-		for (Rectangle r : rects) {
+		File preFile = new File("./resources/images/PresynapticNeuron.png");
+		pre = new PresynapticNeuron(preFile, this, 0, 0);
 
-			if (r.contains(mouseX, mouseY)) {
-
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
+		File postFile = new File("./resources/images/PostsynapticNeuron.png");
+		post = new PostsynapticNeuron(postFile, this, 0, 400);
 
 	}
-
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-		mouseX = e.getX();
-		mouseY = e.getY();
-
-	}
+	
+	
+	
+	
 
 	public void render(Graphics g) {
 
@@ -109,31 +87,6 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 
 	}
 
-	void setupBiology() {
-
-		File preFile = new File("./resources/images/pre.png");
-		pre = new PresynapticNeuron(preFile, this, 0, 0);
-
-		File postFile = new File("./resources/images/post.png");
-		post = new PostsynapticNeuron(postFile, this, 0, 400);
-
-	}
-
-	void setupFrame() {
-
-		this.addMouseMotionListener(this);
-
-		this.setTitle("Simulation Frame");
-		this.setEnabled(true);
-		this.setVisible(true);
-		this.setResizable(false);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLayout(new BorderLayout());
-
-		this.setSize(WX, WY);
-
-	}
-
 	public void updateState() {
 
 		checkIntersections();
@@ -141,5 +94,25 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 		handleUpdates();
 
 	}
+
+	void checkIntersections() {
+
+		for (Vesicle v : pre.vesicles) {
+			if (handleIntersection(v.rects, pre.rects)) {
+
+				v.dx = -v.dx;
+				v.dy = -v.dy;
+			}
+		}
+
+	}
+
+	void handleUpdates() {
+
+		pre.update();
+		post.update();
+
+	}
+
 
 }

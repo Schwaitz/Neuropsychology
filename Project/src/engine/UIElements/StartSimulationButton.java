@@ -32,7 +32,7 @@ public class StartSimulationButton {
 		rect = new Rectangle(x, y, width, height);
 
 		try {
-			i = ImageIO.read(new File("./resources/images/sim.png"));
+			i = ImageIO.read(new File("./resources/images/SimulationButton.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
