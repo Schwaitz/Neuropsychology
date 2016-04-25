@@ -30,6 +30,8 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 
 	public int y;
 
+	public boolean releaseTransmitter = false;
+
 	public Vesicle(int xs, int ys, int widths, int heights, JFrame fs) {
 
 		x = xs;
@@ -37,9 +39,7 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 		width = widths;
 		height = heights;
 		f = fs;
-		
-		
-		
+
 		dx = (int) (Math.random() * 2 + 2);
 
 		int rand = (int) (Math.random() * 2);
@@ -52,9 +52,6 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 		if (rand == 1) {
 			dy = -dy;
 		}
-		
-		
-		
 
 		try {
 			i = ImageIO.read(new File("./resources/images/Vesicle.png"));
@@ -71,15 +68,13 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 
 		shiftRectangles();
 
-
-
 	}
 
 	public void draw(Graphics g) {
 
 		g.drawImage(i, x, y, width, height, f);
 		g.setColor(Color.red);
-	//	g.drawRect(rect.x, rect.y, rect.width, rect.height);
+		g.drawRect(rect.x, rect.y, rect.width, rect.height);
 
 	}
 
@@ -92,15 +87,15 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 		}
 
 	}
-	
-	public void shiftRectangles(int amountX, int amountY){
-		
+
+	public void shiftRectangles(int amountX, int amountY) {
+
 		for (Rectangle r : rects) {
 			r.x += amountX;
 			r.y += amountY;
 
 		}
-		
+
 	}
 
 	public void update() {

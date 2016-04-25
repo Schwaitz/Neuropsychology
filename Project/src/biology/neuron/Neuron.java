@@ -9,20 +9,26 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import biology.neuron.elements.AutoReceptor;
+import biology.neuron.elements.Exit;
 import biology.neuron.elements.Receptor;
 import biology.neuron.elements.ReuptakePump;
 import biology.neuron.elements.Vesicle;
 
 public class Neuron {
-	ArrayList<AutoReceptor> autoReceptors;
+
 	File f;
 	JFrame fr;
 	public BufferedImage i;
 
-	ReuptakePump pump;
-	ArrayList<Receptor> receptors;
+	public ReuptakePump pump;
+	public ArrayList<Receptor> receptors;
+	public ArrayList<AutoReceptor> autoReceptors;
 	public ArrayList<Rectangle> rects;
 	public ArrayList<Vesicle> vesicles;
+	
+	public ArrayList<Exit> exits;
+	
+	public ArrayList<Receptor> activeReceptors;
 
 	int x;
 
@@ -35,6 +41,8 @@ public class Neuron {
 		x = xs;
 		y = ys;
 
+		exits = new ArrayList<Exit>();
+		activeReceptors = new ArrayList<Receptor>();
 		receptors = new ArrayList<Receptor>();
 		autoReceptors = new ArrayList<AutoReceptor>();
 		pump = null;
@@ -76,6 +84,7 @@ public class Neuron {
 		for (Receptor r : receptors) {
 			r.update();
 		}
+		
 
 		for (AutoReceptor ar : autoReceptors) {
 			ar.update();

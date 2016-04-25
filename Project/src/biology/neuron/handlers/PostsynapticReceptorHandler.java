@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import biology.neuron.elements.Receptor;
-import enums.ErrorMessageType;
 
 public interface PostsynapticReceptorHandler {
 
@@ -21,26 +20,25 @@ public interface PostsynapticReceptorHandler {
 		ArrayList<Receptor> returnReceptors = new ArrayList<Receptor>();
 		String line = null;
 		String type = null;
-		String name = null;
 
 		try {
 
 			FileReader fileReader = new FileReader(list);
 
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
+
 			while ((line = bufferedReader.readLine()) != null) {
 
-				if (line.charAt(0) == ':') {
+				String[] array = line.split(":");
 
-					type = line.substring(1, line.length());
+				type = array[0];
 
-				} else if (line.charAt(0) != ':') {
-					name = line;
-				} else {
-					System.out.println(ErrorMessageType.ELSECHECK.getMessage());
+				for (int i = 1; i < array.length; i++) {
+
+					returnReceptors.add(new Receptor(type, array[i]));
+
 				}
 
-				returnReceptors.add(new Receptor(type, name));
 			}
 
 			bufferedReader.close();

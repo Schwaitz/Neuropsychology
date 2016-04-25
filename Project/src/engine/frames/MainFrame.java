@@ -39,8 +39,7 @@ public class MainFrame extends JFrame implements MouseListener {
 		}
 
 	}
-	
-	
+
 	void setupFrame() {
 
 		this.addMouseListener(this);
@@ -58,11 +57,10 @@ public class MainFrame extends JFrame implements MouseListener {
 
 		this.setSize(WX, WY);
 	}
-	
-	
 
 	public void render(Graphics g) {
-		if (this != null) {
+
+		try {
 			Image offscreen = this.createImage(WX, WY);
 			Graphics bufferGraphics = offscreen.getGraphics();
 
@@ -92,10 +90,10 @@ public class MainFrame extends JFrame implements MouseListener {
 
 			g.drawImage(offscreen, 0, 0, WX, WY, this);
 
+		} catch (Exception e) {
+
 		}
 	}
-
-
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

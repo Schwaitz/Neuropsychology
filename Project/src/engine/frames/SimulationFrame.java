@@ -12,12 +12,13 @@ import javax.swing.JFrame;
 import biology.neuron.Neuron;
 import biology.neuron.PostsynapticNeuron;
 import biology.neuron.PresynapticNeuron;
+import biology.neuron.elements.Exit;
+import biology.neuron.elements.Receptor;
 import biology.neuron.elements.Vesicle;
 import biology.neuron.handlers.AutoReceptorHandler;
 import biology.neuron.handlers.PostsynapticReceptorHandler;
 import biology.neurotransmitter.Neurotransmitter;
 import engine.handlers.IntersectionHandler;
-import enums.BounceType;
 
 public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 		PostsynapticReceptorHandler, IntersectionHandler {
@@ -69,6 +70,25 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 						3, 3, Color.blue, this, pre.vesicles.get(v)));
 			}
 		}
+		int index = 0;
+
+		for (Receptor r : post.receptors) {
+
+			if (r.type.equals("DOPAMINE")) {
+
+				r.x = 45 + 60 * index;
+				r.y = 390;
+				r.width = 30;
+				r.height = 30;
+				r.color = Color.green;
+
+				post.activeReceptors.add(r);
+
+				index++;
+
+			}
+
+		}
 
 	}
 
@@ -79,6 +99,9 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 
 		bufferGraphics.clearRect(0, 0, this.WX, this.WY);
 
+		bufferGraphics.setColor(Color.white);
+		bufferGraphics.fillRect(0, 0, WX, WY);
+
 		pre.draw(bufferGraphics);
 		post.draw(bufferGraphics);
 
@@ -87,10 +110,25 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 			v.draw(bufferGraphics);
 		}
 
+		for (Exit e : pre.exits) {
+
+			e.draw(bufferGraphics);
+		}
+
 		for (Neurotransmitter n : nt) {
 
 			n.draw(bufferGraphics);
 		}
+
+		for (Receptor r : post.activeReceptors) {
+
+			r.draw(bufferGraphics);
+		}
+
+		// for (Rectangle r : pre.rects) {
+		// bufferGraphics.setColor(Color.cyan);
+		// bufferGraphics.drawRect(r.x, r.y, r.width, r.height);
+		// }
 
 		g.drawImage(offscreen, 0, 0, this.WX, this.WY, this);
 
@@ -98,7 +136,9 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 
 	public void updateState() {
 
-		checkIntersections();
+		checkWallIntersections();
+		vesicleIntersections();
+		neurotransmitterIntersections();
 
 		handleUpdates();
 
@@ -106,43 +146,16 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 
 	}
 
-	void checkIntersections() {
+	void checkWallIntersections() {
+
+	}
+
+	void vesicleIntersections() {
 
 		for (Vesicle v : pre.vesicles) {
 
-			for (Vesicle v2 : pre.vesicles) {
-
-				if (v != v2) {
-					switch (handleIntersectionOutside(v.rect, v2.rect)) {
-
-					case TOP:
-						v.dy = -v.dy;
-						break;
-					case BOTTOM:
-						v.dy = -v.dy;
-
-						break;
-					case LEFT:
-
-						v.dx = -v.dx;
-
-						break;
-					case RIGHT:
-
-						v.dx = -v.dx;
-
-						break;
-
-					case FALSE:
-						// Do nothing
-						break;
-
-					}
-				}
-
-			}
-
 			for (Rectangle r : v.rects) {
+
 				for (Rectangle prer : pre.rects) {
 
 					switch (handleIntersectionOutside(r, prer)) {
@@ -169,28 +182,30 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 					case FALSE:
 						// Do nothing
 						break;
-
 					}
+				}
 
-					switch (handleIntersectionWall(v.rect, WX, WY)) {
+				for (Exit e : pre.exits) {
+					switch (handleIntersectionOutside(r, e.rect)) {
 
 					case TOP:
-						v.dy = -v.dy;
+						v.releaseTransmitter = true;
+						System.out.println("e X v");
 
 						break;
 					case BOTTOM:
-						v.dy = -v.dy;
+						v.releaseTransmitter = true;
+						System.out.println("e X v");
 
 						break;
 					case LEFT:
-
-						v.dx = -v.dx;
+						v.releaseTransmitter = true;
+						System.out.println("e X v");
 
 						break;
 					case RIGHT:
-
-						v.dx = -v.dx;
-
+						v.releaseTransmitter = true;
+						System.out.println("e X v");
 						break;
 
 					case FALSE:
@@ -198,30 +213,186 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 						break;
 
 					}
-
 				}
+
+				for (Vesicle v2 : pre.vesicles) {
+
+					for (Rectangle r2 : v2.rects) {
+
+						if (r != r2) {
+							switch (handleIntersectionOutside(r, r2)) {
+
+							case TOP:
+								v.dy = -v.dy;
+								v2.dy = -v2.dy;
+								break;
+							case BOTTOM:
+								v.dy = -v.dy;
+								v2.dy = -v2.dy;
+
+								break;
+							case LEFT:
+
+								v.dx = -v.dx;
+								v2.dx = -v2.dx;
+								break;
+							case RIGHT:
+
+								v.dx = -v.dx;
+								v2.dx = -v2.dx;
+
+								break;
+
+							case FALSE:
+								// Do nothing
+								break;
+
+							}
+						}
+					}
+				}
+			}
+
+			switch (handleIntersectionWall(v.rect, WX, WY)) {
+
+			case TOP:
+				v.dy = -v.dy;
+
+				break;
+			case BOTTOM:
+				v.dy = -v.dy;
+
+				break;
+			case LEFT:
+
+				v.dx = -v.dx;
+
+				break;
+			case RIGHT:
+
+				v.dx = -v.dx;
+
+				break;
+
+			case FALSE:
+				// Do nothing
+				break;
+
 			}
 
 		}
 
+	}
+
+	void neurotransmitterIntersections() {
+
 		for (Neurotransmitter n : nt) {
 
-			if (n.x > n.prw) {
-				n.x = n.prw - 1;
-				n.dx = -n.dx;
-			}
-			if (n.x < n.prx) {
-				n.x = n.prx + 1;
-				n.dx = -n.dx;
+			if (n.pointer.releaseTransmitter == false) {
+
+				if (n.x > n.prw) {
+					n.x = n.prw - 1;
+					n.dx = -n.dx;
+				}
+				if (n.x < n.prx) {
+					n.x = n.prx + 1;
+					n.dx = -n.dx;
+				}
+
+				if (n.y > n.prh) {
+					n.y = n.prh - 1;
+					n.dy = -n.dy;
+				}
+				if (n.y < n.pry) {
+					n.y = n.pry + 1;
+					n.dy = -n.dy;
+				}
+
 			}
 
-			if (n.y > n.prh) {
-				n.y = n.prh - 1;
-				n.dy = -n.dy;
+			for (Rectangle r : pre.rects) {
+
+				switch (handleIntersectionOutside(n.rect, r)) {
+
+				case TOP:
+					n.dy = -n.dy;
+					n.dx = -n.dx;
+					break;
+				case BOTTOM:
+					n.dy = -n.dy;
+					n.dx = -n.dx;
+					break;
+				case LEFT:
+					n.dy = -n.dy;
+					n.dx = -n.dx;
+
+					break;
+				case RIGHT:
+					n.dy = -n.dy;
+					n.dx = -n.dx;
+
+					break;
+
+				case FALSE:
+					// Do nothing
+					break;
+				}
 			}
-			if (n.y < n.pry) {
-				n.y = n.pry + 1;
+
+			for (Rectangle r : post.rects) {
+
+				switch (handleIntersectionOutside(n.rect, r)) {
+
+				case TOP:
+					n.dy = -n.dy;
+					n.dx = -n.dx;
+					break;
+				case BOTTOM:
+					n.dy = -n.dy;
+					n.dx = -n.dx;
+					break;
+				case LEFT:
+					n.dy = -n.dy;
+					n.dx = -n.dx;
+
+					break;
+				case RIGHT:
+					n.dy = -n.dy;
+					n.dx = -n.dx;
+
+					break;
+
+				case FALSE:
+					// Do nothing
+					break;
+				}
+			}
+
+			switch (handleIntersectionWall(n.rect, WX, WY)) {
+
+			case TOP:
 				n.dy = -n.dy;
+
+				break;
+			case BOTTOM:
+				n.dy = -n.dy;
+
+				break;
+			case LEFT:
+
+				n.dx = -n.dx;
+
+				break;
+			case RIGHT:
+
+				n.dx = -n.dx;
+
+				break;
+
+			case FALSE:
+				// Do nothing
+				break;
+
 			}
 
 		}
