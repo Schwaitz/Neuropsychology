@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import edu.milton.justin.biology.neuron.Receptor;
+import edu.milton.justin.biology.neuron.elements.Receptor;
 import edu.milton.justin.enums.ErrorType;
 
 public interface PostsynapticReceptorHandler {

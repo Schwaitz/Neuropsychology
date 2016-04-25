@@ -34,7 +34,7 @@ public class MainFrame extends JFrame implements MouseListener {
 		this.setEnabled(true);
 		this.setVisible(true);
 		this.setResizable(false);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		int simFactor = 6;
 
@@ -46,34 +46,36 @@ public class MainFrame extends JFrame implements MouseListener {
 	}
 
 	public void render(Graphics g) {
+		if (this != null) {
+			Image offscreen = this.createImage(WX, WY);
+			Graphics bufferGraphics = offscreen.getGraphics();
 
-		Image offscreen = this.createImage(WX, WY);
-		Graphics bufferGraphics = offscreen.getGraphics();
+			bufferGraphics.clearRect(0, 0, WX, WY);
 
-		bufferGraphics.clearRect(0, 0, WX, WY);
+			if (loading == true) {
 
-		if (loading == true) {
+				bufferGraphics.setFont(new Font("Impact", 40, 40));
+				bufferGraphics.drawString("Loading...", WX / 2 - 50,
+						WY / 2 - 75);
+				bufferGraphics.drawRect(20, WX / 2 - (30 / 2), WX - 40, 30);
 
-			bufferGraphics.setFont(new Font("Impact", 40, 40));
-			bufferGraphics.drawString("Loading...", WX / 2 - 50, WY / 2 - 75);
-			bufferGraphics.drawRect(20, WX / 2 - (30 / 2), WX - 40, 30);
+				loading = false;
 
-			loading = false;
+			}
+
+			else if (loading == false) {
+
+				sim.draw(bufferGraphics);
+
+			}
+
+			else {
+				System.out.println(ErrorType.ELSECHECK.getMessage());
+			}
+
+			g.drawImage(offscreen, 0, 0, WX, WY, this);
 
 		}
-
-		else if (loading == false) {
-
-			sim.draw(bufferGraphics);
-
-		}
-
-		else {
-			System.out.println(ErrorType.ELSECHECK.getMessage());
-		}
-
-		g.drawImage(offscreen, 0, 0, WX, WY, this);
-
 	}
 
 	@Override
@@ -86,18 +88,16 @@ public class MainFrame extends JFrame implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 
+		if (sim.rect.contains(e.getPoint())) {
 
-		if(sim.rect.contains(e.getPoint())){
-			
 			Engine.sFrame = new SimulationFrame(355, 600);
-			
+
 			this.setVisible(false);
 			this.setEnabled(false);
 			this.dispose();
 			Engine.mFrame = null;
-			
+
 		}
-		
 
 	}
 

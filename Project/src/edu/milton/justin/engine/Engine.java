@@ -1,8 +1,5 @@
 package edu.milton.justin.engine;
 
-import java.awt.Color;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.PrintStream;
 
 import edu.milton.justin.engine.frames.MainFrame;
@@ -17,7 +14,6 @@ public class Engine implements Runnable {
 
 	boolean running = true;
 
-	public static Color drawColor = Color.blue;
 
 	int mWX = 355;
 	int mWY = 600;
@@ -50,6 +46,7 @@ public class Engine implements Runnable {
 
 			if (sFrame != null) {
 				sFrame.render(sFrame.getGraphics());
+				sFrame.updateState();
 			}
 
 			try {

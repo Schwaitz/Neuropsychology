@@ -3,7 +3,7 @@ package edu.milton.justin.biology.neuron.handlers;
 import java.io.File;
 import java.util.ArrayList;
 
-import edu.milton.justin.biology.neuron.AutoReceptor;
+import edu.milton.justin.biology.neuron.elements.AutoReceptor;
 
 public interface AutoReceptorHandler {
 
@@ -14,7 +14,7 @@ public interface AutoReceptorHandler {
 	static ArrayList<AutoReceptor> createAutoReceptors() {
 		
 		
-		ArrayList<AutoReceptor> returnAutoReceptors = null;
+		ArrayList<AutoReceptor> returnAutoReceptors = new ArrayList<AutoReceptor>();
 
 		return returnAutoReceptors;
 

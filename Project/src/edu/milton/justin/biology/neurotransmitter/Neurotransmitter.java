@@ -9,10 +9,12 @@ public class Neurotransmitter {
 	String type;
 	int x;
 	int y;
+	int dx = 0;
+	int dy = 0;
 	int width;
 	int height;
 	Color color;
-	
+
 	Rectangle rect;
 
 	public Neurotransmitter(String types, int xs, int ys, int widths,
@@ -25,22 +27,23 @@ public class Neurotransmitter {
 		width = widths;
 		height = heights;
 		color = colors;
-		
-		
-		rect = new Rectangle(x,y,width,height);
+
+		rect = new Rectangle(x, y, width, height);
 	}
-	
-	public void draw(Graphics g){
-		
+
+	public void draw(Graphics g) {
+
 		g.setColor(color);
-		g.drawOval(x,y,width,height);
-		
+		g.drawOval(x, y, width, height);
+
 	}
-	
-	public void update(){
-		
-		
+
+	public void update() {
+		x += dx;
+		y += dy;
+
+		rect = new Rectangle(x, y, width, height);
+
 	}
-	
 
 }

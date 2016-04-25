@@ -8,10 +8,9 @@ import java.util.ArrayList;
 import edu.milton.justin.engine.Engine;
 import edu.milton.justin.misc.ValueHolder;
 
-public class GenerateRectangles {
+public interface RectangleAlgorithm {
 
-	static ArrayList<Rectangle> getIntersectionRectangles(BufferedImage b,
-			Color c) {
+	default ArrayList<Rectangle> getRects(BufferedImage b, Color c) {
 
 		ArrayList<Rectangle> returnList = new ArrayList<Rectangle>();
 
