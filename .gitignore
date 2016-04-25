@@ -1,1 +1,5 @@
 .metadata/
+.Project/bin/*
+.Project/settings/*
+.Project/.classpath
+.Project/.project
