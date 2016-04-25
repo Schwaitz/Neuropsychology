@@ -3,30 +3,60 @@ package biology.neurotransmitter;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
-public class Neurotransmitter {
+import javax.swing.JFrame;
+
+import biology.neuron.elements.Vesicle;
+
+public class Neurotransmitter implements MouseMotionListener{
 
 	Color color;
-	int dx = 0;
-	int dy = 0;
+	public int dx;
+	public int dy;
 	int height;
-	Rectangle rect;
+	public Rectangle rect;
 	String type;
 	int width;
-	int x;
-
-	int y;
+	public int x;
+	public int y;
+	
+	public Vesicle pointer;
+	
+	JFrame f;
+	
+	
+	int mouseX = 0;
+	int mouseY = 0;
 
 	public Neurotransmitter(String types, int xs, int ys, int widths,
-			int heights, Color colors) {
+			int heights, Color colors, JFrame fs, Vesicle pointers) {
 
 		type = types;
-
 		x = xs;
 		y = ys;
 		width = widths;
 		height = heights;
 		color = colors;
+		f = fs;
+		pointer = pointers;
+		
+		f.addMouseMotionListener(this);
+
+		
+		dx = (int) (Math.random() * 2 + 2);
+
+		int rand = (int) (Math.random() * 2);
+		if (rand == 1) {
+			dx = -dx;
+		}
+
+		dy = (int) (Math.random() * 2 + 2);
+		rand = (int) (Math.random() * 2);
+		if (rand == 1) {
+			dy = -dy;
+		}
 
 		rect = new Rectangle(x, y, width, height);
 	}
@@ -34,7 +64,7 @@ public class Neurotransmitter {
 	public void draw(Graphics g) {
 
 		g.setColor(color);
-		g.drawOval(x, y, width, height);
+		g.fillOval(x, y, width, height);
 
 	}
 
@@ -42,8 +72,27 @@ public class Neurotransmitter {
 		x += dx;
 		y += dy;
 
+//		x = mouseX;
+//		y = mouseY;
+		
+
 		rect = new Rectangle(x, y, width, height);
 
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+		mouseX = e.getX();
+		mouseY = e.getY();
+		
 	}
 
 }

@@ -16,20 +16,19 @@ import algorithms.RectangleAlgorithm;
 
 public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 
-	public int dx = 3;
-	public int dy = 2;
+	public int dx = 0;
+	public int dy = 0;
 	JFrame f;
-	int height;
+
 	public BufferedImage i;
-	int originalHeight;
-	int originalWidth;
 
+	public Rectangle rect;
 	public ArrayList<Rectangle> rects;
-	int width;
+	public int width;
+	public int height;
+	public int x;
 
-	int x;
-
-	int y;
+	public int y;
 
 	public Vesicle(int xs, int ys, int widths, int heights, JFrame fs) {
 
@@ -38,6 +37,23 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 		width = widths;
 		height = heights;
 		f = fs;
+		
+		
+		dx = (int) (Math.random() * 2 + 2);
+
+		int rand = (int) (Math.random() * 2);
+		if (rand == 1) {
+			dx = -dx;
+		}
+
+		dy = (int) (Math.random() * 2 + 2);
+		rand = (int) (Math.random() * 2);
+		if (rand == 1) {
+			dy = -dy;
+		}
+		
+		
+		
 
 		try {
 			i = ImageIO.read(new File("./resources/images/Vesicle.png"));
@@ -50,13 +66,19 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 
 		rects = getRects(i, Color.black);
 
+		rect = new Rectangle(x, y, width, height);
+
 		shiftRectangles();
+
+
 
 	}
 
 	public void draw(Graphics g) {
 
 		g.drawImage(i, x, y, width, height, f);
+		g.setColor(Color.red);
+	//	g.drawRect(rect.x, rect.y, rect.width, rect.height);
 
 	}
 
@@ -69,10 +91,22 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 		}
 
 	}
+	
+	public void shiftRectangles(int amountX, int amountY){
+		
+		for (Rectangle r : rects) {
+			r.x += amountX;
+			r.y += amountY;
+
+		}
+		
+	}
 
 	public void update() {
 		x += dx;
 		y += dy;
+
+		rect = new Rectangle(x, y, width, height);
 
 		for (Rectangle r : rects) {
 
