@@ -29,6 +29,8 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 	public int WX;
 	public int WY;
 
+	boolean drawRectangles = false;
+
 	ArrayList<Neurotransmitter> nt = new ArrayList<Neurotransmitter>();
 	ArrayList<Neurotransmitter> rnt = new ArrayList<Neurotransmitter>();
 
@@ -42,6 +44,11 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 	}
 
 	void setupFrame() {
+		
+		
+		
+		
+		
 
 		this.setTitle("Simulation");
 		this.setEnabled(true);
@@ -49,7 +56,7 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		this.setLocation(600, 0);
+		this.setLocation(0, 0);
 
 		this.setSize(WX, WY);
 
@@ -73,6 +80,9 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 		int index = 0;
 
 		for (Receptor r : post.receptors) {
+			
+			
+			System.out.println(r.type + " | " + r.name);
 
 			if (r.type.equals("DOPAMINE")) {
 
@@ -125,10 +135,29 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 			r.draw(bufferGraphics);
 		}
 
-		// for (Rectangle r : pre.rects) {
-		// bufferGraphics.setColor(Color.cyan);
-		// bufferGraphics.drawRect(r.x, r.y, r.width, r.height);
-		// }
+		bufferGraphics.setColor(Color.cyan);
+		
+		
+		if (drawRectangles == true) {
+//			for (Rectangle r : pre.rects) {
+//				bufferGraphics.drawRect(r.x, r.y, r.width, r.height);
+//
+//			}
+//
+//			for (Vesicle v : pre.vesicles) {
+//
+//				for (Rectangle r : v.rects) {
+//					bufferGraphics.drawRect(r.x, r.y, r.width, r.height);
+//				}
+//			}
+//
+//			for (Neurotransmitter n : nt) {
+//
+//				bufferGraphics.drawRect(n.rect.x, n.rect.y, n.rect.width,
+//						n.rect.height);
+//			}
+
+		}
 
 		g.drawImage(offscreen, 0, 0, this.WX, this.WY, this);
 
