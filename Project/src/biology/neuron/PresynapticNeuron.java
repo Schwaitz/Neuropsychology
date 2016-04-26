@@ -61,9 +61,9 @@ public class PresynapticNeuron extends Neuron implements AutoReceptorHandler,
 
 		ArrayList<Vesicle> returnVesicles = new ArrayList<Vesicle>();
 
-		returnVesicles.add(new Vesicle(85, 150, 30, 30, fr));
-		returnVesicles.add(new Vesicle(165, 150, 30, 30, fr));
-		returnVesicles.add(new Vesicle(240, 150, 30, 30, fr));
+		returnVesicles.add(new Vesicle(85, 150, 30, 30, fr, this));
+		returnVesicles.add(new Vesicle(165, 150, 30, 30, fr, this));
+		returnVesicles.add(new Vesicle(240, 150, 30, 30, fr, this));
 
 		return returnVesicles;
 

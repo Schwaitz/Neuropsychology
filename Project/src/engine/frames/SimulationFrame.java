@@ -29,7 +29,9 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 	public int WX;
 	public int WY;
 
-	boolean drawRectangles = false;
+	int neurotransmitterInVesicle = 30;
+
+	boolean drawRectangles = true;
 
 	ArrayList<Neurotransmitter> nt = new ArrayList<Neurotransmitter>();
 	ArrayList<Neurotransmitter> rnt = new ArrayList<Neurotransmitter>();
@@ -44,11 +46,6 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 	}
 
 	void setupFrame() {
-		
-		
-		
-		
-		
 
 		this.setTitle("Simulation");
 		this.setEnabled(true);
@@ -70,18 +67,18 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 		File postFile = new File("./resources/images/PostsynapticNeuron.png");
 		post = new PostsynapticNeuron(postFile, this, 0, 400);
 
-		for (int n = 0; n < 10; n++) {
+		for (int n = 0; n < neurotransmitterInVesicle; n++) {
 			for (int v = 0; v < 3; v++) {
 				nt.add(new Neurotransmitter("Dopamine",
 						pre.vesicles.get(v).x + 15, pre.vesicles.get(v).y + 15,
-						3, 3, Color.blue, this, pre.vesicles.get(v)));
+						5, 5, new Color(255, 160, 30), this, pre.vesicles
+								.get(v)));
 			}
 		}
 		int index = 0;
 
 		for (Receptor r : post.receptors) {
-			
-			
+
 			System.out.println(r.type + " | " + r.name);
 
 			if (r.type.equals("DOPAMINE")) {
@@ -89,7 +86,7 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 				r.x = 45 + 60 * index;
 				r.y = 390;
 				r.width = 30;
-				r.height = 30;
+				r.height = 14;
 				r.color = Color.green;
 
 				post.activeReceptors.add(r);
@@ -112,12 +109,22 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 		bufferGraphics.setColor(Color.white);
 		bufferGraphics.fillRect(0, 0, WX, WY);
 
+		for (Receptor r : post.activeReceptors) {
+
+			r.draw(bufferGraphics);
+		}
+
 		pre.draw(bufferGraphics);
+
 		post.draw(bufferGraphics);
 
 		for (Vesicle v : pre.vesicles) {
 
 			v.draw(bufferGraphics);
+		}
+		for (Neurotransmitter n : nt) {
+
+			n.draw(bufferGraphics);
 		}
 
 		for (Exit e : pre.exits) {
@@ -125,37 +132,45 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 			e.draw(bufferGraphics);
 		}
 
-		for (Neurotransmitter n : nt) {
-
-			n.draw(bufferGraphics);
-		}
-
-		for (Receptor r : post.activeReceptors) {
-
-			r.draw(bufferGraphics);
-		}
-
-		bufferGraphics.setColor(Color.cyan);
-		
-		
 		if (drawRectangles == true) {
-//			for (Rectangle r : pre.rects) {
-//				bufferGraphics.drawRect(r.x, r.y, r.width, r.height);
-//
-//			}
-//
-//			for (Vesicle v : pre.vesicles) {
-//
-//				for (Rectangle r : v.rects) {
-//					bufferGraphics.drawRect(r.x, r.y, r.width, r.height);
-//				}
-//			}
-//
-//			for (Neurotransmitter n : nt) {
-//
-//				bufferGraphics.drawRect(n.rect.x, n.rect.y, n.rect.width,
-//						n.rect.height);
-//			}
+
+			bufferGraphics.setColor(Color.cyan);
+
+			for (Rectangle r : pre.rects) {
+				bufferGraphics.drawRect(r.x, r.y, r.width, r.height);
+
+			}
+
+			for (Rectangle r : post.rects) {
+				bufferGraphics.drawRect(r.x, r.y, r.width, r.height);
+
+			}
+
+			for (Receptor re : post.receptors) {
+
+				if (re.type.equals("DOPAMINE")) {
+
+					bufferGraphics.drawRect(re.rect.x, re.rect.y,
+							re.rect.width, re.rect.height);
+
+				}
+
+			}
+
+			for (Vesicle v : pre.vesicles) {
+
+				for (Rectangle r : v.rects) {
+					bufferGraphics.drawRect(r.x, r.y, r.width, r.height);
+				}
+			}
+
+			for (Neurotransmitter n : nt) {
+
+				bufferGraphics.drawRect(n.rect.x, n.rect.y, n.rect.width,
+						n.rect.height);
+			}
+
+			bufferGraphics.setColor(Color.black);
 
 		}
 
@@ -219,22 +234,77 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 
 					case TOP:
 						v.releaseTransmitter = true;
-						System.out.println("e X v");
+						v.releasePointer = e;
+
+						for (Neurotransmitter n : nt) {
+
+							if (n.pointer.equals(v)) {
+								n.x = v.releasePointer.x + (v.releasePointer.width / 2);
+								n.y = v.releasePointer.y + 10;
+								n.release();
+	
+
+							}
+
+						}
+
+						v.remove();
 
 						break;
 					case BOTTOM:
 						v.releaseTransmitter = true;
-						System.out.println("e X v");
+						v.releasePointer = e;
+
+						for (Neurotransmitter n : nt) {
+
+							if (n.pointer.equals(v)) {
+								n.x = v.releasePointer.x + (v.releasePointer.width / 2);
+								n.y = v.releasePointer.y + 10;
+								n.release();
+
+
+							}
+
+						}
+						v.remove();
 
 						break;
 					case LEFT:
 						v.releaseTransmitter = true;
-						System.out.println("e X v");
+						v.releasePointer = e;
+
+						for (Neurotransmitter n : nt) {
+
+							if (n.pointer.equals(v)) {
+								n.x = v.releasePointer.x + (v.releasePointer.width / 2);
+								n.y = v.releasePointer.y + 10;
+								n.release();
+
+
+							}
+
+						}
+						v.remove();
 
 						break;
 					case RIGHT:
 						v.releaseTransmitter = true;
-						System.out.println("e X v");
+						v.releasePointer = e;
+
+						for (Neurotransmitter n : nt) {
+
+							if (n.pointer.equals(v)) {
+
+								n.x = v.releasePointer.x + (v.releasePointer.width / 2);
+								n.y = v.releasePointer.y + 10;
+								n.release();
+
+
+							}
+
+						}
+						v.remove();
+
 						break;
 
 					case FALSE:
@@ -374,26 +444,57 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 
 				case TOP:
 					n.dy = -n.dy;
-					n.dx = -n.dx;
+
 					break;
 				case BOTTOM:
 					n.dy = -n.dy;
-					n.dx = -n.dx;
+
 					break;
 				case LEFT:
 					n.dy = -n.dy;
-					n.dx = -n.dx;
 
 					break;
 				case RIGHT:
 					n.dy = -n.dy;
-					n.dx = -n.dx;
 
 					break;
 
 				case FALSE:
 					// Do nothing
 					break;
+				}
+			}
+
+			for (Receptor r : post.receptors) {
+
+				if (r.type.equals("DOPAMINE")) {
+					switch (handleIntersectionOutside(n.rect, r.rect)) {
+					case TOP:
+						n.dy = 0;
+						n.dx = 0;
+
+						break;
+					case BOTTOM:
+						n.dy = 0;
+						n.dx = 0;
+
+						break;
+					case LEFT:
+						n.dy = 0;
+						n.dx = 0;
+
+						break;
+					case RIGHT:
+						n.dy = 0;
+						n.dx = 0;
+
+						break;
+
+					case FALSE:
+						// Do nothing
+						break;
+
+					}
 				}
 			}
 

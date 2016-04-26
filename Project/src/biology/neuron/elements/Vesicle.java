@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 
 import misc.ResizeBufferedImage;
 import algorithms.RectangleAlgorithm;
+import biology.neuron.Neuron;
 
 public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 
@@ -27,18 +28,22 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 	public int width;
 	public int height;
 	public int x;
+	
+	public Exit releasePointer =  null;
+	Neuron pointer;
 
 	public int y;
 
 	public boolean releaseTransmitter = false;
 
-	public Vesicle(int xs, int ys, int widths, int heights, JFrame fs) {
+	public Vesicle(int xs, int ys, int widths, int heights, JFrame fs, Neuron pointers) {
 
 		x = xs;
 		y = ys;
 		width = widths;
 		height = heights;
 		f = fs;
+		pointer = pointers;
 
 		dx = (int) (Math.random() * 2 + 2);
 
@@ -73,8 +78,6 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 	public void draw(Graphics g) {
 
 		g.drawImage(i, x, y, width, height, f);
-		g.setColor(Color.red);
-		g.drawRect(rect.x, rect.y, rect.width, rect.height);
 
 	}
 
@@ -111,6 +114,13 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 
 		}
 
+	}
+	
+	public void remove(){
+		
+	//	this.rects.clear();
+		pointer.rVesicles.add(this);
+		
 	}
 
 }

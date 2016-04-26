@@ -6,10 +6,10 @@ import java.awt.Rectangle;
 
 public class Exit {
 
-	int x;
-	int y;
-	int width;
-	int height;
+	public int x;
+	public int y;
+	public int width;
+	public int height;
 	Color color;
 
 	public Rectangle rect;
@@ -30,8 +30,6 @@ public class Exit {
 
 		g.setColor(color);
 		g.fillOval(x, y, width, height);
-		g.setColor(Color.cyan);
-		g.drawRect(rect.x, rect.y, rect.width, rect.height);
 
 	}
 

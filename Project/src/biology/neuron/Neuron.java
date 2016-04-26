@@ -25,9 +25,10 @@ public class Neuron {
 	public ArrayList<AutoReceptor> autoReceptors;
 	public ArrayList<Rectangle> rects;
 	public ArrayList<Vesicle> vesicles;
-	
+	public ArrayList<Vesicle> rVesicles;
+
 	public ArrayList<Exit> exits;
-	
+
 	public ArrayList<Receptor> activeReceptors;
 
 	int x;
@@ -47,6 +48,7 @@ public class Neuron {
 		autoReceptors = new ArrayList<AutoReceptor>();
 		pump = null;
 		vesicles = new ArrayList<Vesicle>();
+		rVesicles = new ArrayList<Vesicle>();
 
 	}
 
@@ -81,10 +83,15 @@ public class Neuron {
 			v.update();
 		}
 
+		for (Vesicle v : rVesicles) {
+			v.rects.clear();
+			vesicles.remove(v);
+			
+		}
+
 		for (Receptor r : receptors) {
 			r.update();
 		}
-		
 
 		for (AutoReceptor ar : autoReceptors) {
 			ar.update();
