@@ -22,6 +22,7 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 	JFrame f;
 
 	public BufferedImage i;
+	public BufferedImage iDraw;
 
 	public Rectangle rect;
 	public ArrayList<Rectangle> rects;
@@ -60,6 +61,7 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 
 		try {
 			i = ImageIO.read(new File("./resources/images/Vesicle.png"));
+			iDraw = ImageIO.read(new File("./resources/images/Vesicle_transparent.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,7 +79,7 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 
 	public void draw(Graphics g) {
 
-		g.drawImage(i, x, y, width, height, f);
+		g.drawImage(iDraw, x, y, width, height, f);
 
 	}
 

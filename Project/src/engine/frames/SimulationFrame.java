@@ -31,7 +31,7 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 
 	int neurotransmitterInVesicle = 30;
 
-	boolean drawRectangles = true;
+	boolean drawRectangles = false;
 
 	ArrayList<Neurotransmitter> nt = new ArrayList<Neurotransmitter>();
 	ArrayList<Neurotransmitter> rnt = new ArrayList<Neurotransmitter>();
@@ -61,11 +61,9 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 
 	void setupBiology() {
 
-		File preFile = new File("./resources/images/PresynapticNeuron.png");
-		pre = new PresynapticNeuron(preFile, this, 0, 0);
+		pre = new PresynapticNeuron(this, 0, 0);
 
-		File postFile = new File("./resources/images/PostsynapticNeuron.png");
-		post = new PostsynapticNeuron(postFile, this, 0, 400);
+		post = new PostsynapticNeuron(this, 0, 400);
 
 		for (int n = 0; n < neurotransmitterInVesicle; n++) {
 			for (int v = 0; v < 3; v++) {
@@ -106,8 +104,8 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 
 		bufferGraphics.clearRect(0, 0, this.WX, this.WY);
 
-		bufferGraphics.setColor(Color.white);
-		bufferGraphics.fillRect(0, 0, WX, WY);
+		//bufferGraphics.setColor(Color.white);
+		//bufferGraphics.fillRect(0, 0, WX, WY);
 
 		for (Receptor r : post.activeReceptors) {
 

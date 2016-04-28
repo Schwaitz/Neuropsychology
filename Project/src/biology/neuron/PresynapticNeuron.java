@@ -18,12 +18,13 @@ import biology.neuron.handlers.AutoReceptorHandler;
 public class PresynapticNeuron extends Neuron implements AutoReceptorHandler,
 		RectangleAlgorithm {
 
-	public PresynapticNeuron(File fs, JFrame frs, int xs, int ys) {
+	public PresynapticNeuron(JFrame frs, int xs, int ys) {
 
-		super(fs, frs, xs, ys);
+		super(frs, xs, ys);
 
 		try {
-			i = ImageIO.read(f);
+			i = ImageIO.read(new File("./resources/images/PresynapticNeuron.png"));
+			iDraw = ImageIO.read(new File("./resources/images/PresynapticNeuron_transparent.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

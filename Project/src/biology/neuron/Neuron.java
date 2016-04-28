@@ -16,9 +16,9 @@ import biology.neuron.elements.Vesicle;
 
 public class Neuron {
 
-	File f;
 	JFrame fr;
 	public BufferedImage i;
+	public BufferedImage iDraw;
 
 	public ReuptakePump pump;
 	public ArrayList<Receptor> receptors;
@@ -35,9 +35,9 @@ public class Neuron {
 
 	int y;
 
-	public Neuron(File fs, JFrame frs, int xs, int ys) {
+	public Neuron(JFrame frs, int xs, int ys) {
 
-		f = fs;
+
 		fr = frs;
 		x = xs;
 		y = ys;
@@ -54,7 +54,7 @@ public class Neuron {
 
 	public void draw(Graphics g) {
 
-		g.drawImage(i, x, y, fr);
+		g.drawImage(iDraw, x, y, fr);
 
 		for (Receptor r : receptors) {
 

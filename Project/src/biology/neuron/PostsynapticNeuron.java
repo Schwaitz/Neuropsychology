@@ -15,12 +15,13 @@ import biology.neuron.handlers.PostsynapticReceptorHandler;
 public class PostsynapticNeuron extends Neuron implements
 		PostsynapticReceptorHandler, RectangleAlgorithm {
 
-	public PostsynapticNeuron(File fs, JFrame frs, int xs, int ys) {
+	public PostsynapticNeuron(JFrame frs, int xs, int ys) {
 
-		super(fs, frs, xs, ys);
+		super(frs, xs, ys);
 
 		try {
-			i = ImageIO.read(f);
+			i = ImageIO.read(new File("./resources/images/PostsynapticNeuron.png"));
+			iDraw = ImageIO.read(new File("./resources/images/PostsynapticNeuron_transparent.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
