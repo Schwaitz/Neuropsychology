@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -21,10 +23,14 @@ import biology.neurotransmitter.base.Neurotransmitter;
 import engine.handlers.IntersectionHandler;
 
 public class SimulationFrame extends JFrame implements
-		PostsynapticReceptorHandler, IntersectionHandler, RandomSwitch {
+		PostsynapticReceptorHandler, IntersectionHandler, RandomSwitch,
+		MouseMotionListener {
 
 	Neuron post;
 	Neuron pre;
+
+	int mouseX = 0;
+	int mouseY = 0;
 
 	public int WX = GlobalVariables.WX;
 	public int WY = GlobalVariables.WY;
@@ -38,6 +44,7 @@ public class SimulationFrame extends JFrame implements
 
 		setupFrame();
 		setupBiology();
+		setupMouseMotionListener();
 
 	}
 
@@ -63,6 +70,12 @@ public class SimulationFrame extends JFrame implements
 
 	}
 
+	void setupMouseMotionListener() {
+
+		this.addMouseMotionListener(this);
+
+	}
+
 	public void render(Graphics g) {
 
 		Image offscreen = this.createImage(this.WX, this.WY);
@@ -70,8 +83,8 @@ public class SimulationFrame extends JFrame implements
 
 		bufferGraphics.clearRect(0, 0, this.WX, this.WY);
 
-		// bufferGraphics.setColor(Color.white);
-		// bufferGraphics.fillRect(0, 0, WX, WY);
+		bufferGraphics.setColor(Color.LIGHT_GRAY);
+		bufferGraphics.fillRect(0, 0, WX, WY);
 
 		for (Receptor r : post.activeReceptors) {
 
@@ -92,9 +105,13 @@ public class SimulationFrame extends JFrame implements
 			e.draw(bufferGraphics);
 		}
 
-		for (Neurotransmitter n : nt) {
+		try {
+			for (Neurotransmitter n : nt) {
 
-			n.draw(bufferGraphics);
+				n.draw(bufferGraphics);
+			}
+		} catch (Exception e) {
+
 		}
 
 		if (drawRectangles == true) {
@@ -198,15 +215,18 @@ public class SimulationFrame extends JFrame implements
 
 					case TRUE:
 						v.releaseTransmitter = true;
+						try {
+							for (Neurotransmitter n : nt) {
 
-						for (Neurotransmitter n : nt) {
+								if (n.pointer == v) {
 
-							if (n.pointer == v) {
+									n.x = e.x + (e.width / 2);
+									n.y = e.y + e.height - 15;
+									n.release();
+								}
 
-								n.x = e.x + (e.width / 2);
-								n.y = e.y + e.height - 15;
-								n.release();
 							}
+						} catch (Exception e2) {
 
 						}
 
@@ -292,114 +312,70 @@ public class SimulationFrame extends JFrame implements
 
 	void neurotransmitterIntersections() {
 
-		for (Neurotransmitter n : nt) {
+		try {
+			for (Neurotransmitter n : nt) {
 
-			if (n.pointer.releaseTransmitter == false) {
+				if (n.pointer.releaseTransmitter == false) {
 
-				if (n.x > n.prw) {
-					n.x = n.prw - 1;
-					n.dx = -n.dx;
-				}
-				if (n.x < n.prx) {
-					n.x = n.prx + 1;
-					n.dx = -n.dx;
-				}
-
-				if (n.y > n.prh) {
-					n.y = n.prh - 1;
-					n.dy = -n.dy;
-				}
-				if (n.y < n.pry) {
-					n.y = n.pry + 1;
-					n.dy = -n.dy;
-				}
-
-			}
-
-			for (Rectangle r : pre.rects) {
-				if (n.xLock == false) {
-					switch (handleIntersection(n.rect, r)) {
-
-					case TRUE:
-
-						if (n.passed == false) {
-							if (r.y < 290) {
-
-								n.dy = -n.dy;
-								n.dx = -n.dx;
-
-							} else {
-								n.unlockPassed();
-							}
-
-						} else {
-
-							n.intersectionLock();
-							if (randSwitch()) {
-								n.dy = -n.dy + (int) (Math.random() * 2 + 1);
-
-							} else {
-								n.dy = -n.dy + (int) (Math.random() * -2 - 1);
-
-							}
-
-							if (randSwitch()) {
-								n.dx = -n.dx + (int) (Math.random() * 2 + 1);
-
-							} else {
-								n.dx = -n.dx + (int) (Math.random() * -2 - 1);
-
-							}
-						}
-
-					case FALSE:
-						// Do nothing
-						break;
+					if (n.x > n.prw) {
+						n.x = n.prw - 1;
+						n.dx = -n.dx;
 					}
-				}
-			}
+					if (n.x < n.prx) {
+						n.x = n.prx + 1;
+						n.dx = -n.dx;
+					}
 
-			for (Rectangle r : post.rects) {
+					if (n.y > n.prh) {
+						n.y = n.prh - 1;
+						n.dy = -n.dy;
+					}
+					if (n.y < n.pry) {
+						n.y = n.pry + 1;
+						n.dy = -n.dy;
+					}
 
-				switch (handleIntersection(n.rect, r)) {
-
-				case TRUE:
-					n.dy = -n.dy;
-					n.dx = -n.dx;
-
-					break;
-				case FALSE:
-					// Do nothing
-					break;
-				}
-			}
-
-			switch (handleIntersection(pre.pump.rect, n.rect)) {
-			case TRUE:
-				if (n.passed == true) {
-					rnt.add(n);
 				}
 
-				break;
-			case FALSE:
-				// Do nothing
-				break;
-			}
+				for (Rectangle r : pre.rects) {
+					if (n.xLock == false) {
+						switch (handleIntersection(n.rect, r)) {
 
-			for (Receptor r : post.receptors) {
-
-				if (r.neurotransmitterBindType.equals(n.receptorBindType)) {
-
-					if (n.released == false) {
-						switch (handleIntersection(n.rect, r.rect)) {
 						case TRUE:
-							n.dy = 0;
-							n.dx = 0;
-							n.y = r.y - 5;
-							r.boundNT.add(n);
-							r.startReleaseTimer(n);
 
-							break;
+							if (n.passed == false) {
+								if (r.y < 290) {
+
+									n.dy = -n.dy;
+									n.dx = -n.dx;
+
+								} else {
+									n.unlockPassed();
+								}
+
+							} else {
+
+								n.intersectionLock();
+								if (randSwitch()) {
+									n.dy = -n.dy
+											+ (int) (Math.random() * 2 + 1);
+
+								} else {
+									n.dy = -n.dy
+											+ (int) (Math.random() * -2 - 1);
+
+								}
+
+								if (randSwitch()) {
+									n.dx = -n.dx
+											+ (int) (Math.random() * 2 + 1);
+
+								} else {
+									n.dx = -n.dx
+											+ (int) (Math.random() * -2 - 1);
+
+								}
+							}
 
 						case FALSE:
 							// Do nothing
@@ -407,34 +383,86 @@ public class SimulationFrame extends JFrame implements
 						}
 					}
 				}
+
+				for (Rectangle r : post.rects) {
+
+					switch (handleIntersection(n.rect, r)) {
+
+					case TRUE:
+						n.dy = -n.dy;
+						n.dx = -n.dx;
+
+						break;
+					case FALSE:
+						// Do nothing
+						break;
+					}
+				}
+
+				switch (handleIntersection(pre.pump.rect, n.rect)) {
+				case TRUE:
+					if (n.passed == true) {
+						rnt.add(n);
+					}
+
+					break;
+				case FALSE:
+					// Do nothing
+					break;
+				}
+
+				for (Receptor r : post.receptors) {
+
+					if (r.neurotransmitterBindType.equals(n.receptorBindType)) {
+
+						if (n.released == false) {
+							switch (handleIntersection(n.rect, r.rect)) {
+							case TRUE:
+								n.dy = 0;
+								n.dx = 0;
+								n.y = r.y - 5;
+								r.boundNT.add(n);
+								r.startReleaseTimer(n);
+
+								break;
+
+							case FALSE:
+								// Do nothing
+								break;
+							}
+						}
+					}
+				}
+
+				switch (handleIntersectionWall(n.rect, WX, WY)) {
+
+				case TOP:
+					rnt.add(n);
+
+					break;
+				case BOTTOM:
+					rnt.add(n);
+
+					break;
+				case LEFT:
+
+					rnt.add(n);
+
+					break;
+				case RIGHT:
+
+					rnt.add(n);
+
+					break;
+
+				case FALSE:
+					// Do nothing
+					break;
+
+				}
+
 			}
-
-			switch (handleIntersectionWall(n.rect, WX, WY)) {
-
-			case TOP:
-				rnt.add(n);
-
-				break;
-			case BOTTOM:
-				rnt.add(n);
-
-				break;
-			case LEFT:
-
-				rnt.add(n);
-
-				break;
-			case RIGHT:
-
-				rnt.add(n);
-
-				break;
-
-			case FALSE:
-				// Do nothing
-				break;
-
-			}
+		} catch (Exception e) {
 
 		}
 
@@ -444,9 +472,12 @@ public class SimulationFrame extends JFrame implements
 
 		pre.update();
 		post.update();
+		try {
+			for (Neurotransmitter n : nt) {
+				n.update();
+			}
+		} catch (Exception e) {
 
-		for (Neurotransmitter n : nt) {
-			n.update();
 		}
 
 	}
@@ -456,6 +487,30 @@ public class SimulationFrame extends JFrame implements
 		for (Neurotransmitter rn : rnt) {
 
 			nt.remove(rn);
+		}
+
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+		mouseX = e.getX();
+		mouseY = e.getY();
+
+		for (Receptor r : post.activeReceptors) {
+
+			if (r.rect.contains(mouseX, mouseY)) {
+				r.mouseOver = true;
+			} else {
+				r.mouseOver = false;
+			}
 		}
 
 	}

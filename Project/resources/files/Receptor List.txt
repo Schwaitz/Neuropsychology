@@ -1,4 +1,4 @@
-SEROTONIN:5-HT Receptor
+SEROTONIN:5-HT1 receptor:5-HT2 receptor:5-HT3 receptor:5-HT4 receptor:5-HT5 receptor:5-HT6 receptor:5-HT7 receptor
 NOREPINEPHRINE:Adrenoceptor receptor:Alpha1A receptor:Alpha1B receptor:Alpha1D receptor:Alpha2A receptor:Alpha2B receptor:Alpha2C receptor:Alpha2D receptor:Beta1 receptor:Beta2 receptor
 DOPAMINE:D1 receptor:D2 receptor:D3 receptor :D4 receptor:D5 receptor
 ACETYLCHOLINE:Neuronal acetylcholine receptor subunit alpha-1:Neuronal acetylcholine receptor subunit alpha-10:Neuronal acetylcholine receptor subunit alpha-2:Neuronal acetylcholine receptor subunit alpha-4:Neuronal acetylcholine receptor subunit alpha-6:Neuronal acetylcholine receptor subunit alpha-7:Neuronal acetylcholine receptor subunit alpha-8:Neuronal acetylcholine receptor subunit alpha-9:Neuronal acetylcholine receptor subunit beta-1:Neuronal acetylcholine receptor subunit beta-2:Neuronal acetylcholine receptor subunit beta-3:Neuronal acetylcholine receptor subunit beta-4

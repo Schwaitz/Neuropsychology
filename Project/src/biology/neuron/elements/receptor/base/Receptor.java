@@ -4,8 +4,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
+import misc.GlobalVariables;
 import biology.neurotransmitter.base.Neurotransmitter;
 
 public class Receptor {
@@ -16,6 +19,10 @@ public class Receptor {
 	public int x;
 	public int y;
 	public Color color;
+
+	public boolean mouseOver = false;
+
+	public int index;
 
 	public ArrayList<Neurotransmitter> boundNT = new ArrayList<Neurotransmitter>();
 
@@ -36,8 +43,11 @@ public class Receptor {
 		g.setColor(color);
 		g.fillRect(x, y, width, height);
 		g.setColor(Color.black);
-		g.setFont(new Font("Impact", 10, 10));
-		g.drawString(name, x - 10, y + height + 20);
+		g.setFont(new Font("Impact", 15, 15));
+
+		if (mouseOver == true) {
+			g.drawString(name, GlobalVariables.WX / 2 - 150, y + height + 30);
+		}
 
 	}
 
@@ -52,8 +62,8 @@ public class Receptor {
 		new Thread(new Runnable() {
 			public void run() {
 				int count = 0;
-				while(count < 100){
-					
+				while (count < 100) {
+
 					count++;
 					try {
 						Thread.sleep(30);
@@ -61,9 +71,9 @@ public class Receptor {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					
+
 				}
-				
+
 				n.released = true;
 				n.dy = (int) (Math.random() * -4 - 2);
 				n.dx = (int) (Math.random() * 8 - 4);
