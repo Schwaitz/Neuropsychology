@@ -12,6 +12,7 @@ public interface IntersectionHandler {
 
 	default BounceType handleIntersectionOutside(Rectangle r1, Rectangle r2) {
 
+		
 		if (r1.intersects(r2)) {
 			int x1 = r1.x;
 			int w1 = r1.x + r1.width;

@@ -20,7 +20,7 @@ public class Engine implements Runnable {
 
 	Thread mainThread = new Thread(this);
 	
-	int mWX = 355;
+	int mWX = 355 + (71 * 2);
 	int mWY = 600;
 	PrintStream p = new PrintStream(System.out);
 

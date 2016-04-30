@@ -10,6 +10,11 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
 import javax.swing.JFrame;
 
 import engine.Engine;
@@ -18,6 +23,8 @@ import enums.ErrorMessageType;
 
 public class MainFrame extends JFrame implements MouseListener {
 
+	private static final long serialVersionUID = 1301756957939465300L;
+
 	boolean loading = true;
 	StartSimulationButton sim;
 	BufferedImage background;
@@ -25,15 +32,24 @@ public class MainFrame extends JFrame implements MouseListener {
 	public int WX;
 	public int WY;
 
+	File audioFile = new File("./resources/sound/ambient.wav");
+	AudioInputStream audioStream;
+	AudioFormat format;
+	DataLine.Info info;
+	Clip audioClip;
+
 	public MainFrame(int WXs, int WYs) {
 		WX = WXs;
 		WY = WYs;
 		setupFrame();
+		setupAudio();
 
 		try {
+
 			background = ImageIO.read(new File(
 					"./resources/images/background.png"));
-		} catch (IOException e) {
+
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -58,6 +74,26 @@ public class MainFrame extends JFrame implements MouseListener {
 		this.setSize(WX, WY);
 	}
 
+	void setupAudio() {
+
+		try {
+			audioStream = AudioSystem.getAudioInputStream(audioFile);
+
+			format = audioStream.getFormat();
+			info = new DataLine.Info(Clip.class, format);
+
+			audioClip = (Clip) AudioSystem.getLine(info);
+
+			audioClip.open(audioStream);
+			audioClip.start();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
 	public void render(Graphics g) {
 
 		try {
@@ -65,7 +101,7 @@ public class MainFrame extends JFrame implements MouseListener {
 			Graphics bufferGraphics = offscreen.getGraphics();
 
 			bufferGraphics.clearRect(0, 0, WX, WY);
-			bufferGraphics.drawImage(background, 0, 0, this);
+			bufferGraphics.drawImage(background, 0, 0, WX, WY, this);
 
 			if (loading == true) {
 
@@ -79,7 +115,7 @@ public class MainFrame extends JFrame implements MouseListener {
 			}
 
 			else if (loading == false) {
-				bufferGraphics.drawImage(background, 0, 0, this);
+				bufferGraphics.drawImage(background, 0, 0, WX, WY, this);
 				sim.draw(bufferGraphics);
 
 			}
@@ -119,7 +155,15 @@ public class MainFrame extends JFrame implements MouseListener {
 
 		if (sim.rect.contains(e.getPoint())) {
 
-			Engine.sFrame = new SimulationFrame(355, 600);
+			Engine.sFrame = new SimulationFrame(355 + (71 * 2), 600);
+
+			audioClip.close();
+			try {
+				audioStream.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
 			this.setVisible(false);
 			this.setEnabled(false);

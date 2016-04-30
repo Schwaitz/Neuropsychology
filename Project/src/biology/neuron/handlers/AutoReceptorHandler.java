@@ -3,7 +3,7 @@ package biology.neuron.handlers;
 import java.io.File;
 import java.util.ArrayList;
 
-import biology.neuron.elements.AutoReceptor;
+import biology.neuron.elements.receptor.base.AutoReceptor;
 
 public interface AutoReceptorHandler {
 

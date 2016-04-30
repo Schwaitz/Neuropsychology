@@ -1,4 +1,4 @@
-package biology.neuron.elements;
+package biology.neuron.elements.receptor.base;
 
 import java.awt.Graphics;
 

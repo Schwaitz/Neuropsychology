@@ -1,4 +1,4 @@
-package biology.neurotransmitter;
+package biology.neurotransmitter.base;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -9,6 +9,7 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JFrame;
 
 import biology.neuron.elements.Vesicle;
+import biology.neuron.elements.receptor.base.Receptor;
 
 public class Neurotransmitter implements MouseMotionListener {
 
@@ -30,6 +31,8 @@ public class Neurotransmitter implements MouseMotionListener {
 	public int prh;
 
 	public Vesicle pointer;
+	
+	public String receptorBindType;
 
 	JFrame f;
 
@@ -37,7 +40,7 @@ public class Neurotransmitter implements MouseMotionListener {
 	int mouseY = 0;
 
 	public Neurotransmitter(String types, int xs, int ys, int widths,
-			int heights, Color colors, JFrame fs, Vesicle pointers) {
+			int heights, Color colors, JFrame fs, Vesicle pointers, String receptorBindTypes) {
 
 		type = types;
 		x = xs;
@@ -47,6 +50,7 @@ public class Neurotransmitter implements MouseMotionListener {
 		color = colors;
 		f = fs;
 		pointer = pointers;
+		receptorBindType = receptorBindTypes;
 
 		prx = pointer.x;
 		pry = pointer.y;

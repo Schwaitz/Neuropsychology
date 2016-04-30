@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class Exit {
+public class ExocytosisPoint {
 
 	public int x;
 	public int y;
@@ -14,7 +14,7 @@ public class Exit {
 
 	public Rectangle rect;
 
-	public Exit(int xs, int ys, int widths, int heights, Color colors) {
+	public ExocytosisPoint(int xs, int ys, int widths, int heights, Color colors) {
 
 		x = xs;
 		y = ys;

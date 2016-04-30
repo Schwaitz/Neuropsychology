@@ -29,15 +29,18 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 	public int width;
 	public int height;
 	public int x;
-	
-	public Exit releasePointer =  null;
+
+	public boolean xLock = false;
+
+	public ExocytosisPoint releasePointer = null;
 	Neuron pointer;
 
 	public int y;
 
 	public boolean releaseTransmitter = false;
 
-	public Vesicle(int xs, int ys, int widths, int heights, JFrame fs, Neuron pointers) {
+	public Vesicle(int xs, int ys, int widths, int heights, JFrame fs,
+			Neuron pointers) {
 
 		x = xs;
 		y = ys;
@@ -61,7 +64,8 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 
 		try {
 			i = ImageIO.read(new File("./resources/images/Vesicle.png"));
-			iDraw = ImageIO.read(new File("./resources/images/Vesicle_transparent.png"));
+			iDraw = ImageIO.read(new File(
+					"./resources/images/Vesicle_transparent.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -117,12 +121,42 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 		}
 
 	}
-	
-	public void remove(){
-		
-	//	this.rects.clear();
+
+	public void remove() {
+
+		// this.rects.clear();
 		pointer.rVesicles.add(this);
-		
+
+	}
+
+	public void intersectionLock() {
+
+		xLock = true;
+
+		new Thread(new Runnable() {
+
+			int count = 0;
+
+			public void run() {
+
+				while (count < 30) {
+
+					count++;
+
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+				xLock = false;
+
+			}
+
+		}).start();
+
 	}
 
 }

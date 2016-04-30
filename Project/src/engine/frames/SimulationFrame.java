@@ -12,12 +12,12 @@ import javax.swing.JFrame;
 import biology.neuron.Neuron;
 import biology.neuron.PostsynapticNeuron;
 import biology.neuron.PresynapticNeuron;
-import biology.neuron.elements.Exit;
-import biology.neuron.elements.Receptor;
+import biology.neuron.elements.ExocytosisPoint;
 import biology.neuron.elements.Vesicle;
+import biology.neuron.elements.receptor.base.Receptor;
 import biology.neuron.handlers.AutoReceptorHandler;
 import biology.neuron.handlers.PostsynapticReceptorHandler;
-import biology.neurotransmitter.Neurotransmitter;
+import biology.neurotransmitter.base.Neurotransmitter;
 import engine.handlers.IntersectionHandler;
 
 public class SimulationFrame extends JFrame implements AutoReceptorHandler,
@@ -61,27 +61,25 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 
 	void setupBiology() {
 
-		pre = new PresynapticNeuron(this, 0, 0);
+		pre = new PresynapticNeuron(this, 0 + 71, 0);
 
-		post = new PostsynapticNeuron(this, 0, 400);
+		post = new PostsynapticNeuron(this, 0 + 71, 400);
 
 		for (int n = 0; n < neurotransmitterInVesicle; n++) {
 			for (int v = 0; v < 3; v++) {
 				nt.add(new Neurotransmitter("Dopamine",
 						pre.vesicles.get(v).x + 15, pre.vesicles.get(v).y + 15,
 						5, 5, new Color(255, 160, 30), this, pre.vesicles
-								.get(v)));
+								.get(v), "Dopamine"));
 			}
 		}
 		int index = 0;
 
 		for (Receptor r : post.receptors) {
 
-			System.out.println(r.type + " | " + r.name);
-
 			if (r.type.equals("DOPAMINE")) {
 
-				r.x = 45 + 60 * index;
+				r.x = 45 + 60 * index + 71;
 				r.y = 390;
 				r.width = 30;
 				r.height = 14;
@@ -104,8 +102,8 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 
 		bufferGraphics.clearRect(0, 0, this.WX, this.WY);
 
-		//bufferGraphics.setColor(Color.white);
-		//bufferGraphics.fillRect(0, 0, WX, WY);
+		// bufferGraphics.setColor(Color.white);
+		// bufferGraphics.fillRect(0, 0, WX, WY);
 
 		for (Receptor r : post.activeReceptors) {
 
@@ -125,7 +123,7 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 			n.draw(bufferGraphics);
 		}
 
-		for (Exit e : pre.exits) {
+		for (ExocytosisPoint e : pre.exits) {
 
 			e.draw(bufferGraphics);
 		}
@@ -200,34 +198,135 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 
 				for (Rectangle prer : pre.rects) {
 
-					switch (handleIntersectionOutside(r, prer)) {
+					if (v.xLock == false) {
+						switch (handleIntersectionOutside(r, prer)) {
 
-					case TOP:
-						v.dy = -v.dy;
-						v.dx = -v.dx;
-						break;
-					case BOTTOM:
-						v.dy = -v.dy;
-						v.dx = -v.dx;
-						break;
-					case LEFT:
-						v.dy = -v.dy;
-						v.dx = -v.dx;
+						case TOP:
 
-						break;
-					case RIGHT:
-						v.dy = -v.dy;
-						v.dx = -v.dx;
+							v.intersectionLock();
 
-						break;
+							if (randSwitch()) {
+								v.dy = -v.dy + (int) (Math.random() * 3);
+								if(v.dy == 0){
+									v.dy = 3;
+								}
 
-					case FALSE:
-						// Do nothing
-						break;
+							} else {
+								v.dy = -v.dy + (int) (Math.random() * -3);
+								if(v.dy == 0){
+									v.dy = 3;
+								}
+							}
+
+							if (randSwitch()) {
+								v.dx = -v.dx + (int) (Math.random() * 3);
+								if(v.dx == 0){
+									v.dx = 3;
+								}
+							} else {
+								v.dx = -v.dx + (int) (Math.random() * -3);
+								if(v.dx == 0){
+									v.dx = 3;
+								}
+							}
+
+							break;
+						case BOTTOM:
+
+							v.intersectionLock();
+							if (randSwitch()) {
+								v.dy = -v.dy + (int) (Math.random() * 3);
+								if(v.dy == 0){
+									v.dy = 3;
+								}
+
+							} else {
+								v.dy = -v.dy + (int) (Math.random() * -3);
+								if(v.dy == 0){
+									v.dy = 3;
+								}
+							}
+
+							if (randSwitch()) {
+								v.dx = -v.dx + (int) (Math.random() * 3);
+								if(v.dx == 0){
+									v.dx = 3;
+								}
+							} else {
+								v.dx = -v.dx + (int) (Math.random() * -3);
+								if(v.dx == 0){
+									v.dx = 3;
+								}
+							}
+							break;
+						case LEFT:
+
+							v.intersectionLock();
+							if (randSwitch()) {
+								v.dy = -v.dy + (int) (Math.random() * 3);
+								if(v.dy == 0){
+									v.dy = 3;
+								}
+
+							} else {
+								v.dy = -v.dy + (int) (Math.random() * -3);
+								if(v.dy == 0){
+									v.dy = 3;
+								}
+							}
+
+							if (randSwitch()) {
+								v.dx = -v.dx + (int) (Math.random() * 3);
+								if(v.dx == 0){
+									v.dx = 3;
+								}
+							} else {
+								v.dx = -v.dx + (int) (Math.random() * -3);
+								if(v.dx == 0){
+									v.dx = 3;
+								}
+							}
+
+							break;
+						case RIGHT:
+
+							v.intersectionLock();
+
+							if (randSwitch()) {
+								v.dy = -v.dy + (int) (Math.random() * 3);
+								if(v.dy == 0){
+									v.dy = 3;
+								}
+
+							} else {
+								v.dy = -v.dy + (int) (Math.random() * -3);
+								if(v.dy == 0){
+									v.dy = 3;
+								}
+							}
+
+							if (randSwitch()) {
+								v.dx = -v.dx + (int) (Math.random() * 3);
+								if(v.dx == 0){
+									v.dx = 3;
+								}
+							} else {
+								v.dx = -v.dx + (int) (Math.random() * -3);
+								if(v.dx == 0){
+									v.dx = 3;
+								}
+							}
+
+							break;
+
+						case FALSE:
+							// Do nothing
+							break;
+						}
 					}
 				}
 
-				for (Exit e : pre.exits) {
+				for (ExocytosisPoint e : pre.exits) {
 					switch (handleIntersectionOutside(r, e.rect)) {
 
 					case TOP:
@@ -237,10 +336,10 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 						for (Neurotransmitter n : nt) {
 
 							if (n.pointer.equals(v)) {
-								n.x = v.releasePointer.x + (v.releasePointer.width / 2);
+								n.x = v.releasePointer.x
+										+ (v.releasePointer.width / 2);
 								n.y = v.releasePointer.y + 10;
 								n.release();
-	
 
 							}
 
@@ -256,10 +355,10 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 						for (Neurotransmitter n : nt) {
 
 							if (n.pointer.equals(v)) {
-								n.x = v.releasePointer.x + (v.releasePointer.width / 2);
+								n.x = v.releasePointer.x
+										+ (v.releasePointer.width / 2);
 								n.y = v.releasePointer.y + 10;
 								n.release();
-
 
 							}
 
@@ -274,10 +373,10 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 						for (Neurotransmitter n : nt) {
 
 							if (n.pointer.equals(v)) {
-								n.x = v.releasePointer.x + (v.releasePointer.width / 2);
+								n.x = v.releasePointer.x
+										+ (v.releasePointer.width / 2);
 								n.y = v.releasePointer.y + 10;
 								n.release();
-
 
 							}
 
@@ -293,10 +392,10 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 
 							if (n.pointer.equals(v)) {
 
-								n.x = v.releasePointer.x + (v.releasePointer.width / 2);
+								n.x = v.releasePointer.x
+										+ (v.releasePointer.width / 2);
 								n.y = v.releasePointer.y + 10;
 								n.release();
-
 
 							}
 
@@ -438,6 +537,11 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 
 			for (Rectangle r : post.rects) {
 
+				if (n.y > r.y + 20) {
+
+					rnt.add(n);
+				}
+
 				switch (handleIntersectionOutside(n.rect, r)) {
 
 				case TOP:
@@ -465,7 +569,8 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 
 			for (Receptor r : post.receptors) {
 
-				if (r.type.equals("DOPAMINE")) {
+				if (r.neurotransmitterBindType.equals(n.receptorBindType)) {
+
 					switch (handleIntersectionOutside(n.rect, r.rect)) {
 					case TOP:
 						n.dy = 0;
@@ -545,6 +650,19 @@ public class SimulationFrame extends JFrame implements AutoReceptorHandler,
 			nt.remove(rn);
 		}
 
+	}
+
+	boolean randSwitch() {
+
+		int rand = (int) (Math.random() * 2);
+
+		if (rand == 0) {
+
+			return false;
+
+		} else {
+			return true;
+		}
 	}
 
 }

@@ -8,11 +8,11 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-import biology.neuron.elements.AutoReceptor;
-import biology.neuron.elements.Exit;
-import biology.neuron.elements.Receptor;
+import biology.neuron.elements.ExocytosisPoint;
 import biology.neuron.elements.ReuptakePump;
 import biology.neuron.elements.Vesicle;
+import biology.neuron.elements.receptor.base.AutoReceptor;
+import biology.neuron.elements.receptor.base.Receptor;
 
 public class Neuron {
 
@@ -27,7 +27,7 @@ public class Neuron {
 	public ArrayList<Vesicle> vesicles;
 	public ArrayList<Vesicle> rVesicles;
 
-	public ArrayList<Exit> exits;
+	public ArrayList<ExocytosisPoint> exits;
 
 	public ArrayList<Receptor> activeReceptors;
 
@@ -42,7 +42,7 @@ public class Neuron {
 		x = xs;
 		y = ys;
 
-		exits = new ArrayList<Exit>();
+		exits = new ArrayList<ExocytosisPoint>();
 		activeReceptors = new ArrayList<Receptor>();
 		receptors = new ArrayList<Receptor>();
 		autoReceptors = new ArrayList<AutoReceptor>();

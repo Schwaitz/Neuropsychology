@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import algorithms.RectangleAlgorithm;
-import biology.neuron.elements.Receptor;
+import biology.neuron.elements.receptor.base.Receptor;
 import biology.neuron.handlers.PostsynapticReceptorHandler;
 
 public class PostsynapticNeuron extends Neuron implements
