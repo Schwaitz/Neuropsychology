@@ -20,8 +20,10 @@ public class PostsynapticNeuron extends Neuron implements
 		super(frs, xs, ys);
 
 		try {
-			i = ImageIO.read(new File("./resources/images/PostsynapticNeuron.png"));
-			iDraw = ImageIO.read(new File("./resources/images/PostsynapticNeuron_transparent.png"));
+			i = ImageIO.read(new File(
+					"./resources/images/PostsynapticNeuron.png"));
+			iDraw = ImageIO.read(new File(
+					"./resources/images/PostsynapticNeuron_transparent.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -32,6 +34,8 @@ public class PostsynapticNeuron extends Neuron implements
 		receptors = createReceptors();
 
 		shiftRectangles();
+		
+		activeReceptors = activateReceptors();
 
 	}
 
@@ -40,6 +44,31 @@ public class PostsynapticNeuron extends Neuron implements
 
 		return returnReceptors;
 
+	}
+
+	ArrayList<Receptor> activateReceptors() {
+		ArrayList<Receptor> returnAReceptors = new ArrayList<Receptor>();
+
+		int index = 0;
+
+		for (Receptor r : this.receptors) {
+
+			if (r.type.equals("DOPAMINE")) {
+
+				r.x = 45 + 60 * index + 71;
+				r.y = y - 10;
+				r.width = 30;
+				r.height = 14;
+				r.color = Color.green;
+
+				returnAReceptors.add(r);
+
+				index++;
+
+			}
+
+		}
+		return returnAReceptors;
 	}
 
 }

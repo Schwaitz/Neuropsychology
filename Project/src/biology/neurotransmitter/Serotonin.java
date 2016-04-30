@@ -10,8 +10,9 @@ import biology.neurotransmitter.base.Neurotransmitter;
 public class Serotonin extends Neurotransmitter {
 
 	public Serotonin(String types, int xs, int ys, int widths, int heights,
-			Color colors, JFrame fs, Vesicle pointers, String bindReceptorTypes) {
-		super(types, xs, ys, widths, heights, colors, fs, pointers, bindReceptorTypes);
+			JFrame fs, Vesicle pointers, String bindReceptorTypes) {
+		super(types, xs, ys, widths, heights, Color.red, fs, pointers,
+				bindReceptorTypes);
 		// TODO Auto-generated constructor stub
 	}
 

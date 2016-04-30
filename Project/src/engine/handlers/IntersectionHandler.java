@@ -6,13 +6,19 @@ import enums.BounceType;
 
 public interface IntersectionHandler {
 
-	default BounceType handleIntersection() {
-		return BounceType.FALSE;
+	default BounceType handleIntersection(Rectangle r1, Rectangle r2) {
+
+		if (r1.intersects(r2)) {
+
+			return BounceType.TRUE;
+
+		} else {
+			return BounceType.FALSE;
+		}
 	}
 
 	default BounceType handleIntersectionOutside(Rectangle r1, Rectangle r2) {
 
-		
 		if (r1.intersects(r2)) {
 			int x1 = r1.x;
 			int w1 = r1.x + r1.width;
@@ -60,7 +66,7 @@ public interface IntersectionHandler {
 			return BounceType.LEFT;
 		}
 
-		if (r.y > y+ WY) {
+		if (r.y > y + WY) {
 			return BounceType.BOTTOM;
 		}
 

@@ -17,20 +17,19 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 import javax.swing.JFrame;
 
+import misc.GlobalVariables;
 import engine.Engine;
 import engine.UIElements.StartSimulationButton;
 import enums.ErrorMessageType;
 
 public class MainFrame extends JFrame implements MouseListener {
-
-	private static final long serialVersionUID = 1301756957939465300L;
-
+	
 	boolean loading = true;
 	StartSimulationButton sim;
 	BufferedImage background;
 
-	public int WX;
-	public int WY;
+	public int WX = GlobalVariables.WX;
+	public int WY = GlobalVariables.WY;
 
 	File audioFile = new File("./resources/sound/ambient.wav");
 	AudioInputStream audioStream;
@@ -38,9 +37,7 @@ public class MainFrame extends JFrame implements MouseListener {
 	DataLine.Info info;
 	Clip audioClip;
 
-	public MainFrame(int WXs, int WYs) {
-		WX = WXs;
-		WY = WYs;
+	public MainFrame() {
 		setupFrame();
 		setupAudio();
 
@@ -155,7 +152,7 @@ public class MainFrame extends JFrame implements MouseListener {
 
 		if (sim.rect.contains(e.getPoint())) {
 
-			Engine.sFrame = new SimulationFrame(355 + (71 * 2), 600);
+			Engine.sFrame = new SimulationFrame();
 
 			audioClip.close();
 			try {

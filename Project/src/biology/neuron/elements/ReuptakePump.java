@@ -1,6 +1,8 @@
 package biology.neuron.elements;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class ReuptakePump {
 
@@ -9,6 +11,8 @@ public class ReuptakePump {
 	int x;
 	int y;
 
+	public Rectangle rect;
+
 	public ReuptakePump(int xs, int ys, int widths, int heights) {
 
 		x = xs;
@@ -16,14 +20,15 @@ public class ReuptakePump {
 		width = widths;
 		height = heights;
 
+		rect = new Rectangle(x, y, width, height);
+
 	}
-	
-	
-	
+
 	public void draw(Graphics g) {
 
+		g.setColor(Color.cyan);
+		g.fillOval(x, y, width, height);
 
 	}
-
 
 }

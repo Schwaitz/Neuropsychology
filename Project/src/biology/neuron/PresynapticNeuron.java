@@ -12,19 +12,18 @@ import algorithms.RectangleAlgorithm;
 import biology.neuron.elements.ExocytosisPoint;
 import biology.neuron.elements.ReuptakePump;
 import biology.neuron.elements.Vesicle;
-import biology.neuron.elements.receptor.base.AutoReceptor;
-import biology.neuron.handlers.AutoReceptorHandler;
 
-public class PresynapticNeuron extends Neuron implements AutoReceptorHandler,
-		RectangleAlgorithm {
+public class PresynapticNeuron extends Neuron implements RectangleAlgorithm {
 
 	public PresynapticNeuron(JFrame frs, int xs, int ys) {
 
 		super(frs, xs, ys);
 
 		try {
-			i = ImageIO.read(new File("./resources/images/PresynapticNeuron.png"));
-			iDraw = ImageIO.read(new File("./resources/images/PresynapticNeuron_transparent.png"));
+			i = ImageIO.read(new File(
+					"./resources/images/PresynapticNeuron.png"));
+			iDraw = ImageIO.read(new File(
+					"./resources/images/PresynapticNeuron_transparent.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -35,38 +34,18 @@ public class PresynapticNeuron extends Neuron implements AutoReceptorHandler,
 		rects = getRects(i, Color.black);
 
 		pump = createPump();
-		vesicles = createVesicles();
-		autoReceptors = createAutoReceptors();
 
 		shiftRectangles();
 
-	}
-
-	ArrayList<AutoReceptor> createAutoReceptors() {
-
-		ArrayList<AutoReceptor> returnReceptors = presynapticAutoReceptors;
-
-		return returnReceptors;
+		startVesicleThread();
 
 	}
 
 	ReuptakePump createPump() {
 
-		ReuptakePump returnPump = null;
+		ReuptakePump returnPump = new ReuptakePump(110, 200, 50, 50);
 
 		return returnPump;
-
-	}
-
-	ArrayList<Vesicle> createVesicles() {
-
-		ArrayList<Vesicle> returnVesicles = new ArrayList<Vesicle>();
-
-		returnVesicles.add(new Vesicle(85+71, 150, 30, 30, fr, this));
-		returnVesicles.add(new Vesicle(165+71, 150, 30, 30, fr, this));
-		returnVesicles.add(new Vesicle(240+71, 150, 30, 30, fr, this));
-
-		return returnVesicles;
 
 	}
 
@@ -79,6 +58,35 @@ public class PresynapticNeuron extends Neuron implements AutoReceptorHandler,
 
 		return returnExits;
 
+	}
+
+	public void releaseVesicle() {
+
+		vesicles.add(new Vesicle((int) (Math.random() * 50 + 135 + 71), 5, 30,
+				30, fr, this));
+
+	}
+
+	void startVesicleThread() {
+
+		new Thread(new Runnable() {
+
+			public void run() {
+
+				while (true) {
+
+					releaseVesicle();
+
+					try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				}
+			}
+		}).start();
 	}
 
 }

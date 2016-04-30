@@ -10,8 +10,9 @@ import biology.neurotransmitter.base.Neurotransmitter;
 public class Glutamate extends Neurotransmitter {
 
 	public Glutamate(String types, int xs, int ys, int widths, int heights,
-			Color colors, JFrame fs, Vesicle pointers, String bindReceptorTypes) {
-		super(types, xs, ys, widths, heights, colors, fs, pointers, bindReceptorTypes);
+			JFrame fs, Vesicle pointers, String bindReceptorTypes) {
+		super(types, xs, ys, widths, heights, Color.green, fs, pointers,
+				bindReceptorTypes);
 		// TODO Auto-generated constructor stub
 	}
 

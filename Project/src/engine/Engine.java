@@ -2,6 +2,7 @@ package engine;
 
 import java.io.PrintStream;
 
+import misc.GlobalVariables;
 import engine.frames.MainFrame;
 import engine.frames.SimulationFrame;
 
@@ -20,15 +21,13 @@ public class Engine implements Runnable {
 
 	Thread mainThread = new Thread(this);
 	
-	int mWX = 355 + (71 * 2);
-	int mWY = 600;
 	PrintStream p = new PrintStream(System.out);
 
 	boolean running = true;
 
 	Engine() {
 
-		mFrame = new MainFrame(mWX, mWY);
+		mFrame = new MainFrame();
 
 		mainThread.start();
 

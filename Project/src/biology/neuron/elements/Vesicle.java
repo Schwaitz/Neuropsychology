@@ -14,6 +14,8 @@ import javax.swing.JFrame;
 import misc.ResizeBufferedImage;
 import algorithms.RectangleAlgorithm;
 import biology.neuron.Neuron;
+import biology.neurotransmitter.base.Neurotransmitter;
+import engine.frames.SimulationFrame;
 
 public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 
@@ -29,13 +31,16 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 	public int width;
 	public int height;
 	public int x;
+	
+	int ntAmount = 30;
 
 	public boolean xLock = false;
 
-	public ExocytosisPoint releasePointer = null;
 	Neuron pointer;
 
 	public int y;
+
+	public ArrayList<Neurotransmitter> NTContainer = new ArrayList<Neurotransmitter>();
 
 	public boolean releaseTransmitter = false;
 
@@ -49,18 +54,20 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 		f = fs;
 		pointer = pointers;
 
-		dx = (int) (Math.random() * 2 + 2);
-
-		int rand = (int) (Math.random() * 2);
-		if (rand == 1) {
-			dx = -dx;
+		dx = (int) (Math.random() * 4 - 2);
+		
+		if(dx == 0){
+			int rand = (int) (Math.random() * 2);
+			
+			if(rand == 0){
+				dx = 1;
+			}else{
+				dx = -1;
+			}
+			
 		}
-
-		dy = (int) (Math.random() * 2 + 2);
-		rand = (int) (Math.random() * 2);
-		if (rand == 1) {
-			dy = -dy;
-		}
+		
+		dy = (int) (Math.random() * 2 + 4);
 
 		try {
 			i = ImageIO.read(new File("./resources/images/Vesicle.png"));
@@ -76,6 +83,8 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 		rects = getRects(i, Color.black);
 
 		rect = new Rectangle(x, y, width, height);
+		
+		NTContainer = fill();
 
 		shiftRectangles();
 
@@ -156,6 +165,20 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 			}
 
 		}).start();
+
+	}
+
+	ArrayList<Neurotransmitter> fill() {
+		ArrayList<Neurotransmitter> returnNT = new ArrayList<Neurotransmitter>();
+
+		for (int i = 0; i < ntAmount; i++) {
+			Neurotransmitter temp = new Neurotransmitter("Dopamine", x
+					+ (width / 2), y + (height / 2), 5, 5, new Color(255, 160,
+					30), f, this, "Dopamine");
+			SimulationFrame.nt.add(temp);
+		}
+
+		return returnNT;
 
 	}
 

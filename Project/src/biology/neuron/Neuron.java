@@ -3,7 +3,6 @@ package biology.neuron;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -11,7 +10,6 @@ import javax.swing.JFrame;
 import biology.neuron.elements.ExocytosisPoint;
 import biology.neuron.elements.ReuptakePump;
 import biology.neuron.elements.Vesicle;
-import biology.neuron.elements.receptor.base.AutoReceptor;
 import biology.neuron.elements.receptor.base.Receptor;
 
 public class Neuron {
@@ -22,7 +20,6 @@ public class Neuron {
 
 	public ReuptakePump pump;
 	public ArrayList<Receptor> receptors;
-	public ArrayList<AutoReceptor> autoReceptors;
 	public ArrayList<Rectangle> rects;
 	public ArrayList<Vesicle> vesicles;
 	public ArrayList<Vesicle> rVesicles;
@@ -45,8 +42,7 @@ public class Neuron {
 		exits = new ArrayList<ExocytosisPoint>();
 		activeReceptors = new ArrayList<Receptor>();
 		receptors = new ArrayList<Receptor>();
-		autoReceptors = new ArrayList<AutoReceptor>();
-		pump = null;
+		pump = new ReuptakePump(0,0,0,0);
 		vesicles = new ArrayList<Vesicle>();
 		rVesicles = new ArrayList<Vesicle>();
 
@@ -60,11 +56,10 @@ public class Neuron {
 
 			r.draw(g);
 		}
+		
+		pump.draw(g);
 
-		for (AutoReceptor ar : autoReceptors) {
 
-			ar.draw(g);
-		}
 
 	}
 
@@ -93,9 +88,6 @@ public class Neuron {
 			r.update();
 		}
 
-		for (AutoReceptor ar : autoReceptors) {
-			ar.update();
-		}
 
 	}
 

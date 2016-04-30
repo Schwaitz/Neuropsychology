@@ -5,13 +5,14 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.util.Random;
 
 import javax.swing.JFrame;
 
 import biology.neuron.elements.Vesicle;
 import biology.neuron.elements.receptor.base.Receptor;
 
-public class Neurotransmitter implements MouseMotionListener {
+public class Neurotransmitter {
 
 	Color color;
 	public int dx;
@@ -23,7 +24,9 @@ public class Neurotransmitter implements MouseMotionListener {
 	public int x;
 	public int y;
 
-	boolean lock = false;
+	public boolean xLock = false;
+	public boolean released = false;
+	public boolean passed = false;
 
 	public int prx;
 	public int pry;
@@ -31,16 +34,14 @@ public class Neurotransmitter implements MouseMotionListener {
 	public int prh;
 
 	public Vesicle pointer;
-	
+
 	public String receptorBindType;
 
 	JFrame f;
 
-	int mouseX = 0;
-	int mouseY = 0;
-
 	public Neurotransmitter(String types, int xs, int ys, int widths,
-			int heights, Color colors, JFrame fs, Vesicle pointers, String receptorBindTypes) {
+			int heights, Color colors, JFrame fs, Vesicle pointers,
+			String receptorBindTypes) {
 
 		type = types;
 		x = xs;
@@ -56,8 +57,6 @@ public class Neurotransmitter implements MouseMotionListener {
 		pry = pointer.y;
 		prw = pointer.x + pointer.width;
 		prh = pointer.y + pointer.height;
-
-		f.addMouseMotionListener(this);
 
 		dx = (int) (Math.random() * 2 + 1);
 
@@ -78,6 +77,7 @@ public class Neurotransmitter implements MouseMotionListener {
 	public void draw(Graphics g) {
 
 		g.setColor(color);
+
 		g.fillOval(x, y, width, height);
 
 	}
@@ -95,66 +95,87 @@ public class Neurotransmitter implements MouseMotionListener {
 
 	}
 
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-		mouseX = e.getX();
-		mouseY = e.getY();
-
-	}
-
 	public void release() {
-		final int currentDY = dy;
 
-		lock();
+		dy = (int) (Math.random() * 4 - 1);
+		dx = (int) (Math.random() * 8 - 4);
+
+		int switchRandX = (int) (Math.random() * 2);
+
+		int randX = 0;
+		if (switchRandX == 0) {
+			randX = (int) (Math.random() * 20 + 5);
+		} else {
+			randX = (int) (Math.random() * -20 + -5);
+		}
+
+		x += randX;
+
+		y += (int) (Math.random() * 6);
+
+		if (dy == 0) {
+			dy = (int) (Math.random() * 3 + 1);
+		}
+		if (dx == 0) {
+			dx = (int) (Math.random() * 3 + 1);
+		}
+
+	}
+
+	public void unlockPassed() {
 
 		new Thread(new Runnable() {
 
 			public void run() {
-				int counter = 0;
 
-				while (counter < 50) {
+				int count = 0;
 
-					counter++;
+				while (count < 100) {
+
+					count++;
 
 					try {
-						Thread.sleep(15);
+						Thread.sleep(6);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				}
+
+				passed = true;
+			}
+		}).start();
+	}
+
+	public void intersectionLock() {
+
+		xLock = true;
+
+		new Thread(new Runnable() {
+
+			int count = 0;
+
+			public void run() {
+
+				while (count < 30) {
+
+					count++;
+
+					try {
+						Thread.sleep(10);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
 
-				unlock(currentDY);
+				xLock = false;
+
 			}
+
 		}).start();
 
-	}
-
-	void lock() {
-		
-		if(dy <= 0){
-			dy = -dy;
-			dy += 2;
-		}
-		else if(dy > 0){
-			dy += 2;
-		}
-
-
-
-	}
-
-	void unlock(int ody) {
-
-		dy = ody;
 	}
 
 }
