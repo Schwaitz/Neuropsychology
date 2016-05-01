@@ -20,8 +20,7 @@ public class StartSimulationButton {
 	int x;
 	int y;
 
-	public StartSimulationButton(int xs, int ys, int widths, int heights,
-			JFrame fs) {
+	public StartSimulationButton(int xs, int ys, int widths, int heights, JFrame fs) {
 
 		x = xs;
 		y = ys;

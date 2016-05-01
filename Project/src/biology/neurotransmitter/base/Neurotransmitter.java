@@ -38,7 +38,6 @@ public class Neurotransmitter {
 	public Neurotransmitter(String types, int xs, int ys, int widths, int heights, Color colors, JFrame fs,
 			Vesicle pointers, String receptorBindTypes) {
 
-
 		type = types;
 		x = xs;
 		y = ys;

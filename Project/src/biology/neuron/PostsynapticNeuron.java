@@ -13,18 +13,15 @@ import algorithms.RectangleAlgorithm;
 import biology.neuron.elements.receptor.base.Receptor;
 import biology.neuron.handlers.PostsynapticReceptorHandler;
 
-public class PostsynapticNeuron extends Neuron implements
-		PostsynapticReceptorHandler, RectangleAlgorithm {
+public class PostsynapticNeuron extends Neuron implements PostsynapticReceptorHandler, RectangleAlgorithm {
 
 	public PostsynapticNeuron(JFrame frs, int xs, int ys) {
 
 		super(frs, xs, ys);
 
 		try {
-			i = ImageIO.read(new File(
-					"./resources/images/PostsynapticNeuron.png"));
-			iDraw = ImageIO.read(new File(
-					"./resources/images/PostsynapticNeuron_transparent.png"));
+			i = ImageIO.read(new File("./resources/images/PostsynapticNeuron.png"));
+			iDraw = ImageIO.read(new File("./resources/images/PostsynapticNeuron_transparent.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -64,10 +61,10 @@ public class PostsynapticNeuron extends Neuron implements
 				r.width = 3;
 				r.height = 14;
 
-				r.color = new Color(170,100,20);
+				r.color = new Color(170, 100, 20);
 
 				r.rect = new Rectangle(r.x, r.y, r.width, r.height);
-				
+
 				returnAReceptors.add(r);
 
 				indexD++;
@@ -86,7 +83,7 @@ public class PostsynapticNeuron extends Neuron implements
 				r.height = 14;
 				r.color = Color.magenta;
 				r.rect = new Rectangle(r.x, r.y, r.width, r.height);
-				
+
 				returnAReceptors.add(r);
 
 				indexGA++;
@@ -106,7 +103,7 @@ public class PostsynapticNeuron extends Neuron implements
 				r.height = 14;
 				r.color = Color.red;
 				r.rect = new Rectangle(r.x, r.y, r.width, r.height);
-				
+
 				returnAReceptors.add(r);
 
 				indexS++;
@@ -126,7 +123,7 @@ public class PostsynapticNeuron extends Neuron implements
 				r.height = 14;
 				r.color = Color.green;
 				r.rect = new Rectangle(r.x, r.y, r.width, r.height);
-				
+
 				returnAReceptors.add(r);
 
 				indexGL++;
@@ -146,7 +143,7 @@ public class PostsynapticNeuron extends Neuron implements
 				r.height = 14;
 				r.color = Color.pink;
 				r.rect = new Rectangle(r.x, r.y, r.width, r.height);
-				
+
 				returnAReceptors.add(r);
 
 				indexN++;

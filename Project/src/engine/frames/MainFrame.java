@@ -17,13 +17,13 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 import javax.swing.JFrame;
 
-import misc.GlobalVariables;
 import engine.Engine;
 import engine.UIElements.StartSimulationButton;
 import enums.ErrorMessageType;
+import misc.GlobalVariables;
 
 public class MainFrame extends JFrame implements MouseListener {
-	
+
 	boolean loading = true;
 	StartSimulationButton sim;
 	BufferedImage background;
@@ -43,8 +43,7 @@ public class MainFrame extends JFrame implements MouseListener {
 
 		try {
 
-			background = ImageIO.read(new File(
-					"./resources/images/background.png"));
+			background = ImageIO.read(new File("./resources/images/background.png"));
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -64,9 +63,8 @@ public class MainFrame extends JFrame implements MouseListener {
 
 		int simFactor = 5;
 
-		sim = new StartSimulationButton((WX / 2) - ((60 * simFactor) / 2),
-				(WY / 2) - ((30 * simFactor) / 2) + 150, 60 * simFactor,
-				30 * simFactor, this);
+		sim = new StartSimulationButton((WX / 2) - ((60 * simFactor) / 2), (WY / 2) - ((30 * simFactor) / 2) + 150,
+				60 * simFactor, 30 * simFactor, this);
 
 		this.setSize(WX, WY);
 	}
@@ -103,8 +101,7 @@ public class MainFrame extends JFrame implements MouseListener {
 			if (loading == true) {
 
 				bufferGraphics.setFont(new Font("Impact", 40, 40));
-				bufferGraphics.drawString("Loading...", WX / 2 - 50,
-						WY / 2 - 75);
+				bufferGraphics.drawString("Loading...", WX / 2 - 50, WY / 2 - 75);
 				bufferGraphics.drawRect(20, WX / 2 - (30 / 2), WX - 40, 30);
 
 				loading = false;
@@ -166,14 +163,12 @@ public class MainFrame extends JFrame implements MouseListener {
 			this.setEnabled(false);
 			this.dispose();
 			Engine.mFrame = null;
-			
-			
+
 			Engine.oFrame.passData();
 			Engine.oFrame.setVisible(false);
 			Engine.oFrame.setEnabled(false);
 			Engine.oFrame.dispose();
 			Engine.oFrame = null;
-			
 
 		}
 

@@ -55,8 +55,7 @@ public interface IntersectionHandler {
 		return BounceType.FALSE;
 	}
 
-	default BounceType handleIntersectionInside(Rectangle r, int x, int y,
-			int WX, int WY) {
+	default BounceType handleIntersectionInside(Rectangle r, int x, int y, int WX, int WY) {
 
 		if (r.x > x + WX) {
 			return BounceType.RIGHT;

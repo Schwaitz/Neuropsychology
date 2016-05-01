@@ -2,7 +2,6 @@ package engine;
 
 import java.io.PrintStream;
 
-import misc.GlobalVariables;
 import engine.frames.MainFrame;
 import engine.frames.OptionsFrame;
 import engine.frames.SimulationFrame;
@@ -32,7 +31,6 @@ public class Engine implements Runnable {
 		mFrame = new MainFrame();
 
 		oFrame = new OptionsFrame();
-
 
 		mainThread.start();
 

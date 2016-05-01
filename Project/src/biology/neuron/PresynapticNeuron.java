@@ -20,10 +20,8 @@ public class PresynapticNeuron extends Neuron implements RectangleAlgorithm {
 		super(frs, xs, ys);
 
 		try {
-			i = ImageIO.read(new File(
-					"./resources/images/PresynapticNeuron.png"));
-			iDraw = ImageIO.read(new File(
-					"./resources/images/PresynapticNeuron_transparent.png"));
+			i = ImageIO.read(new File("./resources/images/PresynapticNeuron.png"));
+			iDraw = ImageIO.read(new File("./resources/images/PresynapticNeuron_transparent.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -64,7 +62,6 @@ public class PresynapticNeuron extends Neuron implements RectangleAlgorithm {
 
 		vesicles.add(new Vesicle((int) (Math.random() * 50 + 135 + 71), 5, 30, 30, fr, this));
 
-
 	}
 
 	void startVesicleThread() {
@@ -75,15 +72,13 @@ public class PresynapticNeuron extends Neuron implements RectangleAlgorithm {
 
 				while (true) {
 
+					releaseVesicle();
 
-						releaseVesicle();
-
-						try {
-							Thread.sleep(releaseRate);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						
+					try {
+						Thread.sleep(releaseRate);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 
 					}
 

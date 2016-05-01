@@ -2,8 +2,7 @@ package enums;
 
 public enum ErrorMessageType {
 
-	ELSECHECK("Something that wasn't " + "suppose to happen, "
-			+ "just happened."),
+	ELSECHECK("Something that wasn't " + "suppose to happen, " + "just happened."),
 
 	GENERAL("General Error"),
 

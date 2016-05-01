@@ -9,13 +9,10 @@ import biology.neurotransmitter.base.Neurotransmitter;
 
 public class Acetylcholine extends Neurotransmitter {
 
-	public Acetylcholine(String types, int xs, int ys, int widths, int heights,
-			JFrame fs, Vesicle pointers, String bindReceptorTypes) {
-		super(types, xs, ys, widths, heights, Color.yellow, fs, pointers,
-				bindReceptorTypes);
+	public Acetylcholine(String types, int xs, int ys, int widths, int heights, JFrame fs, Vesicle pointers,
+			String bindReceptorTypes) {
+		super(types, xs, ys, widths, heights, Color.yellow, fs, pointers, bindReceptorTypes);
 		// TODO Auto-generated constructor stub
 	}
-
-	
 
 }

@@ -26,8 +26,7 @@ public interface RectangleAlgorithm {
 				int blue = rgb.getBlue();
 				int alpha = rgb.getAlpha();
 
-				if (red == c.getRed() && green == c.getGreen()
-						&& blue == c.getBlue()) {
+				if (red == c.getRed() && green == c.getGreen() && blue == c.getBlue()) {
 					indexes.add(x);
 
 					if ((x + 1) < b.getWidth()) {

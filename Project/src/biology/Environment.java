@@ -1,12 +1,9 @@
 package biology;
 
 public class Environment {
-	
-	
-	public Environment(){
-		
-		
-		
+
+	public Environment() {
+
 	}
 
 }

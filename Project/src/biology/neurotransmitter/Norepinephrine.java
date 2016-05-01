@@ -9,13 +9,10 @@ import biology.neurotransmitter.base.Neurotransmitter;
 
 public class Norepinephrine extends Neurotransmitter {
 
-	public Norepinephrine(String types, int xs, int ys, int widths, int heights,
-			JFrame fs, Vesicle pointers, String bindReceptorTypes) {
-		super(types, xs, ys, widths, heights, Color.pink, fs, pointers,
-				bindReceptorTypes);
+	public Norepinephrine(String types, int xs, int ys, int widths, int heights, JFrame fs, Vesicle pointers,
+			String bindReceptorTypes) {
+		super(types, xs, ys, widths, heights, Color.pink, fs, pointers, bindReceptorTypes);
 		// TODO Auto-generated constructor stub
 	}
-
-	
 
 }

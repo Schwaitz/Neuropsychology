@@ -17,9 +17,7 @@ public class Neuron {
 	JFrame fr;
 	public BufferedImage i;
 	public BufferedImage iDraw;
-	
 
-	
 	public ReuptakePump pump;
 	public ArrayList<Receptor> receptors;
 	public ArrayList<Rectangle> rects;
@@ -35,9 +33,8 @@ public class Neuron {
 	int y;
 
 	public static int releaseRate = 5000;
-	
-	public Neuron(JFrame frs, int xs, int ys) {
 
+	public Neuron(JFrame frs, int xs, int ys) {
 
 		fr = frs;
 		x = xs;
@@ -46,7 +43,7 @@ public class Neuron {
 		exits = new ArrayList<ExocytosisPoint>();
 		activeReceptors = new ArrayList<Receptor>();
 		receptors = new ArrayList<Receptor>();
-		pump = new ReuptakePump(0,0,0,0);
+		pump = new ReuptakePump(0, 0, 0, 0);
 		vesicles = new ArrayList<Vesicle>();
 		rVesicles = new ArrayList<Vesicle>();
 
@@ -60,10 +57,8 @@ public class Neuron {
 
 			r.draw(g);
 		}
-		
+
 		pump.draw(g);
-
-
 
 	}
 
@@ -85,13 +80,12 @@ public class Neuron {
 		for (Vesicle v : rVesicles) {
 			v.rects.clear();
 			vesicles.remove(v);
-			
+
 		}
 
 		for (Receptor r : receptors) {
 			r.update();
 		}
-
 
 	}
 

@@ -10,8 +10,6 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-import misc.GlobalVariables;
-import misc.RandomSwitch;
 import biology.neuron.Neuron;
 import biology.neuron.PostsynapticNeuron;
 import biology.neuron.PresynapticNeuron;
@@ -26,7 +24,6 @@ import misc.RandomSwitch;
 
 public class SimulationFrame extends JFrame
 		implements PostsynapticReceptorHandler, IntersectionHandler, RandomSwitch, MouseMotionListener {
-
 
 	Neuron post;
 	Neuron pre;
@@ -146,16 +143,14 @@ public class SimulationFrame extends JFrame
 					bufferGraphics.drawRect(r.x, r.y, r.width, r.height);
 				}
 			}
-			
-			
-			for(ExocytosisPoint e : pre.exits){
-				
+
+			for (ExocytosisPoint e : pre.exits) {
+
 				bufferGraphics.drawRect(e.rect.x, e.rect.y, e.rect.width, e.rect.height);
-				
+
 			}
-			
+
 			bufferGraphics.drawRect(pre.pump.rect.x, pre.pump.rect.y, pre.pump.rect.width, pre.pump.rect.height);
-			
 
 			try {
 				for (Neurotransmitter n : nt) {
@@ -166,7 +161,6 @@ public class SimulationFrame extends JFrame
 			} catch (Exception e) {
 
 			}
-
 
 			bufferGraphics.setColor(Color.black);
 
@@ -202,7 +196,6 @@ public class SimulationFrame extends JFrame
 
 					if (v.xLock == false) {
 						switch (handleIntersection(r, prer)) {
-
 
 						case TRUE:
 
@@ -385,7 +378,6 @@ public class SimulationFrame extends JFrame
 								} else {
 									n.dy = -n.dy + (int) (Math.random() * -2 - 1);
 
-
 								}
 
 								if (randSwitch()) {
@@ -393,7 +385,6 @@ public class SimulationFrame extends JFrame
 
 								} else {
 									n.dx = -n.dx + (int) (Math.random() * -2 - 1);
-
 
 								}
 							}

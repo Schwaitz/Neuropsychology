@@ -42,25 +42,20 @@ public interface PostsynapticReceptorHandler {
 				for (int i = 1; i < array.length; i++) {
 
 					if (type.equals("SEROTONIN")) {
-						returnReceptors.add(new SerotoninReceptor(type,
-								array[i]));
+						returnReceptors.add(new SerotoninReceptor(type, array[i]));
 					}
 					if (type.equals("NOREPINEPHRINE")) {
-						returnReceptors.add(new NorepinephrineReceptor(type,
-								array[i]));
+						returnReceptors.add(new NorepinephrineReceptor(type, array[i]));
 					}
 
 					if (type.equals("DOPAMINE")) {
-						returnReceptors
-								.add(new DopamineReceptor(type, array[i]));
+						returnReceptors.add(new DopamineReceptor(type, array[i]));
 					}
 					if (type.equals("ACETYLCHOLINE")) {
-						returnReceptors.add(new AcetylcholineReceptor(type,
-								array[i]));
+						returnReceptors.add(new AcetylcholineReceptor(type, array[i]));
 					}
 					if (type.equals("GLUTAMATE")) {
-						returnReceptors.add(new GlutamateReceptor(type,
-								array[i]));
+						returnReceptors.add(new GlutamateReceptor(type, array[i]));
 					}
 					if (type.equals("GABA")) {
 						returnReceptors.add(new GABAReceptor(type, array[i]));

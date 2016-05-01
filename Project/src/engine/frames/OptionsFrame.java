@@ -1,7 +1,6 @@
 package engine.frames;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.ButtonGroup;
@@ -88,13 +87,10 @@ public class OptionsFrame extends JFrame {
 	void passData() {
 
 		int value = Integer.valueOf(vesicleRate.getText());
-		
+
 		int rate = minutes / value;
-		
-		
-		
+
 		Engine.sFrame.pre.releaseRate = rate;
-		
 
 		if (debugGroup.isSelected(debugOff.getModel())) {
 
