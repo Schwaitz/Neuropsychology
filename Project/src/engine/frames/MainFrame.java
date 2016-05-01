@@ -166,6 +166,14 @@ public class MainFrame extends JFrame implements MouseListener {
 			this.setEnabled(false);
 			this.dispose();
 			Engine.mFrame = null;
+			
+			
+			Engine.oFrame.passData();
+			Engine.oFrame.setVisible(false);
+			Engine.oFrame.setEnabled(false);
+			Engine.oFrame.dispose();
+			Engine.oFrame = null;
+			
 
 		}
 

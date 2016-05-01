@@ -20,7 +20,11 @@ public class ReuptakePump {
 		width = widths;
 		height = heights;
 
+<<<<<<< HEAD
+		rect = new Rectangle(x + 6, y + 6, width - 12, height - 12);
+=======
 		rect = new Rectangle(x, y, width, height);
+>>>>>>> d1099c6b2f314f1866427c906b94c0dafd29a60a
 
 	}
 

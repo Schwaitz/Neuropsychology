@@ -17,7 +17,9 @@ public class Neuron {
 	JFrame fr;
 	public BufferedImage i;
 	public BufferedImage iDraw;
+	
 
+	
 	public ReuptakePump pump;
 	public ArrayList<Receptor> receptors;
 	public ArrayList<Rectangle> rects;
@@ -32,6 +34,8 @@ public class Neuron {
 
 	int y;
 
+	public static int releaseRate = 5000;
+	
 	public Neuron(JFrame frs, int xs, int ys) {
 
 

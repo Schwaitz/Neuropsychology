@@ -22,7 +22,7 @@ public class ExocytosisPoint {
 		height = heights;
 		color = colors;
 
-		rect = new Rectangle(x, y, width, height);
+		rect = new Rectangle(x + 10, y + 10, width - 20, height - 20);
 
 	}
 

@@ -1,8 +1,13 @@
 package biology.neuron.elements;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.font.FontRenderContext;
+import java.awt.font.TextLayout;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +16,6 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-import misc.ResizeBufferedImage;
 import algorithms.RectangleAlgorithm;
 import biology.neuron.Neuron;
 import biology.neurotransmitter.Acetylcholine;
@@ -22,6 +26,10 @@ import biology.neurotransmitter.Norepinephrine;
 import biology.neurotransmitter.Serotonin;
 import biology.neurotransmitter.base.Neurotransmitter;
 import engine.frames.SimulationFrame;
+<<<<<<< HEAD
+import misc.ResizeBufferedImage;
+=======
+>>>>>>> d1099c6b2f314f1866427c906b94c0dafd29a60a
 
 public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 
@@ -48,6 +56,11 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 
 	public ArrayList<Neurotransmitter> NTContainer = new ArrayList<Neurotransmitter>();
 
+<<<<<<< HEAD
+	public Neurotransmitter ntType;
+
+=======
+>>>>>>> d1099c6b2f314f1866427c906b94c0dafd29a60a
 	public boolean releaseTransmitter = false;
 
 	public Vesicle(int xs, int ys, int widths, int heights, JFrame fs,
@@ -99,6 +112,22 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 	public void draw(Graphics g) {
 
 		g.drawImage(iDraw, x, y, width, height, f);
+
+		int charWidth = 15;
+		int charHeight = 15;
+		Font f = new Font("Impact", charWidth, charHeight);
+		g.setFont(f);
+		g.setColor(ntType.color);
+		Graphics2D g2d = (Graphics2D) g;
+
+		FontRenderContext frc = g2d.getFontRenderContext();
+		TextLayout layout = new TextLayout(ntType.type, f, frc);
+		Rectangle2D bounds = layout.getBounds();
+
+		int fWidth = (int) Math.round(bounds.getWidth());
+		int fHeight = (int) Math.round(bounds.getHeight());
+
+		g.drawString(ntType.type, x + (width / 2) - (fWidth / 2), y + height + fHeight + 4);
 
 	}
 
@@ -181,6 +210,47 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 
 		if (rand == 0) {
 			for (int i = 0; i < ntAmount; i++) {
+<<<<<<< HEAD
+				Neurotransmitter temp = new Dopamine("Dopamine", x + (width / 2), y + (height / 2), 5, 5, f, this,
+						"Dopamine");
+				SimulationFrame.nt.add(temp);
+				ntType = temp;
+			}
+		}
+
+		if (rand == 1) {
+			for (int i = 0; i < ntAmount; i++) {
+				Neurotransmitter temp = new Serotonin("Serotonin", x + (width / 2), y + (height / 2), 5, 5, f, this,
+						"Serotonin");
+				SimulationFrame.nt.add(temp);
+				ntType = temp;
+			}
+		}
+
+		if (rand == 2) {
+			for (int i = 0; i < ntAmount; i++) {
+				Neurotransmitter temp = new Acetylcholine("Acetylcholine", x + (width / 2), y + (height / 2), 5, 5, f,
+						this, "Acetylcholine");
+				SimulationFrame.nt.add(temp);
+				ntType = temp;
+			}
+		}
+
+		if (rand == 3) {
+			for (int i = 0; i < ntAmount; i++) {
+				Neurotransmitter temp = new GABA("GABA", x + (width / 2), y + (height / 2), 5, 5, f, this, "GABA");
+				SimulationFrame.nt.add(temp);
+				ntType = temp;
+			}
+		}
+
+		if (rand == 4) {
+			for (int i = 0; i < ntAmount; i++) {
+				Neurotransmitter temp = new Glutamate("Glutamate", x + (width / 2), y + (height / 2), 5, 5, f, this,
+						"Glutamate");
+				SimulationFrame.nt.add(temp);
+				ntType = temp;
+=======
 				Neurotransmitter temp = new Dopamine("Dopamine", x
 						+ (width / 2), y + (height / 2), 5, 5, f, this,
 						"Dopamine");
@@ -221,14 +291,22 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 						+ (width / 2), y + (height / 2), 5, 5, f, this,
 						"Glutamate");
 				SimulationFrame.nt.add(temp);
+>>>>>>> d1099c6b2f314f1866427c906b94c0dafd29a60a
 			}
 		}
 		if (rand == 5) {
 			for (int i = 0; i < ntAmount; i++) {
+<<<<<<< HEAD
+				Neurotransmitter temp = new Norepinephrine("Norepinephrine", x + (width / 2), y + (height / 2), 5, 5, f,
+						this, "Norepinephrine");
+				SimulationFrame.nt.add(temp);
+				ntType = temp;
+=======
 				Neurotransmitter temp = new Norepinephrine("Norepinephrine", x
 						+ (width / 2), y + (height / 2), 5, 5, f, this,
 						"Norepinephrine");
 				SimulationFrame.nt.add(temp);
+>>>>>>> d1099c6b2f314f1866427c906b94c0dafd29a60a
 			}
 		}
 
