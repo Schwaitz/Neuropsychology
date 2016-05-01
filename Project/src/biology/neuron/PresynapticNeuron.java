@@ -62,12 +62,8 @@ public class PresynapticNeuron extends Neuron implements RectangleAlgorithm {
 
 	public void releaseVesicle() {
 
-<<<<<<< HEAD
 		vesicles.add(new Vesicle((int) (Math.random() * 50 + 135 + 71), 5, 30, 30, fr, this));
-=======
-		vesicles.add(new Vesicle((int) (Math.random() * 50 + 135 + 71), 5, 30,
-				30, fr, this));
->>>>>>> d1099c6b2f314f1866427c906b94c0dafd29a60a
+
 
 	}
 
@@ -79,7 +75,6 @@ public class PresynapticNeuron extends Neuron implements RectangleAlgorithm {
 
 				while (true) {
 
-<<<<<<< HEAD
 
 						releaseVesicle();
 
@@ -92,17 +87,6 @@ public class PresynapticNeuron extends Neuron implements RectangleAlgorithm {
 
 					}
 
-=======
-					releaseVesicle();
-
-					try {
-						Thread.sleep(5000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
->>>>>>> d1099c6b2f314f1866427c906b94c0dafd29a60a
 				}
 			}
 		}).start();

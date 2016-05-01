@@ -63,11 +63,9 @@ public class PostsynapticNeuron extends Neuron implements
 				r.y = y - 10;
 				r.width = 3;
 				r.height = 14;
-<<<<<<< HEAD
+
 				r.color = new Color(170,100,20);
-=======
-				r.color = Color.orange;
->>>>>>> d1099c6b2f314f1866427c906b94c0dafd29a60a
+
 				r.rect = new Rectangle(r.x, r.y, r.width, r.height);
 				
 				returnAReceptors.add(r);

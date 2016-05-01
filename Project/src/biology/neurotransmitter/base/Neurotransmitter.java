@@ -3,17 +3,10 @@ package biology.neurotransmitter.base;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-<<<<<<< HEAD:Project/src/biology/neurotransmitter/base/Neurotransmitter.java
-=======
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
-import java.util.Random;
->>>>>>> d1099c6b2f314f1866427c906b94c0dafd29a60a:Project/src/biology/neurotransmitter/base/Neurotransmitter.java
 
 import javax.swing.JFrame;
 
 import biology.neuron.elements.Vesicle;
-import biology.neuron.elements.receptor.base.Receptor;
 
 public class Neurotransmitter {
 
@@ -42,14 +35,9 @@ public class Neurotransmitter {
 
 	JFrame f;
 
-<<<<<<< HEAD:Project/src/biology/neurotransmitter/base/Neurotransmitter.java
 	public Neurotransmitter(String types, int xs, int ys, int widths, int heights, Color colors, JFrame fs,
 			Vesicle pointers, String receptorBindTypes) {
-=======
-	public Neurotransmitter(String types, int xs, int ys, int widths,
-			int heights, Color colors, JFrame fs, Vesicle pointers,
-			String receptorBindTypes) {
->>>>>>> d1099c6b2f314f1866427c906b94c0dafd29a60a:Project/src/biology/neurotransmitter/base/Neurotransmitter.java
+
 
 		type = types;
 		x = xs;

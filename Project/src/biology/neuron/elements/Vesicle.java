@@ -26,10 +26,7 @@ import biology.neurotransmitter.Norepinephrine;
 import biology.neurotransmitter.Serotonin;
 import biology.neurotransmitter.base.Neurotransmitter;
 import engine.frames.SimulationFrame;
-<<<<<<< HEAD
 import misc.ResizeBufferedImage;
-=======
->>>>>>> d1099c6b2f314f1866427c906b94c0dafd29a60a
 
 public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 
@@ -56,11 +53,9 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 
 	public ArrayList<Neurotransmitter> NTContainer = new ArrayList<Neurotransmitter>();
 
-<<<<<<< HEAD
 	public Neurotransmitter ntType;
 
-=======
->>>>>>> d1099c6b2f314f1866427c906b94c0dafd29a60a
+
 	public boolean releaseTransmitter = false;
 
 	public Vesicle(int xs, int ys, int widths, int heights, JFrame fs,
@@ -210,7 +205,7 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 
 		if (rand == 0) {
 			for (int i = 0; i < ntAmount; i++) {
-<<<<<<< HEAD
+
 				Neurotransmitter temp = new Dopamine("Dopamine", x + (width / 2), y + (height / 2), 5, 5, f, this,
 						"Dopamine");
 				SimulationFrame.nt.add(temp);
@@ -250,63 +245,16 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 						"Glutamate");
 				SimulationFrame.nt.add(temp);
 				ntType = temp;
-=======
-				Neurotransmitter temp = new Dopamine("Dopamine", x
-						+ (width / 2), y + (height / 2), 5, 5, f, this,
-						"Dopamine");
-				SimulationFrame.nt.add(temp);
-			}
-		}
-		
-		if (rand == 1) {
-			for (int i = 0; i < ntAmount; i++) {
-				Neurotransmitter temp = new Serotonin("Serotonin", x
-						+ (width / 2), y + (height / 2), 5, 5, f, this,
-						"Serotonin");
-				SimulationFrame.nt.add(temp);
-			}
-		}
-		
-		if (rand == 2) {
-			for (int i = 0; i < ntAmount; i++) {
-				Neurotransmitter temp = new Acetylcholine("Acetylcholine", x
-						+ (width / 2), y + (height / 2), 5, 5, f, this,
-						"Acetylcholine");
-				SimulationFrame.nt.add(temp);
-			}
-		}
-		
-		if (rand == 3) {
-			for (int i = 0; i < ntAmount; i++) {
-				Neurotransmitter temp = new GABA("GABA", x
-						+ (width / 2), y + (height / 2), 5, 5, f, this,
-						"GABA");
-				SimulationFrame.nt.add(temp);
-			}
-		}
-		
-		if (rand == 4) {
-			for (int i = 0; i < ntAmount; i++) {
-				Neurotransmitter temp = new Glutamate("Glutamate", x
-						+ (width / 2), y + (height / 2), 5, 5, f, this,
-						"Glutamate");
-				SimulationFrame.nt.add(temp);
->>>>>>> d1099c6b2f314f1866427c906b94c0dafd29a60a
+
 			}
 		}
 		if (rand == 5) {
 			for (int i = 0; i < ntAmount; i++) {
-<<<<<<< HEAD
 				Neurotransmitter temp = new Norepinephrine("Norepinephrine", x + (width / 2), y + (height / 2), 5, 5, f,
 						this, "Norepinephrine");
 				SimulationFrame.nt.add(temp);
 				ntType = temp;
-=======
-				Neurotransmitter temp = new Norepinephrine("Norepinephrine", x
-						+ (width / 2), y + (height / 2), 5, 5, f, this,
-						"Norepinephrine");
-				SimulationFrame.nt.add(temp);
->>>>>>> d1099c6b2f314f1866427c906b94c0dafd29a60a
+
 			}
 		}
 

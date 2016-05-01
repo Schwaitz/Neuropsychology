@@ -24,14 +24,9 @@ import engine.handlers.IntersectionHandler;
 import misc.GlobalVariables;
 import misc.RandomSwitch;
 
-<<<<<<< HEAD
 public class SimulationFrame extends JFrame
 		implements PostsynapticReceptorHandler, IntersectionHandler, RandomSwitch, MouseMotionListener {
-=======
-public class SimulationFrame extends JFrame implements
-		PostsynapticReceptorHandler, IntersectionHandler, RandomSwitch,
-		MouseMotionListener {
->>>>>>> d1099c6b2f314f1866427c906b94c0dafd29a60a
+
 
 	Neuron post;
 	Neuron pre;
@@ -162,7 +157,6 @@ public class SimulationFrame extends JFrame implements
 			bufferGraphics.drawRect(pre.pump.rect.x, pre.pump.rect.y, pre.pump.rect.width, pre.pump.rect.height);
 			
 
-<<<<<<< HEAD
 			try {
 				for (Neurotransmitter n : nt) {
 
@@ -173,8 +167,7 @@ public class SimulationFrame extends JFrame implements
 
 			}
 
-=======
->>>>>>> d1099c6b2f314f1866427c906b94c0dafd29a60a
+
 			bufferGraphics.setColor(Color.black);
 
 		}
@@ -209,7 +202,7 @@ public class SimulationFrame extends JFrame implements
 
 					if (v.xLock == false) {
 						switch (handleIntersection(r, prer)) {
-<<<<<<< HEAD
+
 
 						case TRUE:
 
@@ -218,16 +211,6 @@ public class SimulationFrame extends JFrame implements
 							if (randSwitch()) {
 								v.dy = -v.dy + (int) (Math.random() * 2 + 1);
 
-=======
-
-						case TRUE:
-
-							v.intersectionLock();
-
-							if (randSwitch()) {
-								v.dy = -v.dy + (int) (Math.random() * 2 + 1);
-
->>>>>>> d1099c6b2f314f1866427c906b94c0dafd29a60a
 							} else {
 								v.dy = -v.dy + (int) (Math.random() * -2 - 1);
 
@@ -354,7 +337,6 @@ public class SimulationFrame extends JFrame implements
 
 		try {
 			for (Neurotransmitter n : nt) {
-<<<<<<< HEAD
 
 				if (n.pointer.releaseTransmitter == false) {
 
@@ -367,20 +349,6 @@ public class SimulationFrame extends JFrame implements
 						n.dx = -n.dx;
 					}
 
-=======
-
-				if (n.pointer.releaseTransmitter == false) {
-
-					if (n.x > n.prw) {
-						n.x = n.prw - 1;
-						n.dx = -n.dx;
-					}
-					if (n.x < n.prx) {
-						n.x = n.prx + 1;
-						n.dx = -n.dx;
-					}
-
->>>>>>> d1099c6b2f314f1866427c906b94c0dafd29a60a
 					if (n.y > n.prh) {
 						n.y = n.prh - 1;
 						n.dy = -n.dy;
@@ -412,36 +380,20 @@ public class SimulationFrame extends JFrame implements
 
 								n.intersectionLock();
 								if (randSwitch()) {
-<<<<<<< HEAD
 									n.dy = -n.dy + (int) (Math.random() * 2 + 1);
 
 								} else {
 									n.dy = -n.dy + (int) (Math.random() * -2 - 1);
-=======
-									n.dy = -n.dy
-											+ (int) (Math.random() * 2 + 1);
 
-								} else {
-									n.dy = -n.dy
-											+ (int) (Math.random() * -2 - 1);
->>>>>>> d1099c6b2f314f1866427c906b94c0dafd29a60a
 
 								}
 
 								if (randSwitch()) {
-<<<<<<< HEAD
 									n.dx = -n.dx + (int) (Math.random() * 2 + 1);
 
 								} else {
 									n.dx = -n.dx + (int) (Math.random() * -2 - 1);
-=======
-									n.dx = -n.dx
-											+ (int) (Math.random() * 2 + 1);
 
-								} else {
-									n.dx = -n.dx
-											+ (int) (Math.random() * -2 - 1);
->>>>>>> d1099c6b2f314f1866427c906b94c0dafd29a60a
 
 								}
 							}

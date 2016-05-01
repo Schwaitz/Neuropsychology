@@ -22,11 +22,7 @@ public class Engine implements Runnable {
 	PrintStream e = new PrintStream(System.err);
 
 	Thread mainThread = new Thread(this);
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> d1099c6b2f314f1866427c906b94c0dafd29a60a
 	PrintStream p = new PrintStream(System.out);
 
 	boolean running = true;
@@ -34,10 +30,9 @@ public class Engine implements Runnable {
 	Engine() {
 
 		mFrame = new MainFrame();
-<<<<<<< HEAD
+
 		oFrame = new OptionsFrame();
-=======
->>>>>>> d1099c6b2f314f1866427c906b94c0dafd29a60a
+
 
 		mainThread.start();
 
