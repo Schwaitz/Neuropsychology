@@ -55,11 +55,9 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 
 	public Neurotransmitter ntType;
 
-
 	public boolean releaseTransmitter = false;
 
-	public Vesicle(int xs, int ys, int widths, int heights, JFrame fs,
-			Neuron pointers) {
+	public Vesicle(int xs, int ys, int widths, int heights, JFrame fs, Neuron pointers) {
 
 		x = xs;
 		y = ys;
@@ -85,8 +83,7 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 
 		try {
 			i = ImageIO.read(new File("./resources/images/Vesicle.png"));
-			iDraw = ImageIO.read(new File(
-					"./resources/images/Vesicle_transparent.png"));
+			iDraw = ImageIO.read(new File("./resources/images/Vesicle_transparent.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
