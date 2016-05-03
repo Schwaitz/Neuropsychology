@@ -3,6 +3,7 @@ package engine.frames;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
@@ -25,8 +26,8 @@ import misc.RandomSwitch;
 public class SimulationFrame extends JFrame
 		implements PostsynapticReceptorHandler, IntersectionHandler, RandomSwitch, MouseMotionListener {
 
-	Neuron post;
-	Neuron pre;
+	public static Neuron post;
+	public static Neuron pre;
 
 	int mouseX = 0;
 	int mouseY = 0;
@@ -35,6 +36,18 @@ public class SimulationFrame extends JFrame
 	public int WY = GlobalVariables.WY;
 
 	boolean drawRectangles = true;
+
+	public static ArrayList<Point> point1pre = new ArrayList<Point>();
+	public static ArrayList<Point> point2pre = new ArrayList<Point>();
+
+	public static ArrayList<Point> rPoint1pre = new ArrayList<Point>();
+	public static ArrayList<Point> rPoint2pre = new ArrayList<Point>();
+
+	public static ArrayList<Point> point1post = new ArrayList<Point>();
+	public static ArrayList<Point> point2post = new ArrayList<Point>();
+
+	public static ArrayList<Point> rPoint1post = new ArrayList<Point>();
+	public static ArrayList<Point> rPoint2post = new ArrayList<Point>();
 
 	public static ArrayList<Neurotransmitter> nt = new ArrayList<Neurotransmitter>();
 	public static ArrayList<Neurotransmitter> rnt = new ArrayList<Neurotransmitter>();
@@ -85,24 +98,9 @@ public class SimulationFrame extends JFrame
 		bufferGraphics.setColor(Color.LIGHT_GRAY);
 		bufferGraphics.fillRect(0, 0, WX, WY);
 
-		for (Receptor r : post.activeReceptors) {
-
-			r.draw(bufferGraphics);
-		}
-
 		pre.draw(bufferGraphics);
 
 		post.draw(bufferGraphics);
-
-		for (Vesicle v : pre.vesicles) {
-
-			v.draw(bufferGraphics);
-		}
-
-		for (ExocytosisPoint e : pre.exits) {
-
-			e.draw(bufferGraphics);
-		}
 
 		try {
 			for (Neurotransmitter n : nt) {
@@ -166,6 +164,33 @@ public class SimulationFrame extends JFrame
 
 		}
 
+		try {
+			for (Point p1 : point1pre) {
+
+				for (Point p2 : point2pre) {
+
+					if (p1.y == p2.y) {
+						bufferGraphics.setColor(Color.yellow);
+						bufferGraphics.drawLine(p1.x, p1.y, p2.x, p2.y);
+					}
+				}
+			}
+
+			for (Point p1 : point1post) {
+
+				for (Point p2 : point2post) {
+
+					if (p1.y == p2.y) {
+						bufferGraphics.setColor(Color.yellow);
+						bufferGraphics.drawLine(p1.x, p1.y, p2.x, p2.y);
+					}
+				}
+			}
+
+		} catch (Exception e) {
+
+		}
+
 		g.drawImage(offscreen, 0, 0, this.WX, this.WY, this);
 
 	}
@@ -188,139 +213,143 @@ public class SimulationFrame extends JFrame
 
 	void vesicleIntersections() {
 
-		for (Vesicle v : pre.vesicles) {
+		try {
+			for (Vesicle v : pre.vesicles) {
 
-			for (Rectangle r : v.rects) {
+				for (Rectangle r : v.rects) {
 
-				for (Rectangle prer : pre.rects) {
+					for (Rectangle prer : pre.rects) {
 
-					if (v.xLock == false) {
-						switch (handleIntersection(r, prer)) {
+						if (v.xLock == false) {
+							switch (handleIntersection(r, prer)) {
 
-						case TRUE:
+							case TRUE:
 
-							v.intersectionLock();
+								v.intersectionLock();
 
-							if (randSwitch()) {
-								v.dy = -v.dy + (int) (Math.random() * 2 + 1);
+								if (randSwitch()) {
+									v.dy = -v.dy + (int) (Math.random() * 2 + 1);
 
-							} else {
-								v.dy = -v.dy + (int) (Math.random() * -2 - 1);
+								} else {
+									v.dy = -v.dy + (int) (Math.random() * -2 - 1);
 
-							}
-
-							if (randSwitch()) {
-								v.dx = -v.dx + (int) (Math.random() * 2 + 1);
-
-							} else {
-								v.dx = -v.dx + (int) (Math.random() * -2 - 1);
-
-							}
-
-							break;
-
-						case FALSE:
-							// Do nothing
-							break;
-						}
-					}
-				}
-
-				for (ExocytosisPoint e : pre.exits) {
-					switch (handleIntersection(r, e.rect)) {
-
-					case TRUE:
-						v.releaseTransmitter = true;
-						try {
-							for (Neurotransmitter n : nt) {
-
-								if (n.pointer == v) {
-
-									n.x = e.x + (e.width / 2);
-									n.y = e.y + e.height - 15;
-									n.release();
 								}
 
-							}
-						} catch (Exception e2) {
+								if (randSwitch()) {
+									v.dx = -v.dx + (int) (Math.random() * 2 + 1);
 
-						}
+								} else {
+									v.dx = -v.dx + (int) (Math.random() * -2 - 1);
 
-						v.remove();
-
-						break;
-
-					case FALSE:
-						// Do nothing
-						break;
-
-					}
-				}
-
-				for (Vesicle v2 : pre.vesicles) {
-
-					for (Rectangle r2 : v2.rects) {
-
-						if (r != r2) {
-							switch (handleIntersectionOutside(r, r2)) {
-
-							case TOP:
-								v.dy = -v.dy;
-								v2.dy = -v2.dy;
-								break;
-							case BOTTOM:
-								v.dy = -v.dy;
-								v2.dy = -v2.dy;
-
-								break;
-							case LEFT:
-
-								v.dx = -v.dx;
-								v2.dx = -v2.dx;
-								break;
-							case RIGHT:
-
-								v.dx = -v.dx;
-								v2.dx = -v2.dx;
+								}
 
 								break;
 
 							case FALSE:
 								// Do nothing
 								break;
+							}
+						}
+					}
 
+					for (ExocytosisPoint e : pre.exits) {
+						switch (handleIntersection(r, e.rect)) {
+
+						case TRUE:
+							v.releaseTransmitter = true;
+							try {
+								for (Neurotransmitter n : nt) {
+
+									if (n.pointer == v) {
+
+										n.x = e.x + (e.width / 2);
+										n.y = e.y + e.height - 15;
+										n.release();
+									}
+
+								}
+							} catch (Exception e2) {
+
+							}
+
+							v.remove();
+
+							break;
+
+						case FALSE:
+							// Do nothing
+							break;
+
+						}
+					}
+
+					for (Vesicle v2 : pre.vesicles) {
+
+						for (Rectangle r2 : v2.rects) {
+
+							if (r != r2) {
+								switch (handleIntersectionOutside(r, r2)) {
+
+								case TOP:
+									v.dy = -v.dy;
+									v2.dy = -v2.dy;
+									break;
+								case BOTTOM:
+									v.dy = -v.dy;
+									v2.dy = -v2.dy;
+
+									break;
+								case LEFT:
+
+									v.dx = -v.dx;
+									v2.dx = -v2.dx;
+									break;
+								case RIGHT:
+
+									v.dx = -v.dx;
+									v2.dx = -v2.dx;
+
+									break;
+
+								case FALSE:
+									// Do nothing
+									break;
+
+								}
 							}
 						}
 					}
 				}
+
+				switch (handleIntersectionWall(v.rect, WX, WY)) {
+
+				case TOP:
+					pre.rVesicles.add(v);
+
+					break;
+				case BOTTOM:
+					pre.rVesicles.add(v);
+
+					break;
+				case LEFT:
+
+					pre.rVesicles.add(v);
+
+					break;
+				case RIGHT:
+
+					pre.rVesicles.add(v);
+
+					break;
+
+				case FALSE:
+					// Do nothing
+					break;
+
+				}
+
 			}
-
-			switch (handleIntersectionWall(v.rect, WX, WY)) {
-
-			case TOP:
-				v.dy = -v.dy;
-
-				break;
-			case BOTTOM:
-				v.dy = -v.dy;
-
-				break;
-			case LEFT:
-
-				v.dx = -v.dx;
-
-				break;
-			case RIGHT:
-
-				v.dx = -v.dx;
-
-				break;
-
-			case FALSE:
-				// Do nothing
-				break;
-
-			}
+		} catch (Exception e) {
 
 		}
 
@@ -484,6 +513,7 @@ public class SimulationFrame extends JFrame
 
 		pre.update();
 		post.update();
+
 		try {
 			for (Neurotransmitter n : nt) {
 				n.update();

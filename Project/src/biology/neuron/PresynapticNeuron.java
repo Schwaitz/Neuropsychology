@@ -61,6 +61,7 @@ public class PresynapticNeuron extends Neuron implements RectangleAlgorithm {
 	public void releaseVesicle() {
 
 		vesicles.add(new Vesicle((int) (Math.random() * 50 + 135 + 71), 5, 30, 30, fr, this));
+		releaseAPPre();
 
 	}
 

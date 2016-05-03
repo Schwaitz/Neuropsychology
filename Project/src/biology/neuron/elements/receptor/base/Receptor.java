@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import biology.neurotransmitter.base.Neurotransmitter;
+import engine.Engine;
 import misc.GlobalVariables;
 
 public class Receptor {
@@ -49,12 +50,6 @@ public class Receptor {
 
 	}
 
-	public void update() {
-
-		rect = new Rectangle(x, y, width, height);
-
-	}
-
 	public void startReleaseTimer(Neurotransmitter n) {
 
 		new Thread(new Runnable() {
@@ -75,6 +70,11 @@ public class Receptor {
 				n.released = true;
 				n.dy = (int) (Math.random() * -4 - 2);
 				n.dx = (int) (Math.random() * 8 - 4);
+
+				// Engine.sFrame.post.aps.add(new ActionPotential(x, y+5, 10,
+				// 10));
+
+				Engine.sFrame.post.releaseAPPost();
 			}
 		}).start();
 
