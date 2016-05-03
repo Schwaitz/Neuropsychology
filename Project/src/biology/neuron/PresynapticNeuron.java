@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import algorithms.RectangleAlgorithm;
+import biology.neuron.elements.ActionPotential;
 import biology.neuron.elements.ExocytosisPoint;
 import biology.neuron.elements.ReuptakePump;
 import biology.neuron.elements.Vesicle;
@@ -61,7 +62,7 @@ public class PresynapticNeuron extends Neuron implements RectangleAlgorithm {
 	public void releaseVesicle() {
 
 		vesicles.add(new Vesicle((int) (Math.random() * 50 + 135 + 71), 5, 30, 30, fr, this));
-		releaseAPPre();
+		aps.add(new ActionPotential(this));
 
 	}
 

@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import biology.neuron.elements.ActionPotential;
 import biology.neurotransmitter.base.Neurotransmitter;
 import engine.Engine;
 import misc.GlobalVariables;
@@ -71,10 +72,7 @@ public class Receptor {
 				n.dy = (int) (Math.random() * -4 - 2);
 				n.dx = (int) (Math.random() * 8 - 4);
 
-				// Engine.sFrame.post.aps.add(new ActionPotential(x, y+5, 10,
-				// 10));
-
-				Engine.sFrame.post.releaseAPPost();
+				Engine.sFrame.post.aps.add(new ActionPotential(Engine.sFrame.post));
 			}
 		}).start();
 

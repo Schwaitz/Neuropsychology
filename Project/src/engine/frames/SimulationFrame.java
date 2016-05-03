@@ -37,17 +37,7 @@ public class SimulationFrame extends JFrame
 
 	boolean drawRectangles = true;
 
-	public static ArrayList<Point> point1pre = new ArrayList<Point>();
-	public static ArrayList<Point> point2pre = new ArrayList<Point>();
 
-	public static ArrayList<Point> rPoint1pre = new ArrayList<Point>();
-	public static ArrayList<Point> rPoint2pre = new ArrayList<Point>();
-
-	public static ArrayList<Point> point1post = new ArrayList<Point>();
-	public static ArrayList<Point> point2post = new ArrayList<Point>();
-
-	public static ArrayList<Point> rPoint1post = new ArrayList<Point>();
-	public static ArrayList<Point> rPoint2post = new ArrayList<Point>();
 
 	public static ArrayList<Neurotransmitter> nt = new ArrayList<Neurotransmitter>();
 	public static ArrayList<Neurotransmitter> rnt = new ArrayList<Neurotransmitter>();
@@ -164,32 +154,7 @@ public class SimulationFrame extends JFrame
 
 		}
 
-		try {
-			for (Point p1 : point1pre) {
-
-				for (Point p2 : point2pre) {
-
-					if (p1.y == p2.y) {
-						bufferGraphics.setColor(Color.yellow);
-						bufferGraphics.drawLine(p1.x, p1.y, p2.x, p2.y);
-					}
-				}
-			}
-
-			for (Point p1 : point1post) {
-
-				for (Point p2 : point2post) {
-
-					if (p1.y == p2.y) {
-						bufferGraphics.setColor(Color.yellow);
-						bufferGraphics.drawLine(p1.x, p1.y, p2.x, p2.y);
-					}
-				}
-			}
-
-		} catch (Exception e) {
-
-		}
+	
 
 		g.drawImage(offscreen, 0, 0, this.WX, this.WY, this);
 
