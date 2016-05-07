@@ -11,7 +11,7 @@ public class Norepinephrine extends Neurotransmitter {
 
 	public Norepinephrine(String types, int xs, int ys, int widths, int heights, JFrame fs, Vesicle pointers,
 			String bindReceptorTypes) {
-		super(types, xs, ys, widths, heights, Color.pink, fs, pointers, bindReceptorTypes);
+		super(types, xs, ys, widths, heights, new Color(230,130,30), fs, pointers, bindReceptorTypes);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -141,7 +141,7 @@ public class PostsynapticNeuron extends Neuron implements PostsynapticReceptorHa
 				r.y = y - 10;
 				r.width = 3;
 				r.height = 14;
-				r.color = Color.pink;
+				r.color = new Color(230,130,30);
 				r.rect = new Rectangle(r.x, r.y, r.width, r.height);
 
 				returnAReceptors.add(r);
