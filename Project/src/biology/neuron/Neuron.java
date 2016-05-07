@@ -102,10 +102,13 @@ public class Neuron {
 
 		}
 
-		
+		try{
 		for(ActionPotential ap : aps){
 			
 			ap.update();
+		}
+		}catch(Exception e){
+			
 		}
 
 	}

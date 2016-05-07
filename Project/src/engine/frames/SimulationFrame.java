@@ -289,7 +289,8 @@ public class SimulationFrame extends JFrame
 				switch (handleIntersectionWall(v.rect, WX, WY)) {
 
 				case TOP:
-					pre.rVesicles.add(v);
+					v.dy = -v.dy;
+					v.y += 5;
 
 					break;
 				case BOTTOM:
