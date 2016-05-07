@@ -34,7 +34,7 @@ public class Neuron {
 
 	public int y;
 
-	public static int releaseRate = 5000;
+	public static int releaseRate = -1;
 
 	public Neuron(JFrame frs, int xs, int ys) {
 
@@ -92,6 +92,8 @@ public class Neuron {
 
 	public void update() {
 
+		try{
+			
 		for (Vesicle v : vesicles) {
 			v.update();
 		}
@@ -102,7 +104,7 @@ public class Neuron {
 
 		}
 
-		try{
+
 		for(ActionPotential ap : aps){
 			
 			ap.update();

@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import javax.swing.JFrame;
 
 import biology.neuron.elements.Vesicle;
+import biology.neuron.elements.receptor.base.Receptor;
 
 public class Neurotransmitter {
 
@@ -19,6 +20,8 @@ public class Neurotransmitter {
 	int width;
 	public int x;
 	public int y;
+	
+	public int speedLimit = 8;
 
 	public boolean xLock = false;
 	public boolean released = false;
@@ -32,6 +35,7 @@ public class Neurotransmitter {
 	public Vesicle pointer;
 
 	public String receptorBindType;
+	public Receptor bindReceptor;
 
 	JFrame f;
 
@@ -85,6 +89,22 @@ public class Neurotransmitter {
 		pry = pointer.y + 5;
 		prw = pointer.x + pointer.width - 10;
 		prh = pointer.y + pointer.height - 10;
+
+		if (dx >= speedLimit) {
+			dx = speedLimit - 1;
+		}
+
+		if (dx <= -speedLimit) {
+			dx = -speedLimit + 1;
+		}
+
+		if (dy >= speedLimit) {
+			dy = speedLimit - 1;
+		}
+
+		if (dy <= -speedLimit) {
+			dy = -speedLimit + 1;
+		}
 
 		rect = new Rectangle(x, y, width, height);
 

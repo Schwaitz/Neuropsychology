@@ -42,6 +42,8 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 	public int width;
 	public int height;
 	public int x;
+	
+	public int speedLimit = 6;
 
 	int ntAmount = 30;
 
@@ -154,6 +156,22 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 			r.x += dx;
 			r.y += dy;
 
+		}
+
+		if (dx >= speedLimit) {
+			dx = speedLimit - 1;
+		}
+
+		if (dx <= -speedLimit) {
+			dx = -speedLimit + 1;
+		}
+
+		if (dy >= speedLimit) {
+			dy = speedLimit - 1;
+		}
+
+		if (dy <= -speedLimit) {
+			dy = -speedLimit + 1;
 		}
 
 	}

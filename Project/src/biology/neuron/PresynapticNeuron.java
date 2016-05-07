@@ -74,14 +74,23 @@ public class PresynapticNeuron extends Neuron implements RectangleAlgorithm {
 
 				while (true) {
 
-					releaseVesicle();
+					if (releaseRate != -1) {
+						releaseVesicle();
 
+						try {
+							Thread.sleep(releaseRate);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+
+						}
+					}
+					
 					try {
-						Thread.sleep(releaseRate);
+						Thread.sleep(1);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-
 					}
 
 				}

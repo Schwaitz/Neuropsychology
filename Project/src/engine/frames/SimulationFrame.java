@@ -3,7 +3,6 @@ package engine.frames;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
@@ -427,6 +426,7 @@ public class SimulationFrame extends JFrame
 							case TRUE:
 								n.dy = 0;
 								n.dx = 0;
+								n.bindReceptor = r;
 								n.y = r.y - 5;
 								r.boundNT.add(n);
 								r.startReleaseTimer(n);
