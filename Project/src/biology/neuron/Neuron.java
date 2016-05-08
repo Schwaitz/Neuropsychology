@@ -92,25 +92,24 @@ public class Neuron {
 
 	public void update() {
 
-		try{
-			
-		for (Vesicle v : vesicles) {
-			v.update();
-		}
+		try {
 
-		for (Vesicle v : rVesicles) {
-			v.rects.clear();
-			vesicles.remove(v);
+			for (Vesicle v : vesicles) {
+				v.update();
+			}
 
-		}
+			for (Vesicle v : rVesicles) {
+				v.rects.clear();
+				vesicles.remove(v);
 
+			}
 
-		for(ActionPotential ap : aps){
-			
-			ap.update();
-		}
-		}catch(Exception e){
-			
+			for (ActionPotential ap : aps) {
+
+				ap.update();
+			}
+		} catch (Exception e) {
+
 		}
 
 	}

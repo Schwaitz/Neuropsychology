@@ -42,7 +42,7 @@ public class Vesicle implements RectangleAlgorithm, ResizeBufferedImage {
 	public int width;
 	public int height;
 	public int x;
-	
+
 	public int speedLimit = 6;
 
 	int ntAmount = 30;

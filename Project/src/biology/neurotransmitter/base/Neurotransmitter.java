@@ -20,7 +20,7 @@ public class Neurotransmitter {
 	int width;
 	public int x;
 	public int y;
-	
+
 	public int speedLimit = 8;
 
 	public boolean xLock = false;

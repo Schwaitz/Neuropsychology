@@ -36,8 +36,6 @@ public class SimulationFrame extends JFrame
 
 	boolean drawRectangles = true;
 
-
-
 	public static ArrayList<Neurotransmitter> nt = new ArrayList<Neurotransmitter>();
 	public static ArrayList<Neurotransmitter> rnt = new ArrayList<Neurotransmitter>();
 
@@ -152,8 +150,6 @@ public class SimulationFrame extends JFrame
 			bufferGraphics.setColor(Color.black);
 
 		}
-
-	
 
 		g.drawImage(offscreen, 0, 0, this.WX, this.WY, this);
 

@@ -85,7 +85,7 @@ public class PresynapticNeuron extends Neuron implements RectangleAlgorithm {
 
 						}
 					}
-					
+
 					try {
 						Thread.sleep(1);
 					} catch (InterruptedException e) {
